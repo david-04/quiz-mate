@@ -1,0 +1,24 @@
+.question-editor-container {
+    padding: 30px 60px;
+}
+
+.question-editor-container-label {
+    font-size: 1rem;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+.editor-textarea {
+    min-height: 100px;
+}
+
+.correct-answer-button {
+    margin-left: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.editor-textbox-correct {
+    background-color: #81ca80 !important;
+}

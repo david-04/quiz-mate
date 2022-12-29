@@ -1,0 +1,20 @@
+.main-logo-text {
+    width: 400px;
+    max-width: 80%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.main-textbox {
+    margin: 10px auto;
+    max-width: 300px;
+}
+
+.main-footer-btn {
+    margin: 40px auto 20px auto;
+}
+
+.reconnect-btn {
+    display: block;
+    margin: 10px auto 0 auto;
+}

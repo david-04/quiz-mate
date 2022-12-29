@@ -1,0 +1,34 @@
+.question-explorer {
+    background-color: #fff;
+    color: #000;
+    height: 100%;
+    max-height: 100vh;
+    align-items: stretch;
+    overflow-y: auto;
+}
+
+.question-explorer-list {
+    margin: 10px auto 10px auto;
+    width: 90%;
+}
+
+.question-explorer-list-item {
+    background-color: rgba(200, 200, 200, 0.15);
+    border-radius: 4px;
+    margin: 6px auto;
+    padding: 4px 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.question-explorer-list-item:hover {
+    background-color: #e4e4e4;
+}
+
+.item-selected {
+    background-color: var(--gray) !important;
+    color: #fff;
+}
