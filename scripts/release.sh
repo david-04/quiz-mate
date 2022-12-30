@@ -3,7 +3,7 @@
 set -e
 cd "`dirname "${BASH_SOURCE[0]}"`/.."
 
-# env GENERATE_SOURCEMAP=false ./scripts/build.sh
+env GENERATE_SOURCEMAP=false ./scripts/build.sh
 
 echo Assembling dist/frontend...
 rm -rf ./dist/frontend
