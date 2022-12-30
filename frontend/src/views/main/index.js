@@ -6,6 +6,7 @@ import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { getReconnectPlayer, getReconnectRoom, reconnectModeIsAvailable } from "../../connection/reconnect";
+import { isValidRoomCode } from "../../utilities";
 
 import EmojiPeople from "../../assets/icons/emoji_people.svg";
 import Power from "../../assets/icons/power.svg";
@@ -14,8 +15,6 @@ import logo from "../../assets/logo.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./main.css";
-
-const CODE_LENGTH = 6;
 
 class Main extends Component {
     constructor(props) {
@@ -29,26 +28,12 @@ class Main extends Component {
     componentDidMount() {
         this.props.switchState("");
         this.props.setPlayerConfig("", "", false);
-        const search = this.props.location.search;
-        const params = new URLSearchParams(search);
-        let code = params.get("code");
-        if (!code && (window.location.hash || "").match(/^#?\/\?code=\d+$/)) {
-            code = window.location.hash.replace(/^.*=/, "");
-        }
-        if (code && !isNaN(code) && code.length === CODE_LENGTH) {
-            this.setState({ roomCode: code });
+        if (isValidRoomCode(this.props.roomCode)) {
+            this.setState({ roomCode: `${this.props.roomCode}` });
         }
     }
 
-    changeRoomCode = e => {
-        let val = e.target.value;
-        if (val.length > CODE_LENGTH) {
-            val = val.substring(0, CODE_LENGTH);
-        }
-        this.setState({
-            roomCode: val,
-        });
-    };
+    changeRoomCode = event => this.setState({ roomCode: event.target.value });
 
     startGame = () => {
         if (this.state.roomCode !== "") {
@@ -109,9 +94,7 @@ class Main extends Component {
                                     className="main-input-field equal-width"
                                 />
                                 <IconButton
-                                    disabled={
-                                        this.state.roomCode.length !== CODE_LENGTH || this.state.playerName === ""
-                                    }
+                                    disabled={!isValidRoomCode(this.state.roomCode) || !this.state.playerName.trim()}
                                     icon={EmojiPeople}
                                     variant="warning"
                                     invert={false}

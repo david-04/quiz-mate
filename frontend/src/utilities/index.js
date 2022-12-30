@@ -1,4 +1,4 @@
-import { MS_PER_SEC, SEC_PER_MIN, TRIPLE_ZERO } from "./constants";
+import { MS_PER_SEC, SEC_PER_MIN, TRIPLE_ZERO, ROOM_CODE_MIN, ROOM_CODE_MAX } from "./constants";
 
 const ALERT_SECONDS = 10;
 
@@ -73,4 +73,23 @@ const LETTERS_IN_ALPHABET = 26;
 
 export function toLetter(index) {
     return String.fromCharCode(ASCII_CODE_FOR_A + (index % LETTERS_IN_ALPHABET));
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// Check if a given string is a valid room code
+//----------------------------------------------------------------------------------------------------------------------
+
+export function isValidRoomCode(roomCodeRaw) {
+    const roomCode = parseRoomCode(roomCodeRaw);
+    return ROOM_CODE_MIN <= roomCode && roomCode <= ROOM_CODE_MAX && !isNaN(roomCode);
+};
+
+function parseRoomCode(roomCode) {
+    if ("number" === typeof roomCode) {
+        return roomCode;
+    } else if ("string" === typeof roomCode && /^\d+$/.test(roomCode)) {
+        return parseInt(roomCode);
+    } else {
+        return NaN;
+    }
 }

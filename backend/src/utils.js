@@ -1,3 +1,6 @@
+const fs = require("fs");
+const { ROOM_CODE_MIN, ROOM_CODE_MAX } = require("./constants");
+
 //----------------------------------------------------------------------------------------------------------------------
 // Trim a multi-line message
 //----------------------------------------------------------------------------------------------------------------------
@@ -23,3 +26,22 @@ module.exports.fail = message => {
 //----------------------------------------------------------------------------------------------------------------------
 
 module.exports.isDevMode = () => fs.existsSync(path.join(__dirname, "..", "..", "frontend", "package.json"));
+
+//----------------------------------------------------------------------------------------------------------------------
+// Check if a given string is a valid room code
+//----------------------------------------------------------------------------------------------------------------------
+
+module.exports.isValidRoomCode = roomCodeRaw => {
+    const roomCode = parseRoomCode(roomCodeRaw);
+    return ROOM_CODE_MIN <= roomCode && roomCode <= ROOM_CODE_MAX && !isNaN(roomCode);
+};
+
+function parseRoomCode(roomCode) {
+    if ("number" === typeof roomCode) {
+        return roomCode;
+    } else if ("string" === typeof roomCode && /^\d+$/.test(roomCode)) {
+        return parseInt(roomCode);
+    } else {
+        return NaN;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import IconButton from "../../components/IconButton";
 import { closeRoom } from "../../connection/config";
 
