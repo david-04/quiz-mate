@@ -1,0 +1,36 @@
+.timer-container {
+    display: inline-block;
+}
+
+.timer-container-remote {
+    display: block;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.timer-normal {
+    color: #fff;
+}
+
+.timer-warning {
+    animation-name: timer-warning-animation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes timer-warning-animation {
+    0% {
+        color: #fff;
+        transform: scale(1);
+    }
+
+    50% {
+        color: #d00822;
+        transform: scale(1.4);
+    }
+
+    100% {
+        color: #fff;
+        transform: scale(1);
+    }
+}

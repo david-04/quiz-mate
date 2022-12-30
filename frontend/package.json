@@ -1,0 +1,39 @@
+{
+  "name": "quiz-mate-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "js-file-download": "^0.4.12",
+    "qrcode.react": "^3.1.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router": "^6.4.4",
+    "react-router-dom": "^6.4.4",
+    "react-scripts": "^5.0.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "socket.io-client": "^4.5.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "packageManager": "yarn@3.3.1"
+}

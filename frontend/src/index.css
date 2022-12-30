@@ -1,0 +1,14 @@
+.message-box {
+    /* padding: 20px; */
+    margin: 35px auto;
+}
+
+:root {
+    --gray: #343a40;
+}
+
+textarea.form-control:focus,
+input.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #c9c9c9;
+}

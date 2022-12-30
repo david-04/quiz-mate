@@ -1,0 +1,16 @@
+.number-display {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    background-color: #6c757d;
+    font-size: 1rem;
+    width: 6rem;
+}
+
+.number-display-value {
+    line-height: 40px;
+}
+
+.number-picker-container button {
+    width: 3rem;
+}

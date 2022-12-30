@@ -1,0 +1,33 @@
+.question-editor-container {
+    padding: 30px 30px;
+}
+
+.editor-textarea {
+    min-height: 100px;
+}
+
+.editor-text-box-correct {
+    background-color: #81ca80 !important;
+}
+
+.answer-letter {
+    font-size: 1.2em;
+    font-weight: bold;
+    position: relative;
+    top: 0.15em;
+    padding-left: 0.3em;
+}
+
+
+.answer-checkbox {
+    margin-top: -0.2em;
+}
+
+
+.answer-row {
+    margin-top: 0.5em;
+}
+
+.answer-row .input-group {
+    width: 100%;
+}

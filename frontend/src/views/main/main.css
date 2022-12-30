@@ -1,0 +1,46 @@
+.equal-width {
+    width: 100%;
+    max-width: 18rem;
+}
+
+.main-logo-text {
+    margin: -1.0em 0 -0 0;
+    filter: drop-shadow(1px 2px 5px #ccc);
+}
+
+.main-input-field {
+    margin: 1.5rem auto;
+}
+
+div.main-footer-btn.btn-group {
+    position: fixed;
+    bottom: 18px;
+    left: 20px;
+    /* bottom: 1rem;
+    left: 1rem; */
+}
+
+.reconnect-btn {
+    display: block;
+    margin: 10px auto 0 auto;
+}
+
+.qm-fixed-top {
+    position: fixed;
+    top: 20px;
+}
+
+.qm-fixed-right {
+    position: fixed;
+    right: 20px;
+}
+
+.qm-fixed-bottom {
+    position: fixed;
+    bottom: 20px;
+}
+
+.qm-fixed-left {
+    position: fixed;
+    left: 20px;
+}

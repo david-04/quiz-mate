@@ -1,0 +1,61 @@
+.keyboard-left-column {
+    float: right;
+}
+
+.keyboard-button {
+    display: block;
+    margin: 10px 10px;
+    height: 35vw;
+    width: 35vw;
+    max-height: 160px;
+    max-width: 160px;
+    background-color: rgba(108, 117, 125, .65);
+}
+
+.keyboard-button img {
+    height: 40%;
+}
+
+.player-question {
+    background-color: #fff;
+    color: #000;
+    border-radius: 2px;
+    padding: 20px;
+    margin: 12px;
+}
+
+.player-answer {
+    position: relative;
+    background-color: #fff;
+    color: #000;
+    border-radius: 2px;
+    padding: 10px 60px;
+    margin: 10px 10px 10px 10px;
+}
+
+.player-answer:hover {
+    background-color: rgb(255, 238, 183);
+    cursor: pointer;
+}
+
+.player-answer-letter {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--gray);
+    color: #fff;
+    height: 100%;
+    padding: 5px 10px 0 10px;
+    font-size: 1.4em;
+}
+
+@media screen and (min-width: 768px) {
+    .keyboard-left-column {
+        float: inherit;
+    }
+
+    .keyboard-button {
+        margin: 10px auto;
+    }
+}

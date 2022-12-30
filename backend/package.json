@@ -1,0 +1,36 @@
+{
+  "name": "quiz-mate",
+  "version": "${CURRENT_QUIZ_MATE_VERSION}",
+  "description": "A lightweight self-hosted quiz server",
+  "keywords": [
+    "quiz",
+    "trivia",
+    "self-hosted",
+    "quiz engine",
+    "quiz server"
+  ],
+  "homepage": "https://github.com/david-04/quiz-mate",
+  "bugs": {
+    "url": "https://github.com/david-04/quiz-mate/issues"
+  },
+  "license": "ISC",
+  "author": "David Hofmann",
+  "contributors": [
+    "Daniel Alberski"
+  ],
+  "bin": "./backend/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/david-04/quiz-mate.git",
+    "directory": "dist"
+  },
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "private": true,
+  "dependencies": {
+    "express": "4.18.2",
+    "socket.io": "4.5.4"
+  },
+  "packageManager": "yarn@3.3.1"
+}

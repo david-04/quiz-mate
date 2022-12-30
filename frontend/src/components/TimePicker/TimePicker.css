@@ -1,0 +1,17 @@
+.time-display {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    background-color: #6c757d;
+    font-size: 1rem;
+    width: 9rem;
+}
+
+.time-display-value {
+    line-height: 40px;
+}
+
+.time-picker-container button {
+    width: 4.5rem;
+    padding: 0;
+}

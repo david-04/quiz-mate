@@ -1,0 +1,45 @@
+{
+    "title": "Sample quiz",
+    "questions": [
+        {
+            "question": "Which continent has only one country?",
+            "correct": 3,
+            "answers": [
+                "Africa",
+                "Asia",
+                "Australia",
+                "South America"
+            ]
+        },
+        {
+            "question": "Which vegetable gives Popeye his strength?",
+            "correct": 3,
+            "answers": [
+                "Asparagus",
+                "Broccoli",
+                "Lentils",
+                "Spinach"
+            ]
+        },
+        {
+            "question": "Which instrument measures earthquakes?",
+            "correct": 2,
+            "answers": [
+                "Barometer",
+                "Radiometer",
+                "Seismograph",
+                "Thermometer"
+            ]
+        },
+        {
+            "question": "Who lives at number 10 Downing Street?",
+            "correct": 3,
+            "answers": [
+                "President of France",
+                "Scotland's First Minister",
+                "UK Prime Minister of the UK",
+                "US President"
+            ]
+        }
+    ]
+}

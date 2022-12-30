@@ -1,0 +1,51 @@
+.editor-container {
+    height: 100vh;
+}
+
+.question-editor {
+    background-color: #fff;
+    color: #000;
+    height: 100%;
+    max-height: 100vh;
+    align-items: stretch;
+    overflow-y: auto;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.editor-button-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.editor-button {
+    width: 92%;
+    margin: 15px auto 0 auto;
+}
+
+.missing-title {
+    background-color: rgb(255, 0, 0);
+}
+
+.missing-title::placeholder {
+    color: white;
+}

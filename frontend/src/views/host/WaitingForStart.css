@@ -1,0 +1,35 @@
+.code-block {
+    display: table;
+    margin: 10px 0;
+    background-color: #fff;
+    color: #000;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 1.1em;
+    max-width: 100%;
+    line-break: anywhere;
+}
+
+.room-code {
+    font-size: small;
+}
+
+.start-button {
+    margin-top: 20px;
+}
+
+.qr-code canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+@media (max-width: 767px) {
+    .hide-qr {
+        display: none;
+    }
+
+    .code-block {
+        font-size: 1.1em;
+        padding: 2px 5px;
+    }
+}
