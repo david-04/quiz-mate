@@ -4,6 +4,7 @@
     border-radius: 2px;
     padding: 20px;
     margin: 10px;
+    margin-bottom: 2em;
 }
 
 .question-answer-letter {
@@ -14,8 +15,8 @@
     background-color: var(--gray);
     color: #fff;
     height: 100%;
-    padding: 5px 10px 0 10px;
-    font-size: 1.4em;
+    padding: 10px 10px 0 10px;
+    font-size: 1.0em;
 }
 
 .question-answer {
@@ -23,9 +24,10 @@
     background-color: #fff;
     color: #000;
     border-radius: 2px;
-    padding: 10px 60px;
+    padding: 10px 2.1em;
     margin: 10px;
     text-align:left;
+    margin-bottom: 1em;
 }
 
 .question-answer-correct {
@@ -44,7 +46,7 @@
 
 .question-progress {
     margin-top: 5px;
-    margin-right: -50px;
+    margin-right: -2em;
 }
 
 .question-control-buttons {

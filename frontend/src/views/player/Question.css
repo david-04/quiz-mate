@@ -22,6 +22,7 @@
     border-radius: 2px;
     padding: 20px;
     margin: 12px;
+    margin-bottom: 2em;
 }
 
 .player-answer {
@@ -29,9 +30,10 @@
     background-color: #fff;
     color: #000;
     border-radius: 2px;
-    padding: 10px 60px;
+    padding: 10px 2.1em;
     margin: 10px 10px 10px 10px;
     text-align: left;
+    margin-bottom: 1em;
 }
 
 .player-answer:hover {
@@ -47,8 +49,8 @@
     background-color: var(--gray);
     color: #fff;
     height: 100%;
-    padding: 5px 10px 0 10px;
-    font-size: 1.4em;
+    padding: 10px 10px 0 10px;
+    font-size: 1.0em;
 }
 
 @media screen and (min-width: 768px) {
