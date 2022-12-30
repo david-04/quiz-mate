@@ -33,3 +33,96 @@
         padding: 2px 5px;
     }
 }
+
+.copy-url-button {
+    margin-left: 1em;
+    margin-top: 0.6em;
+    height: 2em;
+}
+
+.copy-button-success {
+    background-color: green;
+}
+
+.copy-button-error {
+    background-color: red;
+}
+
+
+
+
+
+
+
+
+.qm-join-info {
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: left;
+}
+
+.qm-join-info-highlight {
+    background-color: white;
+    color: black;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+
+.qm-join-info-spacing-top {
+    margin-top: 1em;
+}
+
+.qm-join-info-filler {
+    flex-basis: 100%;
+}
+
+
+.qm-join-info-url-and-copy-button {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: stretch;
+}
+
+.qm-join-info-url {
+    flex-basis: 100%;
+    text-align: left;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+
+.qm-join-info-copy-button {
+    margin-left: 0.5em;
+    height: 100%;
+    margin-top: -0.1em;
+}
+
+
+.qm-join-info-details {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+}
+
+.qm-join-info-text-details {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    padding-bottom: 0.5em;
+}
+
+.qm-join-info-room-code-container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+}
+
+.qm-join-info-qr-code {
+    width: 15em;
+    margin-top: 3em;
+}
+
+.qm-join-info-qr-code  canvas {
+    width: 100% !important;
+    height: auto !important;
+}

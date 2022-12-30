@@ -18,7 +18,7 @@ class CenterBox extends Component {
                         icon={this.props.cancelIcon || Close}
                         label={this.props.cancel}
                         containerClassName="cancel-btn"
-                        buttonClassNames="qm-fixed-top qm-fixed-left"
+                        buttonClassName="qm-fixed-top qm-fixed-left"
                         onClick={navigate => {
                             if (this.props.closeRoomSignal) {
                                 this.props.socket.emit(closeRoom, this.props.game.hostingRoom.roomCode);

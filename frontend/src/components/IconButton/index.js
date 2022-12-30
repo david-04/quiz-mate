@@ -7,10 +7,10 @@ import "./IconButton.css";
 class IconButton extends Component {
 
     renderButton() {
-        const style = name => this.props[`${name}Style`] || {};
-        const classNames = (name, defaultClassNames) => [
+        const getStyle = name => this.props[`${name}Style`] || {};
+        const getClassNames = (name, defaultClassNames) => [
             defaultClassNames || "",
-            this.props[`${name}ClassNames`] || ""
+            this.props[`${name}ClassName`] || ""
         ].join(" ");
 
         const onClick = () => this.props.onClick ? this.props.onClick(this.props.navigate) : undefined;
@@ -18,21 +18,24 @@ class IconButton extends Component {
         const disabled = undefined !== this.props.disabled && null !== this.props.disabled
             ? this.props.disabled
             : false;
-        const invert = this.props.invert === false ? "" : "invert";
+        const invert = ["warning"] !== this.props.variant;
+        const renderLabel = () => this.props.label
+            ? <span className={getClassNames("label")} style={getStyle("label")}>{this.props.label}</span>
+            : false;
 
         return (
-            <div className={"icon-button " + (this.props.containerClassName || "")} style={style("container")}>
-                <Button variant={variant}
-                    disabled={disabled}
-                    className={classNames("button")} style={style("button")} onClick={onClick}>
-                    <img
-                        src={this.props.icon}
-                        alt={this.props.label}
-                        className={classNames("icon", invert)}
-                        style={style("icon")}
-                    />
-                    <span className={classNames("label")} style={style("label")}>{this.props.label}</span>
-                    {this.props.children}
+            <div className={"icon-button " + (this.props.containerClassName || "")} style={getStyle("container")}>
+                <Button variant={variant} disabled={disabled} style={getStyle("button")} onClick={onClick}>
+                    <div>
+                        <img
+                            src={this.props.icon}
+                            alt={this.props.label || ""}
+                            className={getClassNames("icon", invert)}
+                            style={getStyle("icon")}
+                        />
+                        {renderLabel()}
+                        {this.props.children}
+                    </div>
                 </Button>
             </div>
         );

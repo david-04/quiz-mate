@@ -140,7 +140,7 @@ class Creating extends Component {
                         <IconButton
                             icon={Edit}
                             label="Quiz editor"
-                            buttonClassNames="qm-fixed-bottom qm-fixed-left"
+                            buttonClassName="qm-fixed-bottom qm-fixed-left"
                             link="/editor"
                         />
                     </ButtonGroup>

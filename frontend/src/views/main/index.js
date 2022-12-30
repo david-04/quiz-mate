@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, createRef, useEffect } from "react";
 import { ButtonGroup, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,13 +23,25 @@ class Main extends Component {
             roomCode: "",
             playerName: "",
         };
+        this.userNameReference = createRef();
+        this.roomCodeReference = createRef();
     }
 
     componentDidMount() {
         this.props.switchState("");
         this.props.setPlayerConfig("", "", false);
         if (isValidRoomCode(this.props.roomCode)) {
-            this.setState({ roomCode: `${this.props.roomCode}` });
+            this.setState({ roomCode: `${this.props.roomCode}` }, () => this.focusOnInput());
+        } else {
+            this.focusOnInput();
+        }
+    }
+
+    focusOnInput() {
+        if (!this.state.playerName) {
+            this.userNameReference.current.focus();
+        } else if (!this.state.roomCode) {
+            this.roomCodeReference.current.focus();
         }
     }
 
@@ -73,7 +85,6 @@ class Main extends Component {
                                             buttonStyle={{ width: "100%", maxWidth: "18rem" }}
                                             icon={Power}
                                             label="Rejoin previous game"
-                                            invert={false}
                                             onClick={() => this.reconnect()}
                                         />
                                     </div>
@@ -83,6 +94,7 @@ class Main extends Component {
                                     value={this.state.playerName}
                                     onChange={e => this.setState({ playerName: e.target.value })}
                                     placeholder="Name"
+                                    ref={this.userNameReference}
                                     maxLength="40"
                                     className="main-input-field equal-width"
                                 />
@@ -90,6 +102,7 @@ class Main extends Component {
                                     type="number"
                                     value={this.state.roomCode}
                                     onChange={this.changeRoomCode}
+                                    ref={this.roomCodeReference}
                                     placeholder="6-digit access code"
                                     className="main-input-field equal-width"
                                 />
@@ -97,7 +110,6 @@ class Main extends Component {
                                     disabled={!isValidRoomCode(this.state.roomCode) || !this.state.playerName.trim()}
                                     icon={EmojiPeople}
                                     variant="warning"
-                                    invert={false}
                                     label="Join"
                                     buttonClassName="equal-width"
                                     buttonStyle={{ width: "100%", maxWidth: "18rem" }}
@@ -109,7 +121,7 @@ class Main extends Component {
                                     link="/host"
                                     icon={PresentToAll}
                                     label="Host a quiz"
-                                    buttonClassNames="qm-fixed-bottom qm-fixed-left"
+                                    buttonClassName="qm-fixed-bottom qm-fixed-left"
                                 />
                             </ButtonGroup>
                         </Col>
