@@ -5,7 +5,7 @@ import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
-import { validateJson, onHostStartGame } from "../../utilities";
+import { validateJson, onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
 import { v_waitingForCode } from "./views";
 
 import Edit from "../../assets/icons/edit.svg";
@@ -58,6 +58,7 @@ class Creating extends Component {
     };
 
     uploadFile = () => {
+        installOnBeforeUnloadListener();
         const fr = new FileReader();
         fr.onload = e => {
             let output = null;

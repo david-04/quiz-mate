@@ -98,14 +98,40 @@ function parseRoomCode(roomCode) {
 // Keep track of the current game being played or hosted
 //----------------------------------------------------------------------------------------------------------------------
 
+let beforeUnloadWarning = undefined;
+let hasInstalledOnBeforeUnloadListener = false;
+
 export function onHostStartGame(title) {
     document.title = title || "Quiz Mate";
+    beforeUnloadWarning = [
+        "You are you sure you want to exit?",
+        "This will abort the quiz you're currently hosting.",
+        "You won't be able to re-join as the host."
+    ].join(" ");
 }
 
 export function onPlayerJoinGame(title) {
     document.title = title || "Quiz Mate";
+    beforeUnloadWarning = "Are you sure you want to exit the the quiz?";
 }
 
 export function onExitGame() {
     document.title = "Quiz Mate";
+    beforeUnloadWarning = undefined;
+}
+
+export function installOnBeforeUnloadListener() {
+    if (!hasInstalledOnBeforeUnloadListener) {
+        window.addEventListener("beforeunload", onBeforeUnload, { capture: true });
+        hasInstalledOnBeforeUnloadListener = true;
+    }
+    return true;
+}
+
+function onBeforeUnload(event) {
+    if (beforeUnloadWarning) {
+        event.returnValue = "beforeUnloadWarning";
+        return false;
+    }
+    return true;
 }

@@ -6,7 +6,7 @@ import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { getReconnectPlayer, getReconnectRoom, reconnectModeIsAvailable } from "../../connection/reconnect";
-import { isValidRoomCode, onExitGame } from "../../utilities";
+import { isValidRoomCode, onExitGame, installOnBeforeUnloadListener } from "../../utilities";
 
 import EmojiPeople from "../../assets/icons/emoji_people.svg";
 import Power from "../../assets/icons/power.svg";
@@ -48,6 +48,7 @@ class Main extends Component {
     }
 
     onInputFieldKeyEvent(event) {
+        installOnBeforeUnloadListener();
         if (event.key === "Enter" && isValidRoomCode(this.state.roomCode) && this.state.playerName.trim()) {
             this.startGame();
         }
@@ -57,6 +58,7 @@ class Main extends Component {
 
     startGame = () => {
         if (this.state.roomCode !== "") {
+            installOnBeforeUnloadListener();
             this.props.setPlayerConfig(
                 this.state.roomCode,
                 this.state.playerName,
@@ -67,6 +69,7 @@ class Main extends Component {
     };
 
     reconnect = () => {
+        installOnBeforeUnloadListener();
         this.props.setPlayerConfig(getReconnectRoom(), getReconnectPlayer(), true);
         this.props.navigate("/player");
     };
