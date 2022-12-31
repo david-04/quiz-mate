@@ -93,3 +93,19 @@ function parseRoomCode(roomCode) {
         return NaN;
     }
 }
+
+//----------------------------------------------------------------------------------------------------------------------
+// Keep track of the current game being played or hosted
+//----------------------------------------------------------------------------------------------------------------------
+
+export function onHostStartGame(title) {
+    document.title = title || "Quiz Mate";
+}
+
+export function onPlayerJoinGame(title) {
+    document.title = title || "Quiz Mate";
+}
+
+export function onExitGame() {
+    document.title = "Quiz Mate";
+}

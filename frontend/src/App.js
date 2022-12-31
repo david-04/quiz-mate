@@ -5,8 +5,11 @@ import Host from "./views/host";
 import Main from "./views/main";
 import Page404 from "./views/page404";
 import Player from "./views/player";
+import { onExitGame } from "./utilities";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
+onExitGame();
 
 const loading = () => (<div>Loading...</div>);
 

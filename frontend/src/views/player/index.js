@@ -22,6 +22,7 @@ import Question from "./Question";
 import RoomNotFound from "./RoomNotFound";
 import { v_final, v_loadingRoom, v_nicknameIsTaken, v_question, v_roomNotFound, v_waiting } from "./views";
 import Waiting from "./Waiting";
+import { onPlayerJoinGame } from "../../utilities";
 
 class Player extends Component {
     constructor(props) {
@@ -57,6 +58,7 @@ class Player extends Component {
             });
 
             this.socket.on(joinedToRoom, roomObject => {
+                onPlayerJoinGame(roomObject.title);
                 this.props.setHostingRoom(roomObject);
                 this.props.switchState(v_waiting);
                 enableReconnectMode(this.props.game.roomCode, this.props.game.playerName);
@@ -111,7 +113,6 @@ class Player extends Component {
             case v_roomNotFound:
                 return (<RoomNotFound {...this.props} />);
             case v_waiting:
-                document.title = this.props.game.hostingRoom.title || "Quiz Mate";
                 return (<Waiting {...this.props}
                     question={this.state.question}
                     selectedAnswer={this.state.selectedAnswer}

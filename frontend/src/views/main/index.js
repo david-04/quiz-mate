@@ -1,4 +1,4 @@
-import { Component, createRef, useEffect } from "react";
+import { Component, createRef } from "react";
 import { ButtonGroup, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { getReconnectPlayer, getReconnectRoom, reconnectModeIsAvailable } from "../../connection/reconnect";
-import { isValidRoomCode } from "../../utilities";
+import { isValidRoomCode, onExitGame } from "../../utilities";
 
 import EmojiPeople from "../../assets/icons/emoji_people.svg";
 import Power from "../../assets/icons/power.svg";
@@ -25,9 +25,11 @@ class Main extends Component {
         };
         this.userNameReference = createRef();
         this.roomCodeReference = createRef();
+        this.onInputFieldKeyEvent = this.onInputFieldKeyEvent.bind(this);
     }
 
     componentDidMount() {
+        onExitGame();
         this.props.switchState("");
         this.props.setPlayerConfig("", "", false);
         if (isValidRoomCode(this.props.roomCode)) {
@@ -42,6 +44,12 @@ class Main extends Component {
             this.userNameReference.current.focus();
         } else if (!this.state.roomCode) {
             this.roomCodeReference.current.focus();
+        }
+    }
+
+    onInputFieldKeyEvent(event) {
+        if (event.key === "Enter" && isValidRoomCode(this.state.roomCode) && this.state.playerName.trim()) {
+            this.startGame();
         }
     }
 
@@ -64,7 +72,6 @@ class Main extends Component {
     };
 
     render() {
-        document.title = "Quiz Mate";
         return (
             <CenterBox>
                 <Container fluid>
@@ -95,6 +102,7 @@ class Main extends Component {
                                     onChange={e => this.setState({ playerName: e.target.value })}
                                     placeholder="Name"
                                     ref={this.userNameReference}
+                                    onKeyPress={this.onInputFieldKeyEvent}
                                     maxLength="40"
                                     className="main-input-field equal-width"
                                 />
@@ -103,6 +111,7 @@ class Main extends Component {
                                     value={this.state.roomCode}
                                     onChange={this.changeRoomCode}
                                     ref={this.roomCodeReference}
+                                    onKeyPress={this.onInputFieldKeyEvent}
                                     placeholder="6-digit access code"
                                     className="main-input-field equal-width"
                                 />

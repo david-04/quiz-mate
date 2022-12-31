@@ -5,7 +5,7 @@ import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
-import { validateJson } from "../../utilities";
+import { validateJson, onHostStartGame } from "../../utilities";
 import { v_waitingForCode } from "./views";
 
 import Edit from "../../assets/icons/edit.svg";
@@ -67,7 +67,7 @@ class Creating extends Component {
                     output = { title: "Quiz", questions: output };
                 }
                 if (validateJson(output)) {
-                    document.title = output.title || "Quiz Mate";
+                    onHostStartGame(output.title);
                     this.setState({
                         questions: output.questions,
                         title: output.title || "Quiz"
