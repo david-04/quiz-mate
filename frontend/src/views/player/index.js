@@ -39,7 +39,7 @@ class Player extends Component {
         this.props.switchState(v_loadingRoom);
         if (this.props.game.roomCode && this.props.game.playerName) {
 
-            this.socket = socketIOClient(server);
+            this.socket = socketIOClient(server, { closeOnBeforeunload: false });
 
             this.socket.on('connect', () => {
                 this.socket.emit(

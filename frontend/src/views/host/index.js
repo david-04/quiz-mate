@@ -40,7 +40,7 @@ class Host extends Component {
     componentDidMount() {
         this.props.switchState(v_creating);
 
-        this.socket = socketIOClient(server);
+        this.socket = socketIOClient(server, { closeOnBeforeunload: false });
 
         this.socket.on(roomCreated, code => {
             this.props.setHostingRoom({ ...this.props.game.hostingRoom, roomCode: code });
