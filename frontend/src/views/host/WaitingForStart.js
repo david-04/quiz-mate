@@ -53,7 +53,7 @@ class WaitingForStart extends Component {
                             </Col>
                             <Col sm={12} md={12} lg={8} >
                                 <div className="qm-join-info">
-                                    <div>
+                                    <div className="qm-join-info-quiz-title">
                                         Join {
                                             this.props.game.hostingRoom.title
                                                 ? `"${this.props.game.hostingRoom.title}"`
@@ -99,8 +99,7 @@ class WaitingForStart extends Component {
                                             </div>
                                         </div>
                                         <div className="qm-join-info-qr-code">
-                                            <QRCode
-                                                value={this.getUrlWithRoomCode}
+                                            <QRCode value={this.getUrlWithRoomCode}
                                                 size={1080}
                                                 renderas='svg'
                                                 includeMargin

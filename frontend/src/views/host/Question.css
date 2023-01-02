@@ -4,7 +4,7 @@
     border-radius: 2px;
     padding: 20px;
     margin: 10px;
-    margin-bottom: 2em;
+    margin-bottom: 4vh;
 }
 
 .question-answer-letter {
@@ -27,7 +27,7 @@
     padding: 10px 2.1em;
     margin: 10px;
     text-align:left;
-    margin-bottom: 1em;
+    margin-bottom: 4vh;
 }
 
 .question-answer-correct {
@@ -51,7 +51,7 @@
 
 .question-control-buttons {
     position: fixed;
-    bottom: 60px;
+    bottom: 6vh;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -61,7 +61,7 @@
 }
 
 .question-control-offset {
-    padding-bottom: 80px;
+    padding-bottom: 10vh;
 }
 
 @media screen and (max-width: 768px) {

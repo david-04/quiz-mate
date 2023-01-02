@@ -1,28 +1,10 @@
-.keyboard-left-column {
-    float: right;
-}
-
-.keyboard-button {
-    display: block;
-    margin: 10px 10px;
-    height: 35vw;
-    width: 35vw;
-    max-height: 160px;
-    max-width: 160px;
-    background-color: rgba(108, 117, 125, .65);
-}
-
-.keyboard-button img {
-    height: 40%;
-}
-
 .player-question {
     background-color: #fff;
     color: #000;
     border-radius: 2px;
     padding: 20px;
     margin: 12px;
-    margin-bottom: 2em;
+    margin-bottom: 4vh;
 }
 
 .player-answer {
@@ -33,7 +15,7 @@
     padding: 10px 2.1em;
     margin: 10px 10px 10px 10px;
     text-align: left;
-    margin-bottom: 1em;
+    margin-bottom: 4vh;
 }
 
 .player-answer:hover {
@@ -51,14 +33,4 @@
     height: 100%;
     padding: 10px 10px 0 10px;
     font-size: 1.0em;
-}
-
-@media screen and (min-width: 768px) {
-    .keyboard-left-column {
-        float: inherit;
-    }
-
-    .keyboard-button {
-        margin: 10px auto;
-    }
 }

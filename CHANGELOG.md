@@ -3,12 +3,13 @@
 ## [1.0.0](https://github.com/david-04/quiz-mate/releases/tag/v1.0.0) (UNRELEASED)
 
 - Frontend
-  - Display the question and full answers (rather than just the letters) on the player screen 
+  - Display the question and full answers (rather than just the letters) on the player screen
   - Include the average answer speed in the leaderboard
-  - Keep answer statistics and the right answer visible when switching between host views 
+  - Keep answer statistics and the right answer visible when switching between host views
   - Show the quiz title as the browser tab's document title
   - Display the number of players above the host's question view
   - Simplified the start page by moving all host actions to a separate view
+  - Ask for confirmation when leaving or reloading the page while playing or hosting a quiz
   - Removed the ability to limit the number of questions (use the "end quiz" button instead)
   - Removed the ability to switch the language (it now only supports English)
   - Updated the logo and changed some icons

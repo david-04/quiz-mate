@@ -131,7 +131,6 @@ export function installOnBeforeUnloadListener() {
 function onBeforeUnload(event) {
     if (beforeUnloadWarning) {
         event.returnValue = "beforeUnloadWarning";
-        e.preventDefault();
         return false;
     }
     return true;

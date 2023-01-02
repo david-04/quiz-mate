@@ -26,7 +26,7 @@ class Question extends Component {
             <div>
                 <Row>
                     <Col xs={12}>
-                        <div className="question-question">
+                        <div className="player-question">
                             {this.props.question.question}
                         </div>
                     </Col>
