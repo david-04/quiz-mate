@@ -5,6 +5,7 @@ import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { client } from "../../connection/config";
 
+import Check from "../../assets/icons/check.svg";
 import ContentCopy from "../../assets/icons/content_copy.svg";
 import PlayCircleOutline from "../../assets/icons/play_circle_outline.svg";
 
@@ -29,7 +30,7 @@ class WaitingForStart extends Component {
     flickerCopyButton(copyButtonVariant) {
         this.setState(
             { copyButtonVariant },
-            () => setTimeout(() => this.setState({ copyButtonVariant: undefined }), 500)
+            () => setTimeout(() => this.setState({ copyButtonVariant: undefined }), 1000)
         );
     }
 
@@ -44,6 +45,7 @@ class WaitingForStart extends Component {
     render() {
         const copyButtonVariant = this.state.copyButtonVariant || "warning";
         const copyButtonStyle = { filter: "warning" === copyButtonVariant ? "none" : "invert(100%)" };
+        const copyButtonIcon = "success" === copyButtonVariant ? Check : ContentCopy;
         return (
             <CenterBox logo cancel="Cancel the quiz" closeRoomSignal {...this.props}>
                 <div className="message-box">
@@ -68,7 +70,7 @@ class WaitingForStart extends Component {
                                         </div>
                                         <div className="qm-join-info-copy-button">
                                             <Button variant={copyButtonVariant} onClick={this.copyUrl}>
-                                                <img src={ContentCopy} alt="Copy URL" style={copyButtonStyle} />
+                                                <img src={copyButtonIcon} alt="Copy URL" style={copyButtonStyle} />
                                             </Button>
                                         </div>
                                     </div>
