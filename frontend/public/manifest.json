@@ -1,6 +1,6 @@
 {
-  "short_name": "diy://quiz.mate",
-  "name": "diy://quiz.mate",
+  "short_name": "Quiz Mate",
+  "name": "Quiz Mate",
   "icons": [
     {
       "src": "favicon.ico",

@@ -2,7 +2,7 @@
 
 const config = require("./config");
 const { DEFAULT_CONFIG_FILE, VERSION } = require("./constants");
-const server = require("./server");
+const express = require("./express");
 const utils = require("./utils");
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ function parseAndProcessCommandLine(args) {
     } else if (1 < args.length) {
         utils.fail("ERROR: Too many arguments. Try 'quiz-mate --help' for more information.");
     } else {
-        server.start(config.getConfig(1 <= args.length ? args[0] : undefined));
+        express.start(config.getConfig(1 <= args.length ? args[0] : undefined));
     }
 }
 
