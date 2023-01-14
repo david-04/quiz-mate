@@ -9,30 +9,32 @@ import "./CopyButton.css";
 class CopyButton extends Component {
     constructor(props) {
         super(props);
-        this.state = { copyButtonVariant: undefined };
+        this.state = { variant: undefined, image: undefined };
         this.copyToClipboard = this.copyToClipboard.bind(this);
     }
 
     copyToClipboard() {
+        const success = "default" === this.props.variant ? "default" : "success";
+        const danger = "default" === this.props.variant ? "default" : "danger";
         navigator.clipboard
             .writeText(this.props.text)
-            .then(() => this.flickerCopyButton("success"))
-            .catch(() => this.flickerCopyButton("danger"));
+            .then(() => this.flickerCopyButton(success, Check))
+            .catch(() => this.flickerCopyButton(danger, ContentCopy));
     }
 
-    flickerCopyButton(copyButtonVariant) {
+    flickerCopyButton(variant, image) {
         this.setState(
-            { copyButtonVariant },
-            () => setTimeout(() => this.setState({ copyButtonVariant: undefined }), 1000)
+            { variant, image },
+            () => setTimeout(() => this.setState({ variant: undefined, image: undefined }), 700)
         );
     }
 
     render() {
-        const copyButtonVariant = this.state.copyButtonVariant || "warning";
-        const copyButtonStyle = { filter: "warning" === copyButtonVariant ? "none" : "invert(100%)" };
-        const copyButtonIcon = "success" === copyButtonVariant ? Check : ContentCopy;
+        const variant = this.state.variant || this.props.variant || "warning";
+        const copyButtonStyle = { filter: "warning" === variant ? "none" : "invert(100%)" };
+        const copyButtonIcon = this.state.image || ContentCopy;
         return (
-            <Button variant={copyButtonVariant} onClick={this.copyToClipboard}>
+            <Button variant={variant} onClick={this.copyToClipboard}>
                 <img src={copyButtonIcon} alt="Copy URL" style={copyButtonStyle} />
             </Button>
         );

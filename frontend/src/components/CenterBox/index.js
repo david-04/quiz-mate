@@ -3,7 +3,8 @@ import GithubCorner from "react-github-corner";
 
 import IconButton from "../../components/IconButton";
 import { closeRoom } from "../../connection/config";
-import { client } from "../../connection/config";
+import { getServerUrl } from "../../utilities";
+import CopyButton from "../CopyButton";
 
 import Close from "../../assets/icons/close.svg";
 
@@ -23,8 +24,12 @@ class CenterBox extends Component {
         if (true === this.props.renderJoinInfo) {
             return (
                 <div className="qm-join-summary">
-                    Join:
-                    <span className="qm-join-summary-url">{client}/#/{this.props.game.hostingRoom.roomCode}</span>
+                    <div className="qm-join-summary-url">
+                        {getServerUrl(this.props.game.hostingRoom.roomCode)}
+                    </div>
+                    <div className="qm-join-summary-copy-button">
+                        <CopyButton text={getServerUrl(this.props.game.hostingRoom.roomCode)} variant="default" />
+                    </div>
                 </div>
             );
         } else {

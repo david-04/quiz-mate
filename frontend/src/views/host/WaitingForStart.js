@@ -4,43 +4,14 @@ import { Col, Container, Row } from "react-bootstrap";
 
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
-import { client } from "../../connection/config";
 import CopyButton from "../../components/CopyButton";
+import { getServerUrl } from "../../utilities";
 
 import PlayCircleOutline from "../../assets/icons/play_circle_outline.svg";
 
 import "./WaitingForStart.css";
 
 class WaitingForStart extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = { copyButtonVariant: undefined };
-        this.copyUrl = this.copyUrl.bind(this);
-        this.getUrlWithRoomCode = this.getUrlWithRoomCode.bind(this);
-    }
-
-    copyUrl() {
-        navigator.clipboard
-            .writeText(this.getUrlWithRoomCode())
-            .then(() => this.flickerCopyButton("success"))
-            .catch(() => this.flickerCopyButton("danger"));
-    }
-
-    flickerCopyButton(copyButtonVariant) {
-        this.setState(
-            { copyButtonVariant },
-            () => setTimeout(() => this.setState({ copyButtonVariant: undefined }), 1000)
-        );
-    }
-
-    getBaseUrl() {
-        return client;
-    }
-
-    getUrlWithRoomCode() {
-        return `${this.getBaseUrl()}/#/${this.props.game.hostingRoom.roomCode}`;
-    }
 
     render() {
         return (
@@ -62,11 +33,11 @@ class WaitingForStart extends Component {
                                     <div className="qm-join-info-url-and-copy-button qm-join-info-spacing-top">
                                         <div className="qm-join-info-url qm-join-info-highlight">
                                             <div>
-                                                {this.getBaseUrl()}
+                                                {getServerUrl()}
                                             </div>
                                         </div>
                                         <div className="qm-join-info-copy-button">
-                                            <CopyButton text={this.getUrlWithRoomCode()} />
+                                            <CopyButton text={getServerUrl(this.props.game.hostingRoom.roomCode)} />
                                         </div>
                                     </div>
                                     <div className="qm-join-info-details qm-join-info-spacing-top">

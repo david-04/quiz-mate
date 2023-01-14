@@ -1,3 +1,4 @@
+import { client } from "../connection/config";
 import { MS_PER_SEC, SEC_PER_MIN, TRIPLE_ZERO, ROOM_CODE_MIN, ROOM_CODE_MAX } from "./constants";
 
 const ALERT_SECONDS = 10;
@@ -134,4 +135,12 @@ function onBeforeUnload(event) {
         return false;
     }
     return true;
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// Get the URL (with optional room code)
+//----------------------------------------------------------------------------------------------------------------------
+
+export function getServerUrl(roomCode) {
+    return undefined === roomCode ? client : `${client}/#/${roomCode}`;
 }

@@ -18,7 +18,7 @@ class IconButton extends Component {
         const disabled = undefined !== this.props.disabled && null !== this.props.disabled
             ? this.props.disabled
             : false;
-        const invert = ["warning"] !== this.props.variant;
+        const invert = "warning" !== this.props.variant;
         const renderLabel = () => this.props.label
             ? <span className={getClassNames("label")} style={getStyle("label")}>{this.props.label}</span>
             : false;
@@ -30,7 +30,7 @@ class IconButton extends Component {
                         <img
                             src={this.props.icon}
                             alt={this.props.label || ""}
-                            className={getClassNames("icon", invert)}
+                            className={getClassNames("icon", invert ? "invert" : "")}
                             style={getStyle("icon")}
                         />
                         {renderLabel()}

@@ -23,6 +23,7 @@
     color: black;
     padding-left: 0.3em;
     padding-right: 0.3em;
+    border-radius: 0.2em;
 }
 
 .qm-join-info-spacing-top {
@@ -80,6 +81,7 @@
 .qm-join-info-qr-code {
     width: 15em;
     margin-top: 7vh;
+
 }
 
 .qm-join-info-qr-code  canvas {

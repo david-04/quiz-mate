@@ -32,30 +32,34 @@
     left: 10px;
 }
 
-.room-header {
+.qm-join-summary {
+    display:flex;
+    flex-direction: row;
+    align-items: flex-start;
     text-align: right;
     position: fixed;
     top: 10px;
-    right: 10px;
+    right: 0;
+    font-size: 1.2rem;
 }
 
-.qm-join-summary {
-    text-align: right;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2rem;
-    background-color: #6c757d;
-    color: white;
-    border-radius: 0.2em;
-    padding: 0.2em;
-    padding-left: 0.5em;
-    padding-right: 0.4em;
+.qm-join-summary > div {
+    padding-top: 0.25em;
+    padding-bottom: 0.1em;
+    height: 2em;
+    max-height: 2em;
 }
 
 .qm-join-summary-url {
-    margin-left: 0.3em;
-    margin-right: 0.3em;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 0.4em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+.qm-join-summary-copy-button {
+    margin-top: -0.25em;
 }
 
 /*Small devices (landscape phones, 576px and up)*/
