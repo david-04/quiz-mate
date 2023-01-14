@@ -39,6 +39,25 @@
     right: 10px;
 }
 
+.qm-join-summary {
+    text-align: right;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 0.2em;
+    padding: 0.2em;
+    padding-left: 0.5em;
+    padding-right: 0.4em;
+}
+
+.qm-join-summary-url {
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+}
+
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
     .outer {

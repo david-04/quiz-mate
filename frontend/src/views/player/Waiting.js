@@ -14,7 +14,7 @@ class Waiting extends Component {
             if (this.props.correctAnswer != null) {
                 if (this.props.selectedAnswer === this.props.correctAnswer) {
                     return (
-                        <CenterBox logo cancel="Exit" roomHeader {...this.props}>
+                        <CenterBox logo cancel="Exit" {...this.props}>
                             <img
                                 src={InsertEmoticon}
                                 className="material-ui-icon"
@@ -29,7 +29,7 @@ class Waiting extends Component {
                     );
                 } else {
                     return (
-                        <CenterBox logo cancel="Exit" roomHeader {...this.props}>
+                        <CenterBox logo cancel="Exit" {...this.props}>
                             <img
                                 src={SentimentVeryDissatisfied}
                                 className="material-ui-icon"
@@ -46,7 +46,7 @@ class Waiting extends Component {
                 }
             } else {
                 return (
-                    <CenterBox logo cancel="Exit" roomHeader {...this.props}>
+                    <CenterBox logo cancel="Exit" {...this.props}>
                         <img
                             src={PauseCircleOutline}
                             className="material-ui-icon"
@@ -74,7 +74,7 @@ class Waiting extends Component {
                     <p>You have joined the quiz.</p>
                 );
             return (
-                <CenterBox logo cancel="Exit" roomHeader {...this.props}>
+                <CenterBox logo cancel="Exit" {...this.props}>
                     <img
                         src={CheckCircleOutline}
                         className="material-ui-icon"

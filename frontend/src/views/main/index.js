@@ -76,7 +76,7 @@ class Main extends Component {
 
     render() {
         return (
-            <CenterBox>
+            <CenterBox showGitHubLink>
                 <Container fluid>
                     <Row>
                         <Col xs={12}>

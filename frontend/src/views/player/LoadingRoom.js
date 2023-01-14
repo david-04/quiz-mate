@@ -4,7 +4,7 @@ import CenterBox from "../../components/CenterBox";
 class LoadingRoom extends Component {
     render() {
         return (
-            <CenterBox logo cancel="Cancel" {...this.props}>
+            <CenterBox cancel="Cancel" {...this.props}>
                 <div className="message-box">
                     Connecting with the room...
                 </div>

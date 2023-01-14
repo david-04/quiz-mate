@@ -97,7 +97,7 @@ class Creating extends Component {
     render() {
         return (
             <div>
-                <CenterBox logo cancel="Back" {...this.props} cancelIcon={ArrowBack}>
+                <CenterBox logo cancel="Back" {...this.props} cancelIcon={ArrowBack} showGitHubLink>
                     <div className="message-box">
                         <form>
                             <Container>

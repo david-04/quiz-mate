@@ -166,7 +166,7 @@ class Question extends Component {
 
     render() {
         return (
-            <CenterBox logo cancel="End quiz" closeRoomSignal roomHeader {...this.props}>
+            <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
                 <div className="message-box">
                     <Container fluid style={this.props.questionTab === TAB_LEADERBOARD ? { display: "none" } : {}}>
                         {this.QuestionGrid()}

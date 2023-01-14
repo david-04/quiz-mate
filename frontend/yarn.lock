@@ -10177,6 +10177,7 @@ __metadata:
     react: ^18.2.0
     react-bootstrap: ^2.6.0
     react-dom: ^18.2.0
+    react-github-corner: ^2.5.0
     react-redux: ^8.0.5
     react-router: ^6.4.4
     react-router-dom: ^6.4.4
@@ -10313,6 +10314,15 @@ __metadata:
   version: 6.0.11
   resolution: "react-error-overlay@npm:6.0.11"
   checksum: ce7b44c38fadba9cedd7c095cf39192e632daeccf1d0747292ed524f17dcb056d16bc197ddee5723f9dd888f0b9b19c3b486c430319e30504289b9296f2d2c42
+  languageName: node
+  linkType: hard
+
+"react-github-corner@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "react-github-corner@npm:2.5.0"
+  peerDependencies:
+    react: "*"
+  checksum: cf1bb0f165b638df880f874447999950168d11a78ee2a382007e81c74372eb3453ecf1d4f9d0c7ccc6080315e3c88b2d4062735531311d7d645387ac0a949690
   languageName: node
   linkType: hard
 

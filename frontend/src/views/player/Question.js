@@ -52,7 +52,7 @@ class Question extends Component {
 
     render() {
         return (
-            <CenterBox logo cancel="Exit" roomHeader {...this.props}>
+            <CenterBox logo cancel="Exit" {...this.props}>
                 <div className="message-box">
                     {this.props.game.hostingRoom.timeLimit > 0 && (
                         <RemoteTimer seconds={this.props.timer} />
