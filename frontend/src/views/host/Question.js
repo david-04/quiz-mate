@@ -9,12 +9,13 @@ import { ONE_HUNDRED } from "../../utilities/constants";
 import ArrowForward from "../../assets/icons/arrow_forward.svg";
 import Assessment from "../../assets/icons/assessment.svg";
 import CheckBox from "../../assets/icons/check_box.svg";
-import "../../assets/icons/material-ui-icon.css";
-import PanTool from "../../assets/icons/pan_tool.svg";
-import ViewList from "../../assets/icons/view_list.svg";
+import PausePresentation from "../../assets/icons/pause_presentation.svg";
+import EmojiEvents from "../../assets/icons/emoji_events.svg";
 
 import RankTable from "../../components/RankTable";
 import Timer from "../../components/Timer";
+
+import "../../assets/icons/material-ui-icon.css";
 
 export const TAB_REVEAL_ANSWER = 1;
 export const TAB_ANSWER_STATS = 2;
@@ -111,7 +112,8 @@ class Question extends Component {
                         disabled={this.props.questionIsOpen || this.props.questionTab === TAB_REVEAL_ANSWER}
                         onClick={() => { this.props.changeTab(TAB_REVEAL_ANSWER); }}>
                         <img src={CheckBox} className="material-ui-icon" alt="Show correct answer" />
-                        <br />Correct
+                        <br />Reveal
+                        <br />answer
                     </Button>
                     <Button
                         variant="secondary"
@@ -122,7 +124,8 @@ class Question extends Component {
                         }}
                     >
                         <img src={Assessment} className="material-ui-icon" alt="Answer statistics" />
-                        <br />Stats
+                        <br />Answer
+                        <br />stats
                     </Button>
                     <Button
                         variant="secondary"
@@ -132,8 +135,9 @@ class Question extends Component {
                             this.props.socket.emit(generalRankingRequest, this.props.game.hostingRoom.roomCode);
                         }}
                     >
-                        <img src={ViewList} className="material-ui-icon" alt="Leaderboard" />
-                        <br />Ranking
+                        <img src={EmojiEvents} className="material-ui-icon" alt="Leaderboard" />
+                        <br />Leader-
+                        <br />board
                     </Button>
                     <Button
                         variant="secondary"
@@ -142,11 +146,11 @@ class Question extends Component {
                     >
                         {
                             this.props.questionIsOpen
-                                ? <img src={PanTool} className="material-ui-icon" alt="Stop round" />
+                                ? <img src={PausePresentation} className="material-ui-icon" alt="Stop round" />
                                 : <img src={ArrowForward} className="material-ui-icon" alt="Add" />
                         }
-                        <br />
-                        {this.props.questionIsOpen ? "Stop" : "Next"}
+                        <br />{this.props.questionIsOpen ? "Stop" : "Next"}
+                        <br />{this.props.questionIsOpen ? "round" : "question"}
                     </Button>
                 </ButtonGroup>
             </div>

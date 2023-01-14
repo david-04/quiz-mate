@@ -51,13 +51,19 @@
 
 .question-control-buttons {
     position: fixed;
-    bottom: 6vh;
+    bottom: 3vh;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .question-control-buttons .btn {
-    min-width: 140px;
+    min-width: 5.75em;
+    line-height: 1.2em;
+}
+
+.question-control-buttons .btn img {
+    font-size: 1.4em;
+    margin-bottom: 0.3em;
 }
 
 .question-control-offset {
