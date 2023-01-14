@@ -1,12 +1,12 @@
 import QRCode from "qrcode.react";
 import React, { Component } from "react";
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
+
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { client } from "../../connection/config";
+import CopyButton from "../../components/CopyButton";
 
-import Check from "../../assets/icons/check.svg";
-import ContentCopy from "../../assets/icons/content_copy.svg";
 import PlayCircleOutline from "../../assets/icons/play_circle_outline.svg";
 
 import "./WaitingForStart.css";
@@ -43,9 +43,6 @@ class WaitingForStart extends Component {
     }
 
     render() {
-        const copyButtonVariant = this.state.copyButtonVariant || "warning";
-        const copyButtonStyle = { filter: "warning" === copyButtonVariant ? "none" : "invert(100%)" };
-        const copyButtonIcon = "success" === copyButtonVariant ? Check : ContentCopy;
         return (
             <CenterBox logo cancel="Cancel the quiz" closeRoomSignal {...this.props}>
                 <div className="message-box">
@@ -69,9 +66,7 @@ class WaitingForStart extends Component {
                                             </div>
                                         </div>
                                         <div className="qm-join-info-copy-button">
-                                            <Button variant={copyButtonVariant} onClick={this.copyUrl}>
-                                                <img src={copyButtonIcon} alt="Copy URL" style={copyButtonStyle} />
-                                            </Button>
+                                            <CopyButton text={this.getUrlWithRoomCode()} />
                                         </div>
                                     </div>
                                     <div className="qm-join-info-details qm-join-info-spacing-top">
