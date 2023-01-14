@@ -3,7 +3,7 @@
     "questions": [
         {
             "question": "Which continent has only one country?",
-            "correct": 3,
+            "correct": 2,
             "answers": [
                 "Africa",
                 "Asia",
@@ -22,23 +22,13 @@
             ]
         },
         {
-            "question": "Which instrument measures earthquakes?",
-            "correct": 2,
-            "answers": [
-                "Barometer",
-                "Radiometer",
-                "Seismograph",
-                "Thermometer"
-            ]
-        },
-        {
-            "question": "Who lives at number 10 Downing Street?",
+            "question": "The head of which country resides at number 10 Downing Street?",
             "correct": 3,
             "answers": [
-                "President of France",
-                "Scotland's First Minister",
-                "UK Prime Minister of the UK",
-                "US President"
+                "Brazil",
+                "Canada",
+                "Nigeria",
+                "United Kingdom"
             ]
         }
     ]
