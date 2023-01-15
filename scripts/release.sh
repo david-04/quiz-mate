@@ -14,7 +14,6 @@ echo Assembling dist/backend...
 rm -rf ./dist/backend
 mkdir -p ./dist/backend
 cp -r ./backend/src/* ./dist/backend/
-cp resources/sample-quiz.json ./dist/backend/
 
 echo Injecting version number...
 VERSION=$(grep -E "^## \[[0-9.]+\]" CHANGELOG.md | head -1 | sed "s|^\#\# \[||;s|\].*||")

@@ -1,5 +1,6 @@
 export const ONE_HUNDRED = 100;
 export const TRIPLE_ZERO = "000";
+export const TEN = 10;
 
 export const TIMER_ANIMATE_INTERVAL_SECONDS = 10;
 

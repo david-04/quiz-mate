@@ -6,7 +6,7 @@ import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
 import { onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
-import { upliftAndValidate } from "../../utilities/quiz-data";
+import { upliftAndValidate, SAMPLE_QUIZ } from "../../utilities/quiz-data";
 import { v_waitingForCode } from "./views";
 
 import Edit from "../../assets/icons/edit.svg";
@@ -62,11 +62,9 @@ class Creating extends Component {
         installOnBeforeUnloadListener();
         const fr = new FileReader();
         fr.onload = e => {
-            let output = null;
             try {
-                output = upliftAndValidate(JSON.parse(e.target.result));
-                onHostStartGame(output.title);
-                this.setState({ questions: output.questions, title: output.title }, this.createRoom);
+                const quiz = JSON.parse(e.target.result);
+                this.startQuiz(quiz, this.inputFile.current.files.item(0).name);
             } catch (error) {
                 this.setState({ questions: [], title: "" });
                 const message = error instanceof Error ? error.message : `${error}`;
@@ -76,6 +74,22 @@ class Creating extends Component {
         };
         if (this.inputFile.current.files.item(0)) {
             fr.readAsText(this.inputFile.current.files.item(0));
+        }
+    };
+
+    startSampleQuiz = () => {
+        this.startQuiz(SAMPLE_QUIZ);
+    };
+
+    startQuiz = (quiz, filename) => {
+        try {
+            quiz = upliftAndValidate(quiz, filename || "");
+            onHostStartGame(quiz.title);
+            this.setState({ questions: quiz.questions, title: quiz.title }, this.createRoom);
+        } catch (error) {
+            this.setState({ questions: [], title: "" });
+            const message = error instanceof Error ? error.message : `${error}`;
+            alert(`Invalid file format: ${message}`);
         }
     };
 
@@ -115,6 +129,31 @@ class Creating extends Component {
                                                         ref={this.inputFile}
                                                     />
                                                 </span>
+                                            </div>
+                                            <div style={{
+                                                fontSize: "0.5em",
+                                                textAlign: "right",
+                                                marginTop: "6em",
+                                                marginBottom: "-6em"
+                                            }}>
+                                                ...or use this
+                                                <button
+                                                    onClick={() => this.startSampleQuiz()}
+                                                    style={{
+                                                        padding: "0.2em",
+                                                        fontSize: "1em",
+                                                        borderRadius: "0.3em",
+                                                        border: "1px solid #ffffff88",
+                                                        marginLeft: "0.4em",
+                                                        paddingLeft: "0.2em",
+                                                        paddingRight: "0.2em",
+                                                        padding: "0",
+                                                        backgroundColor: "#ffffff00",
+                                                        color: "white"
+                                                    }}
+                                                >
+                                                    sample quiz
+                                                </button>
                                             </div>
                                         </div>
                                     </Col>

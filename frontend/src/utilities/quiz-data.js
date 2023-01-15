@@ -1,3 +1,45 @@
+import { TEN } from "./constants";
+
+//----------------------------------------------------------------------------------------------------------------------
+// A sample quiz
+//----------------------------------------------------------------------------------------------------------------------
+
+export const SAMPLE_QUIZ = {
+    "title": "Sample quiz",
+    "questions": [
+        {
+            "question": "Which continent has only one country?",
+            "correct": 2,
+            "answers": [
+                "Africa",
+                "Asia",
+                "Australia",
+                "South America"
+            ]
+        },
+        {
+            "question": "Which vegetable gives Popeye his strength?",
+            "correct": 3,
+            "answers": [
+                "Asparagus",
+                "Broccoli",
+                "Lentils",
+                "Spinach"
+            ]
+        },
+        {
+            "question": "The head of which country resides at number 10 Downing Street?",
+            "correct": 3,
+            "answers": [
+                "Brazil",
+                "Canada",
+                "Nigeria",
+                "United Kingdom"
+            ]
+        }
+    ]
+};
+
 //----------------------------------------------------------------------------------------------------------------------
 // Uplift a quiz to the latest format and validate that it's correct
 //----------------------------------------------------------------------------------------------------------------------
@@ -40,7 +82,6 @@ export function validateQuiz(quiz) {
 //----------------------------------------------------------------------------------------------------------------------
 
 function validateTitle(quiz) {
-    console.log(quiz);
     if (!Object.prototype.hasOwnProperty.call(quiz, "title")) {
         fail("The quiz has no title");
     }
@@ -80,7 +121,7 @@ function validateQuestion(question, index) {
         fail(`The ${questionNumber} question has an invalid format (it's not an object)`);
     }
     const questionReference = "string" === typeof question.question && question.question.trim()
-        ? `the question "${question.question.trim()}"`
+        ? `question "${question.question.trim()}"`
         : `the ${questionNumber} question`;
     if ("string" !== typeof question.question || !question.question.trim()) {
         fail(`${capitalize(questionReference)} has no question text`);
@@ -146,7 +187,6 @@ function fail(message) {
 
 function toOrdinal(index) {
     const number = index + 1;
-    const TEN = 10;
     const suffix = ["th", "st", "nd", "rd"][number % TEN] || "th";
     return `${number}${suffix}`;
 }

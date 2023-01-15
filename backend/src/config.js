@@ -44,24 +44,10 @@ function createConfigurationFileAndExit(configFile) {
         fail("INTERNAL ERROR: ${defaultConfigPath} does not exist");
     }
     fs.writeFileSync(configFile, fs.readFileSync(defaultConfigPath).toString().replace(/\r/g, ""), { flag: "wx" });
-    createSampleQuiz();
     utils.fail([
         `Created a new configuration file: ${DEFAULT_CONFIG_FILE}`,
         "Please review the settings and start the Quiz Mate again"
     ]);
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-// Create a sample quiz
-//----------------------------------------------------------------------------------------------------------------------
-
-function createSampleQuiz() {
-    const filename = "sample-quiz.json";
-    [path.join(".."), path.join("..", "..", "resources")]
-        .map(directory => path.join(__dirname, directory, filename))
-        .filter(file => fs.existsSync(file))
-        .map(file => fs.readFileSync(file).toString().replace(/\r/g, ""))
-        .forEach(content => fs.writeFileSync(filename, content, { flag: "w" }));
 }
 
 //----------------------------------------------------------------------------------------------------------------------
