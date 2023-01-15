@@ -13,6 +13,7 @@ import Assessment from "../../assets/icons/assessment.svg";
 import CheckBox from "../../assets/icons/check_box.svg";
 import EmojiEvents from "../../assets/icons/emoji_events.svg";
 import PausePresentation from "../../assets/icons/pause_presentation.svg";
+import Visibility from "../../assets/icons/visibility.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./Question.css";
@@ -20,6 +21,7 @@ import "./Question.css";
 export const TAB_REVEAL_ANSWER = 1;
 export const TAB_ANSWER_STATS = 2;
 export const TAB_LEADERBOARD = 3;
+export const TAB_LOOK_DOWN = 4;
 
 const BUTTON_STYLE = {
     ACTIVE: {
@@ -160,6 +162,14 @@ class Question extends Component {
         return this.renderControlButton(EmojiEvents, "Leader-", "board", style, onClick);
     }
 
+    renderLookDownButton() {
+        const style = !this.props.questionIsOpen && !this.props.isLastQuestion && this.props.questionTab !== TAB_LOOK_DOWN
+            ? BUTTON_STYLE.ACTIVE
+            : BUTTON_STYLE.DISABLED;
+        const onClick = () => this.props.changeTab(TAB_LOOK_DOWN);
+        return this.renderControlButton(Visibility, "Look", "down", style, onClick);
+    }
+
     renderNextButton() {
         const style = this.props.questionIsOpen || this.props.isLastQuestion
             ? BUTTON_STYLE.DISABLED
@@ -180,20 +190,8 @@ class Question extends Component {
                     {this.renderLeaderboardButton()}
                 </ButtonGroup>
                 <ButtonGroup>
+                    {this.renderLookDownButton()}
                     {this.renderNextButton()}
-                    {/* <Button
-                        variant="secondary"
-                        disabled={this.props.isLastQuestion && !this.props.questionIsOpen}
-                        onClick={this.onNextButton}
-                    >
-                        {
-                            this.props.questionIsOpen
-                                ? <img src={PausePresentation} className="material-ui-icon" alt="Stop round" />
-                                : <img src={ArrowForward} className="material-ui-icon" alt="Add" />
-                        }
-                        <br />{this.props.questionIsOpen ? "Stop" : "Next"}
-                        <br />{this.props.questionIsOpen ? "round" : "question"}
-                    </Button> */}
                 </ButtonGroup>
             </div>
         );
@@ -210,16 +208,63 @@ class Question extends Component {
         this.props.nextButton();
     };
 
+    renderQuestion() {
+        if (this.props.questionTab !== TAB_LEADERBOARD && this.props.questionTab !== TAB_LOOK_DOWN) {
+            return (
+                <Container fluid>
+                    {this.QuestionGrid()}
+                </Container>
+            );
+        } else {
+            return false;
+        }
+    }
+
+    renderLeaderboard() {
+        if (this.props.questionTab === TAB_LEADERBOARD) {
+            return <RankTable data={this.props.generalRanking} />;
+        } else {
+            return false;
+        }
+    }
+
+    renderLookDown() {
+        if (this.props.questionTab === TAB_LOOK_DOWN) {
+            return (
+                <div>
+                    <div style={{ fontSize: "1.25em" }}>
+                        Look at your browser or phone.
+                    </div>
+                    <div style={{ margin: "0.5em", fontSize: "1.1em" }}>
+                        <img
+                            src={Visibility}
+                            className="material-ui-icon"
+                            style={{ fontSize: "5em" }}
+                            alt="Look down"
+                        />
+                        <img
+                            src={Visibility}
+                            className="material-ui-icon"
+                            style={{ fontSize: "5em" }}
+                            alt="Look down"
+                        />
+                    </div>
+                    <div style={{ fontSize: "1.25em" }}>
+                        The next question is coming up...
+                    </div>
+                </div>
+            );
+        } else {
+            return false;
+        }
+    }
+
     render() {
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
-                <div className="message-box">
-                    <Container fluid style={this.props.questionTab === TAB_LEADERBOARD ? { display: "none" } : {}}>
-                        {this.QuestionGrid()}
-                    </Container>
-                    {this.props.questionTab === TAB_LEADERBOARD && (<RankTable data={this.props.generalRanking} />)}
-                </div>
-                <div className="question-control-offset" />
+                {this.renderQuestion()}
+                {this.renderLeaderboard()}
+                {this.renderLookDown()}
                 {this.renderControlButtons()}
             </CenterBox>
         );

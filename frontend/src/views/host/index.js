@@ -15,7 +15,7 @@ import {
 } from "../../connection/config";
 import Creating from "./Creating";
 import Final from "./Final";
-import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_REVEAL_ANSWER } from "./Question";
+import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_REVEAL_ANSWER, TAB_LOOK_DOWN } from "./Question";
 import { v_creating, v_final, v_question, v_waitingForCode, v_waitingForStart } from "./views";
 import WaitingForCode from "./WaitingForCode";
 import WaitingForStart from "./WaitingForStart";
@@ -99,13 +99,16 @@ class Host extends Component {
     changeTab = tab => {
         switch (tab) {
             case TAB_REVEAL_ANSWER:
-                this.setState({ questionTab: 1, revealAnswer: true });
+                this.setState({ questionTab: TAB_REVEAL_ANSWER, revealAnswer: true });
                 break;
             case TAB_ANSWER_STATS:
-                this.setState({ questionTab: 2, answerStats: null, revealStats: true });
+                this.setState({ questionTab: TAB_ANSWER_STATS, answerStats: null, revealStats: true });
                 break;
             case TAB_LEADERBOARD:
-                this.setState({ questionTab: 3, generalRanking: null });
+                this.setState({ questionTab: TAB_LEADERBOARD, generalRanking: null });
+                break;
+            case TAB_LOOK_DOWN:
+                this.setState({ questionTab: TAB_LOOK_DOWN, generalRanking: null });
                 break;
             default:
                 this.setState({ questionTab: 0 });
