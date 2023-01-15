@@ -21,29 +21,6 @@ export const addLeadingZero = number => {
     }
 };
 
-export const validateJson = json => {
-    let result = true;
-    if (json && "object" === typeof json && Array.isArray(json.questions)) {
-        json.questions.forEach(question => result = result && validateQuestion(question));
-        result = result && !!json.questions.length;
-    } else {
-        result = false;
-    }
-    return result;
-};
-function validateQuestion(question) {
-    if (typeof question === "object" && question !== null) {
-        if (question.hasOwnProperty("question")
-            && question.hasOwnProperty("correct")
-            && question.hasOwnProperty("answers")) {
-            if (Array.isArray(question.answers) && 1 <= question.answers.length) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 export function formatSpeed(duration, points) {
     if (0 === points) {
         return "";

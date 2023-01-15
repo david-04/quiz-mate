@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CenterBox from "../../components/CenterBox";
 import QuestionEditor from "../../components/QuestionEditor";
 import QuestionExplorer from "../../components/QuestionExplorer";
-import { validateJson } from "../../utilities";
+import { upliftQuiz, validateQuiz } from "../../utilities/quiz-data";
 
 import AddBox from "../../assets/icons/add_box.svg";
 import ArrowDownward from "../../assets/icons/arrow_downward.svg";
@@ -32,7 +32,8 @@ class Editor extends Component {
             exitModal: false,
             deleteModal: false,
             uploadModal: false,
-            downloadModal: false
+            downloadModal: false,
+            downloadModalMessage: undefined
         };
         this.inputFile = createRef();
     }
@@ -65,7 +66,7 @@ class Editor extends Component {
     };
 
     cancelDownload = () => {
-        this.setState({ downloadModal: false });
+        this.setState({ downloadModal: false, downloadModalMessage: undefined });
     };
 
     loadProject = () => {
@@ -73,32 +74,8 @@ class Editor extends Component {
         const fr = new FileReader();
         fr.onload = e => {
             let config = null;
-            try {
-                config = JSON.parse(e.target.result);
-                if (Array.isArray(config)) {
-                    config = { title: "", questions: config };
-                }
-                if (validateJson(config)) {
-                    this.setState({
-                        workspace: config.questions,
-                        title: config.title
-                    });
-                } else {
-                    this.setState({
-                        workspace: [],
-                        title: '',
-                        originalName: ''
-                    });
-                    alert("Bad file structure detected!");
-                }
-            } catch (error) {
-                this.setState({
-                    workspace: [],
-                    title: '',
-                    originalName: ''
-                });
-                alert("Bad JSON file structure detected!");
-            }
+            config = upliftQuiz(JSON.parse(e.target.result));
+            this.setState({ title: config.title, workspace: config.questions });
             this.inputFile.current.value = "";
         };
         if (this.inputFile.current.files.item(0)) {
@@ -111,15 +88,20 @@ class Editor extends Component {
     };
 
     downloadButton = () => {
-        if (!this.state.title) {
-            this.setState({ downloadModal: true });
-        } else {
+        try {
+            validateQuiz(this.assembleDownloadableQuiz());
             this.downloadFile();
+        } catch (error) {
+            console.log(error);
+            this.setState({
+                downloadModal: true,
+                downloadModalMessage: error instanceof Error ? error.message : `${error}`
+            });
         }
     };
 
     downloadFile = () => {
-        this.setState({ downloadModal: false });
+        this.setState({ downloadModal: false, downloadModalMessage: undefined });
         let name = this.state.originalName;
         if (name === '') {
             name = prompt("Enter the project name or leave the field empty:");
@@ -130,10 +112,12 @@ class Editor extends Component {
                 this.setState({ originalName: name });
             }
         }
-        const json = JSON.stringify({ title: this.state.title, questions: this.state.workspace }, null, SPACE_PER_TAB);
+        const json = JSON.stringify(this.assembleDownloadableQuiz(), null, SPACE_PER_TAB);
         fileDownload(json, name);
         this.setState({ changed: false });
     };
+
+    assembleDownloadableQuiz = () => ({ title: this.state.title, questions: this.state.workspace });
 
     moveQuestion = diff => {
         const oldIndex = this.state.selectedIndex;
@@ -391,10 +375,17 @@ class Editor extends Component {
                         <Modal.Title>Warning</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>You haven't added a title. Download anyway?</p>
+                        <p>
+                            {this.state.downloadModalMessage}.
+                        </p>
+                        <p>
+                            Do you still want to download the quiz?
+                            You can re-upload and continue editing it later -
+                            but you won't be able to host the quiz.
+                        </p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.downloadFile}>Yes, download with empty title</Button>
+                        <Button variant="danger" onClick={this.downloadFile}>Yes, download anyway</Button>
                         <Button variant="secondary" onClick={this.cancelDownload}>No, cancel</Button>
                     </Modal.Footer>
                 </Modal>

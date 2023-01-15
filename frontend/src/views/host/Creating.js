@@ -5,7 +5,8 @@ import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
-import { validateJson, onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
+import { onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
+import { upliftAndValidate } from "../../utilities/quiz-data";
 import { v_waitingForCode } from "./views";
 
 import Edit from "../../assets/icons/edit.svg";
@@ -63,29 +64,13 @@ class Creating extends Component {
         fr.onload = e => {
             let output = null;
             try {
-                output = JSON.parse(e.target.result);
-                if (Array.isArray(output)) {
-                    output = { title: "Quiz", questions: output };
-                }
-                if (validateJson(output)) {
-                    onHostStartGame(output.title);
-                    this.setState({
-                        questions: output.questions,
-                        title: output.title || "Quiz"
-                    }, this.createRoom);
-                } else {
-                    this.setState({
-                        questions: [],
-                        title: ""
-                    });
-                    alert("Invalid file");
-                }
+                output = upliftAndValidate(JSON.parse(e.target.result));
+                onHostStartGame(output.title);
+                this.setState({ questions: output.questions, title: output.title }, this.createRoom);
             } catch (error) {
-                this.setState({
-                    questions: [],
-                    title: ""
-                });
-                alert("Invalid file");
+                this.setState({ questions: [], title: "" });
+                const message = error instanceof Error ? error.message : `${error}`;
+                alert(`Invalid file format: ${message}`);
             }
             this.inputFile.current.value = "";
         };
