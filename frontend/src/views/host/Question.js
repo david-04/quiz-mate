@@ -1,25 +1,36 @@
 import React, { Component } from "react";
 import { Button, ButtonGroup, Col, Container, ProgressBar, Row } from "react-bootstrap";
+
 import CenterBox from "../../components/CenterBox";
+import RankTable from "../../components/RankTable";
+import Timer from "../../components/Timer";
 import { answerStatsRequest, generalRankingRequest, timerSync } from "../../connection/config";
-import "./Question.css";
 import { toLetter } from "../../utilities";
 import { ONE_HUNDRED } from "../../utilities/constants";
 
 import ArrowForward from "../../assets/icons/arrow_forward.svg";
 import Assessment from "../../assets/icons/assessment.svg";
 import CheckBox from "../../assets/icons/check_box.svg";
-import PausePresentation from "../../assets/icons/pause_presentation.svg";
 import EmojiEvents from "../../assets/icons/emoji_events.svg";
-
-import RankTable from "../../components/RankTable";
-import Timer from "../../components/Timer";
+import PausePresentation from "../../assets/icons/pause_presentation.svg";
 
 import "../../assets/icons/material-ui-icon.css";
+import "./Question.css";
 
 export const TAB_REVEAL_ANSWER = 1;
 export const TAB_ANSWER_STATS = 2;
 export const TAB_LEADERBOARD = 3;
+
+const BUTTON_STYLE = {
+    ACTIVE: {
+        variant: "secondary",
+        disabled: false,
+    },
+    DISABLED: {
+        variant: "secondary",
+        disabled: true,
+    },
+};
 
 class Question extends Component {
     constructor(props) {
@@ -103,43 +114,74 @@ class Question extends Component {
         );
     };
 
-    ControlButtons = () => {
+    renderControlButton(icon, label1, label2, style, onClick) {
+        return (
+            <Button variant={style.variant} disabled={style.disabled} onClick={onClick}>
+                <img src={icon} className="material-ui-icon" alt={`${label1} ${label2}`.trim()} />
+                <br />{label1}
+                <br />{label2}
+            </Button>
+        );
+    }
+
+    renderStopRoundButton() {
+        const style = this.props.questionIsOpen ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
+        const onClick = () => this.onNextButton();
+        return this.renderControlButton(PausePresentation, "Stop", "round", style, onClick);
+    }
+
+    renderRevealAnswerButton() {
+        const style = this.props.questionIsOpen || this.props.questionTab === TAB_REVEAL_ANSWER
+            ? BUTTON_STYLE.DISABLED
+            : BUTTON_STYLE.ACTIVE;
+        const onClick = () => this.props.changeTab(TAB_REVEAL_ANSWER);
+        return this.renderControlButton(CheckBox, "Reveal", "answer", style, onClick);
+    }
+
+    renderAnswerStatsButton() {
+        const style = this.props.questionIsOpen || this.props.questionTab === TAB_ANSWER_STATS
+            ? BUTTON_STYLE.DISABLED
+            : BUTTON_STYLE.ACTIVE;
+        const onClick = () => {
+            this.props.changeTab(TAB_ANSWER_STATS);
+            this.props.socket.emit(answerStatsRequest, this.props.game.hostingRoom.roomCode);
+        };
+        return this.renderControlButton(Assessment, "Answer", "stats", style, onClick);
+    }
+
+    renderLeaderboardButton() {
+        const style = this.props.questionIsOpen || this.props.questionTab === TAB_LEADERBOARD
+            ? BUTTON_STYLE.DISABLED
+            : BUTTON_STYLE.ACTIVE;
+        const onClick = () => {
+            this.props.changeTab(TAB_LEADERBOARD);
+            this.props.socket.emit(generalRankingRequest, this.props.game.hostingRoom.roomCode);
+        };
+        return this.renderControlButton(EmojiEvents, "Leader-", "board", style, onClick);
+    }
+
+    renderNextButton() {
+        const style = this.props.questionIsOpen || this.props.isLastQuestion
+            ? BUTTON_STYLE.DISABLED
+            : BUTTON_STYLE.ACTIVE;
+        const onClick = () => this.onNextButton();
+        return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
+    }
+
+    renderControlButtons = () => {
         return (
             <div className="question-control-buttons">
                 <ButtonGroup>
-                    <Button
-                        variant="secondary"
-                        disabled={this.props.questionIsOpen || this.props.questionTab === TAB_REVEAL_ANSWER}
-                        onClick={() => { this.props.changeTab(TAB_REVEAL_ANSWER); }}>
-                        <img src={CheckBox} className="material-ui-icon" alt="Show correct answer" />
-                        <br />Reveal
-                        <br />answer
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        disabled={this.props.questionIsOpen || this.props.questionTab === TAB_ANSWER_STATS}
-                        onClick={() => {
-                            this.props.changeTab(TAB_ANSWER_STATS);
-                            this.props.socket.emit(answerStatsRequest, this.props.game.hostingRoom.roomCode);
-                        }}
-                    >
-                        <img src={Assessment} className="material-ui-icon" alt="Answer statistics" />
-                        <br />Answer
-                        <br />stats
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        disabled={this.props.questionIsOpen || this.props.questionTab === TAB_LEADERBOARD}
-                        onClick={() => {
-                            this.props.changeTab(TAB_LEADERBOARD);
-                            this.props.socket.emit(generalRankingRequest, this.props.game.hostingRoom.roomCode);
-                        }}
-                    >
-                        <img src={EmojiEvents} className="material-ui-icon" alt="Leaderboard" />
-                        <br />Leader-
-                        <br />board
-                    </Button>
-                    <Button
+                    {this.renderStopRoundButton()}
+                </ButtonGroup>
+                <ButtonGroup>
+                    {this.renderRevealAnswerButton()}
+                    {this.renderAnswerStatsButton()}
+                    {this.renderLeaderboardButton()}
+                </ButtonGroup>
+                <ButtonGroup>
+                    {this.renderNextButton()}
+                    {/* <Button
                         variant="secondary"
                         disabled={this.props.isLastQuestion && !this.props.questionIsOpen}
                         onClick={this.onNextButton}
@@ -151,7 +193,7 @@ class Question extends Component {
                         }
                         <br />{this.props.questionIsOpen ? "Stop" : "Next"}
                         <br />{this.props.questionIsOpen ? "round" : "question"}
-                    </Button>
+                    </Button> */}
                 </ButtonGroup>
             </div>
         );
@@ -178,7 +220,7 @@ class Question extends Component {
                     {this.props.questionTab === TAB_LEADERBOARD && (<RankTable data={this.props.generalRanking} />)}
                 </div>
                 <div className="question-control-offset" />
-                {this.ControlButtons()}
+                {this.renderControlButtons()}
             </CenterBox>
         );
     }

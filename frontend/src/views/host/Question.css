@@ -54,11 +54,22 @@
     bottom: 3vh;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap:wrap;
+    width: 100%;
+}
+
+.question-control-buttons .btn-group + .btn-group {
+    margin-left: 2em;
 }
 
 .question-control-buttons .btn {
     min-width: 5.75em;
     line-height: 1.2em;
+    padding-left:0;
+    padding-right:0;
 }
 
 .question-control-buttons .btn img {
