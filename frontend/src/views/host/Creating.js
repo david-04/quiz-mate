@@ -28,9 +28,12 @@ class Creating extends Component {
             questionLimit: 0,
             randomOrder: false
         };
+        this.createRoom = this.createRoom.bind(this);
         this.inputFile = React.createRef();
-        this.onSetTimeLimit = this.onSetTimeLimit.bind(this);
         this.onSetOrderedOrShuffled = this.onSetOrderedOrShuffled.bind(this);
+        this.onSetTimeLimit = this.onSetTimeLimit.bind(this);
+        this.startSampleQuiz = this.startSampleQuiz.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
 
     onSetTimeLimit(timeLimit) {
@@ -41,7 +44,7 @@ class Creating extends Component {
         this.setState({ randomOrder });
     }
 
-    shuffle = array => {
+    shuffle(array) {
         let currentIndex = array.length, temporaryValue, randomIndex;
         while (0 !== currentIndex) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -51,9 +54,9 @@ class Creating extends Component {
             array[randomIndex] = temporaryValue;
         }
         return array;
-    };
+    }
 
-    createRoom = () => {
+    createRoom() {
         const data = {
             title: this.state.title.trim(),
             timeLimit: this.state.timeLimit,
@@ -70,7 +73,7 @@ class Creating extends Component {
         this.props.socket.emit(createNewRoom, data);
     };
 
-    uploadFile = () => {
+    uploadFile() {
         installOnBeforeUnloadListener();
         const fr = new FileReader();
         fr.onload = e => {
@@ -87,15 +90,16 @@ class Creating extends Component {
         if (this.inputFile.current.files.item(0)) {
             fr.readAsText(this.inputFile.current.files.item(0));
         }
-    };
+    }
 
-    startSampleQuiz = () => {
+    startSampleQuiz() {
         this.startQuiz(SAMPLE_QUIZ);
-    };
+    }
 
     startQuiz = (quiz, filename) => {
         try {
             quiz = upliftAndValidate(quiz, filename || "");
+            installOnBeforeUnloadListener();
             onHostStartGame(quiz.title);
             this.setState({ questions: quiz.questions, title: quiz.title }, this.createRoom);
         } catch (error) {
@@ -150,7 +154,7 @@ class Creating extends Component {
                                             }}>
                                                 ...or use this
                                                 <button
-                                                    onClick={() => this.startSampleQuiz()}
+                                                    onClick={this.startSampleQuiz}
                                                     style={{
                                                         padding: "0.1em 0.3em 0.1em 0.3em",
                                                         fontSize: "1em",
