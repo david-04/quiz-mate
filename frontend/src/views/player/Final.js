@@ -1,6 +1,7 @@
 import { Component } from "react";
+
 import CenterBox from "../../components/CenterBox";
-import { sortByPoints, formatSpeed } from "../../utilities";
+import { comparePoints, formatSpeed } from "../../utilities";
 
 import EmojiEvents from "../../assets/icons/emoji_events.svg";
 
@@ -12,7 +13,7 @@ class Final extends Component {
             return (<span />);
         }
         const stats = this.props.stats.slice();
-        stats.sort(sortByPoints);
+        stats.sort(comparePoints);
         const index = stats.findIndex(item => item.nickname === this.props.game.playerName);
         if (0 <= index) {
             const totalPoints = stats[index].points;

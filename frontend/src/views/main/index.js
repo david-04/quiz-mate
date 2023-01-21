@@ -2,6 +2,7 @@ import { Component, createRef } from "react";
 import { ButtonGroup, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
@@ -26,6 +27,10 @@ class Main extends Component {
         this.userNameReference = createRef();
         this.roomCodeReference = createRef();
         this.onInputFieldKeyEvent = this.onInputFieldKeyEvent.bind(this);
+        this.reconnect = this.reconnect.bind(this);
+        this.onNameChanged = this.onNameChanged.bind(this);
+        this.startGame = this.startGame.bind(this);
+        this.changeRoomCode = this.changeRoomCode.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +42,10 @@ class Main extends Component {
         } else {
             this.focusOnInput();
         }
+    }
+
+    onNameChanged(event) {
+        this.setState({ playerName: event.target.value });
     }
 
     focusOnInput() {
@@ -54,9 +63,11 @@ class Main extends Component {
         }
     }
 
-    changeRoomCode = event => this.setState({ roomCode: event.target.value });
+    changeRoomCode(event) {
+        this.setState({ roomCode: event.target.value });
+    }
 
-    startGame = () => {
+    startGame() {
         if (this.state.roomCode !== "") {
             installOnBeforeUnloadListener();
             this.props.setPlayerConfig(
@@ -66,13 +77,13 @@ class Main extends Component {
             );
             this.props.navigate("/player");
         }
-    };
+    }
 
-    reconnect = () => {
+    reconnect() {
         installOnBeforeUnloadListener();
         this.props.setPlayerConfig(getReconnectRoom(), getReconnectPlayer(), true);
         this.props.navigate("/player");
-    };
+    }
 
     render() {
         return (
@@ -95,14 +106,14 @@ class Main extends Component {
                                             buttonStyle={{ width: "100%", maxWidth: "18rem" }}
                                             icon={Power}
                                             label="Rejoin previous game"
-                                            onClick={() => this.reconnect()}
+                                            onClick={this.reconnect}
                                         />
                                     </div>
                                 )}
                                 <Form.Control
                                     type="text"
                                     value={this.state.playerName}
-                                    onChange={e => this.setState({ playerName: e.target.value })}
+                                    onChange={this.onNameChanged}
                                     placeholder="Name"
                                     ref={this.userNameReference}
                                     onKeyPress={this.onInputFieldKeyEvent}
@@ -125,7 +136,7 @@ class Main extends Component {
                                     label="Join"
                                     buttonClassName="equal-width"
                                     buttonStyle={{ width: "100%", maxWidth: "18rem" }}
-                                    onClick={() => this.startGame()}
+                                    onClick={this.startGame}
                                 />
                             </form>
                             <ButtonGroup className="main-footer-btn">

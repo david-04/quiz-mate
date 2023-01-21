@@ -1,7 +1,9 @@
 import { Component } from "react";
+
 import CenterBox from "../../components/CenterBox";
 
 class Page404 extends Component {
+
     render() {
         return (
             <CenterBox logo cancel="Return to menu" {...this.props}>

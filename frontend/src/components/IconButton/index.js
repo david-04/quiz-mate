@@ -6,6 +6,17 @@ import "./IconButton.css";
 
 class IconButton extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick() {
+        if (this.props.onClick) {
+            this.props.onClick(this.props.navigate);
+        }
+    }
+
     renderButton() {
         const getStyle = name => this.props[`${name}Style`] || {};
         const getClassNames = (name, defaultClassNames) => [
@@ -13,7 +24,6 @@ class IconButton extends Component {
             this.props[`${name}ClassName`] || ""
         ].join(" ");
 
-        const onClick = () => this.props.onClick ? this.props.onClick(this.props.navigate) : undefined;
         const variant = this.props.variant || "secondary";
         const disabled = undefined !== this.props.disabled && null !== this.props.disabled
             ? this.props.disabled
@@ -25,7 +35,7 @@ class IconButton extends Component {
 
         return (
             <div className={"icon-button " + (this.props.containerClassName || "")} style={getStyle("container")}>
-                <Button variant={variant} disabled={disabled} style={getStyle("button")} onClick={onClick}>
+                <Button variant={variant} disabled={disabled} style={getStyle("button")} onClick={this.onClick}>
                     <div>
                         <img
                             src={this.props.icon}

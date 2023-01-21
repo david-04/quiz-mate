@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+
 import { calculateTime } from "../../utilities";
-import { TIMER_ANIMATE_INTERVAL_SECONDS, MS_PER_SEC } from "../../utilities/constants";
+import { MS_PER_SEC, TIMER_ANIMATE_INTERVAL_SECONDS } from "../../utilities/constants";
 
 import "./Timer.css";
 
@@ -13,10 +14,11 @@ class Timer extends Component {
             limit: 0,
             current: 0
         };
+        this.tick = this.tick.bind(this);
     }
 
     componentDidMount() {
-        this.clock = setInterval(() => this.tick(), MS_PER_SEC);
+        this.clock = setInterval(this.tick, MS_PER_SEC);
     }
 
     componentWillUnmount() {
@@ -25,7 +27,7 @@ class Timer extends Component {
 
     tick() {
         if (this.state.running) {
-            const sec = Math.round((new Date().getTime() - this.state.startTime) / MS_PER_SEC);
+            const sec = Math.round((new Date().renderTime() - this.state.startTime) / MS_PER_SEC);
             this.setState({ current: sec });
             if (this.props.tick) {
                 this.props.tick(this.state.limit - sec);
@@ -42,7 +44,7 @@ class Timer extends Component {
     startTimer(seconds) { // NOSONAR
         this.setState({
             running: true,
-            startTime: new Date().getTime(),
+            startTime: new Date().renderTime(),
             limit: seconds,
             current: 0
         });
@@ -57,13 +59,12 @@ class Timer extends Component {
         });
     };
 
-    getTime() {
+    renderTime() {
+        const className = TIMER_ANIMATE_INTERVAL_SECONDS < this.state.limit - this.state.current || !this.state.running
+            ? "timer-normal"
+            : "timer-warning";
         return (
-            <div className={
-                TIMER_ANIMATE_INTERVAL_SECONDS < this.state.limit - this.state.current || !this.state.running
-                    ? "timer-normal"
-                    : "timer-warning"
-            }>
+            <div className={className}>
                 {calculateTime(Math.max(this.state.limit - this.state.current, 0), false)}
             </div>
         );
@@ -72,7 +73,7 @@ class Timer extends Component {
     render() {
         return (
             <div className="timer-container">
-                {this.getTime()}
+                {this.renderTime()}
             </div>
         );
     }

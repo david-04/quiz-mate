@@ -32,7 +32,7 @@ export function formatSpeed(duration, points) {
     }
 }
 
-export function sortByPoints(a, b) {
+export function comparePoints(a, b) {
     if (a.points < b.points) {
         return 1;
     } else if (a.points > b.points) {
@@ -43,6 +43,16 @@ export function sortByPoints(a, b) {
         return 1;
     } else {
         return 0;
+    }
+};
+
+export function compareNicknames(a, b) {
+    const nameA = a.nickname.toUpperCase();
+    const nameB = b.nickname.toUpperCase();
+    if (nameA < nameB) {
+        return -1;
+    } else {
+        return (nameA > nameB) ? 1 : 0;
     }
 };
 

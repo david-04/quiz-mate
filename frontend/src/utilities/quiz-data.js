@@ -163,13 +163,19 @@ function validateCorrect(questionReference, question) {
         fail(`${capitalize(questionReference)} lacks the "correct" property`);
     }
     if ("number" !== typeof question.correct) {
-        fail(`The "correct" property of ${questionReference} has an invalid type (${typeof question.correct} instead of number)`);
+        fail([
+            `The "correct" property of ${questionReference} has an invalid type`,
+            `(${typeof question.correct} instead of number)`
+        ].join(" "));
     }
     if (question.correct < 0) {
         fail(`The "correct" property of ${questionReference} is less than zero (value: ${question.correct})`);
     }
     if (question.answers.length < question.correct) {
-        fail(`${capitalize(questionReference)} has only ${question.answers.length} answers but marks the ${toOrdinal(question.correct)} as the correct one`);
+        fail([
+            `${capitalize(questionReference)} has only ${question.answers.length} answers`,
+            ` but marks the ${toOrdinal(question.correct)} as the correct one`
+        ].join(" "));
     }
 }
 

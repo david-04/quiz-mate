@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import CenterBox from "../../components/CenterBox";
 import RankTable from "../../components/RankTable";
 

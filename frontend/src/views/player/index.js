@@ -2,6 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import socketIOClient from "socket.io-client";
+
 import { setHostingRoomAC, switchStateAC } from "../../actions/game";
 import {
     addToRoom,
@@ -20,11 +21,12 @@ import LoadingRoom from "./LoadingRoom";
 import NicknameIsTaken from "./NicknameIsTaken";
 import Question from "./Question";
 import RoomNotFound from "./RoomNotFound";
-import { v_final, v_loadingRoom, v_nicknameIsTaken, v_question, v_roomNotFound, v_waiting } from "./views";
+import { V_FINAL, V_LOADING_ROOM, V_NICKNAME_IS_TAKEN, V_QUESTION, V_ROOM_NOT_FOUND, V_WAITING } from "./views";
 import Waiting from "./Waiting";
 import { onPlayerJoinGame } from "../../utilities";
 
 class Player extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -33,34 +35,33 @@ class Player extends Component {
             correctAnswer: null,
             timerValue: 0
         };
+        this.selected = this.selected.bind(this);
     }
 
     componentDidMount() {
-        this.props.switchState(v_loadingRoom);
+        this.props.switchState(V_LOADING_ROOM);
         if (this.props.game.roomCode && this.props.game.playerName) {
 
             this.socket = socketIOClient(server, { closeOnBeforeunload: false });
 
-            this.socket.on('connect', () => {
-                this.socket.emit(
-                    addToRoom, this.props.game.roomCode, this.props.game.playerName, this.props.game.reconnectMode
-                );
-            });
+            this.socket.on('connect', () => this.socket.emit(
+                addToRoom, this.props.game.roomCode, this.props.game.playerName, this.props.game.reconnectMode
+            ));
 
             this.socket.on(nicknameIsTaken, () => {
-                this.props.switchState(v_nicknameIsTaken);
+                this.props.switchState(V_NICKNAME_IS_TAKEN);
                 disableReconnectMode();
             });
 
             this.socket.on(roomNotFound, () => {
-                this.props.switchState(v_roomNotFound);
+                this.props.switchState(V_ROOM_NOT_FOUND);
                 disableReconnectMode();
             });
 
             this.socket.on(joinedToRoom, roomObject => {
                 onPlayerJoinGame(roomObject.title);
                 this.props.setHostingRoom(roomObject);
-                this.props.switchState(v_waiting);
+                this.props.switchState(V_WAITING);
                 enableReconnectMode(this.props.game.roomCode, this.props.game.playerName);
             });
 
@@ -71,21 +72,19 @@ class Player extends Component {
                     correctAnswer: null,
                     timerValue: this.props.game.hostingRoom.timeLimit
                 });
-                this.props.switchState(v_question);
+                this.props.switchState(V_QUESTION);
             });
 
             this.socket.on(answersClose, question => {
                 this.setState({ question: question, correctAnswer: question.correct });
-                this.props.switchState(v_waiting);
+                this.props.switchState(V_WAITING);
             });
 
-            this.socket.on(timerSync, value => {
-                this.setState({ timerValue: value });
-            });
+            this.socket.on(timerSync, value => this.setState({ timerValue: value }));
 
             this.socket.on(gameCompleted, stats => {
                 this.setState({ stats: stats });
-                this.props.switchState(v_final);
+                this.props.switchState(V_FINAL);
                 disableReconnectMode();
             });
 
@@ -100,32 +99,37 @@ class Player extends Component {
         }
     }
 
-    selected = number => {
-        this.setState({ selectedAnswer: number });
+    selected(selectedAnswer) {
+        this.setState({ selectedAnswer });
     };
 
     render() {
         switch (this.props.game.state) {
-            case v_loadingRoom:
+            case V_LOADING_ROOM:
                 return (<LoadingRoom {...this.props} />);
-            case v_nicknameIsTaken:
+            case V_NICKNAME_IS_TAKEN:
                 return (<NicknameIsTaken {...this.props} />);
-            case v_roomNotFound:
+            case V_ROOM_NOT_FOUND:
                 return (<RoomNotFound {...this.props} />);
-            case v_waiting:
-                return (<Waiting {...this.props}
-                    question={this.state.question}
-                    selectedAnswer={this.state.selectedAnswer}
-                    correctAnswer={this.state.correctAnswer} />);
-            case v_question:
-                return (<Question {...this.props}
-                    socket={this.socket}
-                    question={this.state.question}
-                    selected={this.selected}
-                    timer={this.state.timerValue} />);
-            case v_final:
-                return (<Final {...this.props}
-                    stats={this.state.stats} />);
+            case V_WAITING:
+                return (
+                    <Waiting {...this.props}
+                        question={this.state.question}
+                        selectedAnswer={this.state.selectedAnswer}
+                        correctAnswer={this.state.correctAnswer}
+                    />
+                );
+            case V_QUESTION:
+                return (
+                    <Question {...this.props}
+                        socket={this.socket}
+                        question={this.state.question}
+                        selected={this.selected}
+                        timer={this.state.timerValue}
+                    />
+                );
+            case V_FINAL:
+                return (<Final {...this.props} stats={this.state.stats} />);
             default:
                 return (<span>NOT FOUND</span>);
         }

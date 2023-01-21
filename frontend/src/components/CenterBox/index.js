@@ -12,6 +12,19 @@ import "./CenterBox.css";
 
 class CenterBox extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onCancel = this.onCancel.bind(this);
+    }
+
+    onCancel(navigate) {
+        if (this.props.closeRoomSignal) {
+            this.props.socket.emit(closeRoom, this.props.game.hostingRoom.roomCode);
+        } else {
+            navigate("/");
+        }
+    }
+
     renderGitHubCorner() {
         if (true === this.props.showGitHubLink) {
             return <GithubCorner href="https://github.com/david-04/quiz-mate" />;
@@ -54,13 +67,7 @@ class CenterBox extends Component {
                         label={this.props.cancel}
                         containerClassName="cancel-btn"
                         buttonClassName="qm-fixed-top qm-fixed-left"
-                        onClick={navigate => {
-                            if (this.props.closeRoomSignal) {
-                                this.props.socket.emit(closeRoom, this.props.game.hostingRoom.roomCode);
-                            } else {
-                                navigate("/");
-                            }
-                        }}
+                        onClick={this.onCancel}
                     />
                 )}
             </div>

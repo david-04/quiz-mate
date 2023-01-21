@@ -4,7 +4,6 @@ export const TEN = 10;
 
 export const TIMER_ANIMATE_INTERVAL_SECONDS = 10;
 
-
 export const MS_PER_SEC = 1000;
 export const SEC_PER_MIN = 60;
 

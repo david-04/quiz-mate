@@ -6,12 +6,23 @@ class LogicSwitch extends Component {
     constructor(props) {
         super(props);
         this.state = { value: props.value };
+        this.changeValueToTrue = this.changeValueToTrue.bind(this);
+        this.changeValueToFalse = this.changeValueToFalse.bind(this);
     }
 
-    changeValue = newValue => {
+    changeValueToTrue() {
+        this.changeValue(true);
+    }
+
+    changeValueToFalse() {
+        this.changeValue(false);
+    }
+
+    changeValue(newValue) {
         this.setState({ value: newValue });
         this.props.onChange(newValue);
-    };
+    }
+
 
     switchButtonStyle = {
         paddingLeft: "20px",
@@ -25,14 +36,14 @@ class LogicSwitch extends Component {
                 <ButtonGroup>
                     <Button
                         variant={!this.state.value ? "secondary" : "light"}
-                        onClick={() => this.changeValue(false)}
+                        onClick={this.changeValueToFalse}
                         style={this.switchButtonStyle}
                     >
                         {this.props.offText ? this.props.offText : "OFF"}
                     </Button>
                     <Button
                         variant={this.state.value ? "secondary" : "light"}
-                        onClick={() => this.changeValue(true)}
+                        onClick={this.changeValueToTrue}
                         style={this.switchButtonStyle}
                     >
                         {this.props.onText ? this.props.onText : "ON"}

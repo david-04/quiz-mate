@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Col, Container, ProgressBar, Row } from "react-boo
 import CenterBox from "../../components/CenterBox";
 import RankTable from "../../components/RankTable";
 import Timer from "../../components/Timer";
-import { answerStatsRequest, generalRankingRequest, timerSync, closeRoom } from "../../connection/config";
+import { answerStatsRequest, closeRoom, generalRankingRequest, timerSync } from "../../connection/config";
 import { toLetter } from "../../utilities";
 import { ONE_HUNDRED } from "../../utilities/constants";
 
@@ -12,8 +12,8 @@ import ArrowForward from "../../assets/icons/arrow_forward.svg";
 import Assessment from "../../assets/icons/assessment.svg";
 import CheckBox from "../../assets/icons/check_box.svg";
 import EmojiEvents from "../../assets/icons/emoji_events.svg";
-import PausePresentation from "../../assets/icons/pause_presentation.svg";
 import LookAtBrowser from "../../assets/icons/look_at_browser.svg";
+import PausePresentation from "../../assets/icons/pause_presentation.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./Question.css";
@@ -29,7 +29,7 @@ const Phase = {
     REVEALING: 3,
 };
 
-const BUTTON_STYLE = {
+const ButtonStyle = {
     ACTIVE: {
         variant: "secondary",
         disabled: false,
@@ -46,6 +46,9 @@ class Question extends Component {
         super(props);
         this.state = { tab: 0 };
         this.timer = React.createRef();
+        this.onNextButton = this.onNextButton.bind(this);
+        this.endQuiz = this.endQuiz.bind(this);
+        this.timerTrigger = this.timerTrigger.bind(this);
     }
 
     getPhase() {
@@ -146,23 +149,22 @@ class Question extends Component {
     }
 
     renderStopRoundButton(phase) {
-        const style = Phase.GUESSING === phase ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
-        const onClick = () => this.onNextButton();
-        return this.renderControlButton(PausePresentation, "Stop", "round", style, onClick);
+        const style = Phase.GUESSING === phase ? ButtonStyle.ACTIVE : ButtonStyle.DISABLED;
+        return this.renderControlButton(PausePresentation, "Stop", "round", style, this.onNextButton);
     }
 
     renderRevealAnswerButton(phase) {
         const style = Phase.REVEALING !== phase || TAB_REVEAL_ANSWER === this.props.questionTab
-            ? BUTTON_STYLE.DISABLED
-            : BUTTON_STYLE.ACTIVE;
+            ? ButtonStyle.DISABLED
+            : ButtonStyle.ACTIVE;
         const onClick = () => this.props.changeTab(TAB_REVEAL_ANSWER);
         return this.renderControlButton(CheckBox, "Reveal", "answer", style, onClick);
     }
 
     renderAnswerStatsButton(phase) {
         const style = Phase.REVEALING !== phase || TAB_ANSWER_STATS === this.props.questionTab
-            ? BUTTON_STYLE.DISABLED
-            : BUTTON_STYLE.ACTIVE;
+            ? ButtonStyle.DISABLED
+            : ButtonStyle.ACTIVE;
         const onClick = () => {
             this.props.changeTab(TAB_ANSWER_STATS);
             this.props.socket.emit(answerStatsRequest, this.props.game.hostingRoom.roomCode);
@@ -172,8 +174,8 @@ class Question extends Component {
 
     renderLeaderboardButton(phase) {
         const style = Phase.REVEALING !== phase || TAB_LEADERBOARD === this.props.questionTab
-            ? BUTTON_STYLE.DISABLED
-            : BUTTON_STYLE.ACTIVE;
+            ? ButtonStyle.DISABLED
+            : ButtonStyle.ACTIVE;
         const onClick = () => {
             if (this.props.isLastQuestion) {
                 this.endQuiz();
@@ -186,22 +188,21 @@ class Question extends Component {
     }
 
     renderLookAtBrowserButton(phase) {
-        const style = Phase.REVEALING === phase && !this.props.isLastQuestion && TAB_LOOK_DOWN !== this.props.questionTab
-            ? BUTTON_STYLE.ACTIVE
-            : BUTTON_STYLE.DISABLED;
+        const style = Phase.REVEALING === phase
+            && !this.props.isLastQuestion
+            && TAB_LOOK_DOWN !== this.props.questionTab
+            ? ButtonStyle.ACTIVE
+            : ButtonStyle.DISABLED;
         const onClick = () => this.props.changeTab(TAB_LOOK_DOWN);
         return this.renderControlButton(LookAtBrowser, "Look at", "browser", style, onClick);
     }
 
     renderNextButton(phase) {
-        const style = Phase.GUESSING === phase ? BUTTON_STYLE.DISABLED : BUTTON_STYLE.ACTIVE;
+        const style = Phase.GUESSING === phase ? ButtonStyle.DISABLED : ButtonStyle.ACTIVE;
         if (!this.props.isLastQuestion) {
-            const onClick = () => this.onNextButton();
-            return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
+            return this.renderControlButton(ArrowForward, "Next", "question", style, this.onNextButton);
         } else {
-            const onClick = () => this.endQuiz();
-            return this.renderControlButton(ArrowForward, "Leader-", "board", style, onClick);
-
+            return this.renderControlButton(ArrowForward, "Leader-", "board", style, this.endQuiz);
         }
     }
 
@@ -228,7 +229,7 @@ class Question extends Component {
         );
     }
 
-    onNextButton = () => {
+    onNextButton() {
         if (this.props.game.hostingRoom.timeLimit > 0) {
             if (this.props.questionIsOpen) {
                 this.timer.current.stopTimer();
@@ -237,7 +238,7 @@ class Question extends Component {
             }
         }
         this.props.nextButton();
-    };
+    }
 
     renderQuestion(phase) {
         if (Phase.NOT_STARTED !== phase

@@ -8,14 +8,23 @@ const MAX_TIME = 100;
 const STEP_SIZE = 5;
 
 class TimePicker extends Component {
+
     constructor(props) {
         super(props);
-        this.state = {
-            value: props.value
-        };
+        this.state = { value: props.value };
+        this.onIncrement = this.onIncrement.bind(this);
+        this.onDecrement = this.onDecrement.bind(this);
     }
 
-    changeValue = diff => {
+    onIncrement() {
+        this.changeValue(STEP_SIZE);
+    }
+
+    onDecrement() {
+        this.changeValue(-STEP_SIZE);
+    }
+
+    changeValue(diff) {
         const min = this.props.min ? this.props.min : 0;
         const max = this.props.max ? this.props.max : MAX_TIME;
         let newValue = this.state.value + diff;
@@ -27,25 +36,25 @@ class TimePicker extends Component {
         }
         this.setState({ value: newValue });
         this.props.onChange(newValue);
-    };
+    }
 
     render() {
+        const currentValue = this.state.value === 0 && this.props.zeroText
+            ? this.props.zeroText
+            : calculateTime(this.state.value, false);
+
         return (
             <div className="time-picker-container">
                 <ButtonGroup>
-                    <Button variant="light" onClick={() => this.changeValue(-STEP_SIZE)}>
+                    <Button variant="light" onClick={this.onDecrement}>
                         -{STEP_SIZE}
                     </Button>
                     <div className='time-display'>
                         <span className="time-display-value">
-                            {
-                                this.state.value === 0 && this.props.zeroText
-                                    ? this.props.zeroText
-                                    : calculateTime(this.state.value, false)
-                            }
+                            {currentValue}
                         </span>
                     </div>
-                    <Button variant="light" onClick={() => this.changeValue(STEP_SIZE)}>
+                    <Button variant="light" onClick={this.onIncrement}>
                         +{STEP_SIZE}
                     </Button>
                 </ButtonGroup>

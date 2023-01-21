@@ -7,25 +7,38 @@ import CheckBox from "../../assets/icons/check_box.svg";
 import CheckBoxOutlineBlank from "../../assets/icons/check_box_outline_blank.svg";
 import "../../assets/icons/material-ui-icon.css";
 
+const MAX_ANSWERS = 4;
+
 class QuestionEditor extends Component {
 
-    updateQuestion = value => {
+    constructor(props) {
+        super(props);
+        this.onQuestionTextChange = this.onQuestionTextChange.bind(this);
+        this.markCorrectAnswerCallbacks = [];
+        this.updateAnswerCallbacks = [];
+    }
+
+    onQuestionTextChange(event) {
+        this.updateQuestion(event.target.value);
+    }
+
+    updateQuestion(value) {
         this.props.update({
             question: value,
             correct: this.props.question.correct,
             answers: this.props.question.answers
         });
-    };
+    }
 
-    updateCorrect = value => {
+    setCorrectAnswerIndex(value) {
         this.props.update({
             question: this.props.question.question,
             correct: value,
             answers: this.props.question.answers
         });
-    };
+    }
 
-    updateAnswer = (index, value) => {
+    updateAnswer(index, value) {
         const newData = this.props.question.answers.slice();
         newData[index] = value;
         this.props.update({
@@ -33,14 +46,26 @@ class QuestionEditor extends Component {
             correct: this.props.question.correct,
             answers: newData
         });
-    };
+    }
 
-    answerBox = answer => {
+    getMarkCorrectAnswerCallback(index) {
+        const callback = this.markCorrectAnswerCallbacks[index] || (() => this.setCorrectAnswerIndex(index));
+        this.markCorrectAnswerCallbacks[index] = callback;
+        return callback;
+    }
+
+    getUpdateAnswerCallback(index) {
+        const callback = this.updateAnswerCallbacks[index] || (event => this.updateAnswer(index, event.target.value));
+        this.updateAnswerCallbacks[index] = callback;
+        return callback;
+    }
+
+    answerBox(answer) {
         return (
-            <Row>
+            <Row key={answer}>
                 <div className="answer-row">
                     <InputGroup>
-                        <Button variant="secondary" onClick={() => this.updateCorrect(answer)}>
+                        <Button variant="secondary" onClick={this.getMarkCorrectAnswerCallback(answer)}>
                             <img src={answer === this.props.question.correct ? CheckBox : CheckBoxOutlineBlank}
                                 className="material-ui-icon answer-checkbox"
                                 alt="Mark as correct answer" />
@@ -52,13 +77,21 @@ class QuestionEditor extends Component {
                                 "editor-text-box"
                                 + (answer === this.props.question.correct ? ' editor-text-box-correct' : '')
                             }
-                            onChange={event => this.updateAnswer(answer, event.target.value)}
+                            onChange={this.getUpdateAnswerCallback(answer)}
                             maxLength="120" />
                     </InputGroup>
                 </div>
             </Row>
         );
     };
+
+    renderAnswerBoxes() {
+        const answerBoxes = [];
+        for (let index = 0; index < MAX_ANSWERS; index++) {
+            answerBoxes.push(this.answerBox(index));
+        }
+        return answerBoxes;
+    }
 
     render() {
         if (this.props.question) {
@@ -69,15 +102,12 @@ class QuestionEditor extends Component {
                             as="textarea"
                             value={this.props.question.question}
                             className="editor-textarea"
-                            onChange={event => this.updateQuestion(event.target.value)}
+                            onChange={this.onQuestionTextChange}
                             placeholder="Question"
                             maxLength="200"
                         />
                     </Row>
-                    {this.answerBox(0)}
-                    {this.answerBox(1)}
-                    {this.answerBox(2)}
-                    {this.answerBox(3)}
+                    {this.renderAnswerBoxes()}
                 </Container>
             );
         } else {

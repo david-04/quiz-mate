@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenterBox from "../../components/CenterBox";
 import RemoteTimer from "../../components/Timer/RemoteTimer";
 import { answerSelected } from "../../connection/config";
-import { v_waiting } from "./views";
+import { V_WAITING } from "./views";
 import { toLetter } from "../../utilities";
 
 import "./Question.css";
@@ -46,7 +46,7 @@ class Question extends Component {
                 this.props.question.index,
                 number
             );
-            this.props.switchState(v_waiting);
+            this.props.switchState(V_WAITING);
         }
     };
 

@@ -4,29 +4,42 @@ import { Button } from "react-bootstrap";
 import Check from "../../assets/icons/check.svg";
 import ContentCopy from "../../assets/icons/content_copy.svg";
 
-import "./CopyButton.css";
+const FLICKER_TIMEOUT = 700;
 
 class CopyButton extends Component {
+
     constructor(props) {
         super(props);
         this.state = { variant: undefined, image: undefined };
         this.copyToClipboard = this.copyToClipboard.bind(this);
+        this.resetButton = this.resetButton.bind(this);
+        this.onSuccess = this.onSuccess.bind(this);
+        this.onError = this.onError.bind(this);
+        this.scheduleResetButton = this.scheduleResetButton.bind(this);
     }
 
     copyToClipboard() {
-        const success = "default" === this.props.variant ? "default" : "success";
-        const danger = "default" === this.props.variant ? "default" : "danger";
-        navigator.clipboard
-            .writeText(this.props.text)
-            .then(() => this.flickerCopyButton(success, Check))
-            .catch(() => this.flickerCopyButton(danger, ContentCopy));
+        navigator.clipboard.writeText(this.props.text).then(this.onSuccess).catch(this.onError);
     }
 
-    flickerCopyButton(variant, image) {
-        this.setState(
-            { variant, image },
-            () => setTimeout(() => this.setState({ variant: undefined, image: undefined }), 700)
-        );
+    onSuccess() {
+        this.onSuccessOrError("default" === this.props.variant ? "default" : "success", Check);
+    }
+
+    onError() {
+        this.onSuccessOrError("default" === this.props.variant ? "default" : "danger", ContentCopy);
+    }
+
+    onSuccessOrError(variant, image) {
+        this.setState({ variant, image }, this.scheduleResetButton);
+    }
+
+    scheduleResetButton() {
+        setTimeout(this.resetButton, FLICKER_TIMEOUT);
+    }
+
+    resetButton() {
+        this.setState({ variant: undefined, image: undefined });
     }
 
     render() {

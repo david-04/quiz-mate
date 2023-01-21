@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+
 import App from "./App";
 import { unregister } from "./serviceWorker";
-
-import { Provider } from "react-redux";
 import Store from "./store";
 
 import "./index.css";

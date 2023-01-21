@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 import { HashRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
+
+import { onExitGame } from "./utilities";
 import Editor from "./views/editor";
 import Host from "./views/host";
 import Main from "./views/main";
 import Page404 from "./views/page404";
 import Player from "./views/player";
-import { onExitGame } from "./utilities";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,7 +14,7 @@ onExitGame();
 
 const loading = () => (<div>Loading...</div>);
 
-const MainOrNotFound = () => {
+const MainOrNotFound = () => { // NOSONAR
     const params = useParams();
     console.log(params);
     return /^\d+$/.test(params.roomCode) && "404" !== params.roomCode

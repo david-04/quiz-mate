@@ -83,7 +83,7 @@ class Waiting extends Component {
                     />
                     <div className="message-box">
                         {joinMessage}
-                        <p>Waiting for the first question...</p>
+                        <p>Waiting for the next question...</p>
                     </div>
                 </CenterBox>
             );

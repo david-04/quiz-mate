@@ -8,7 +8,7 @@ const defaultStore = {
     hostingRoom: null
 };
 
-const reduce = (state = defaultStore, action) => {
+function reduce(state = defaultStore, action) {
     switch (action.type) {
         case switchState:
             return {

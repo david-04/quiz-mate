@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
 import CenterBox from "../../components/CenterBox";
-import IconButton from "../../components/IconButton";
 import CopyButton from "../../components/CopyButton";
+import IconButton from "../../components/IconButton";
 import { getServerUrl } from "../../utilities";
 
 import PlayCircleOutline from "../../assets/icons/play_circle_outline.svg";
@@ -62,7 +62,7 @@ class WaitingForStart extends Component {
                                                     variant="warning"
                                                     label="Start the quiz"
                                                     labelStyle={{ fontSize: "1.2em" }}
-                                                    onClick={() => this.props.nextQuestion(-1)}
+                                                    onClick={this.props.onStartQuiz}
                                                 />
                                             </div>
                                         </div>

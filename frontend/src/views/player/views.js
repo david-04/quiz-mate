@@ -1,6 +1,6 @@
-export const v_loadingRoom = "LOADING_ROOM";
-export const v_nicknameIsTaken = "NICKNAME_IS_TAKEN";
-export const v_roomNotFound = "ROOM_NOT_FOUND";
-export const v_waiting = "WAITING";
-export const v_question = "QUESTION";
-export const v_final = "FINAL";
+export const V_LOADING_ROOM = "LOADING_ROOM";
+export const V_NICKNAME_IS_TAKEN = "NICKNAME_IS_TAKEN";
+export const V_ROOM_NOT_FOUND = "ROOM_NOT_FOUND";
+export const V_WAITING = "WAITING";
+export const V_QUESTION = "QUESTION";
+export const V_FINAL = "FINAL";

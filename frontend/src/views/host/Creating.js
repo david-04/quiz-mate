@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ButtonGroup, Col, Container, Row } from "react-bootstrap";
+
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
@@ -7,7 +8,7 @@ import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
 import { onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
 import { upliftAndValidate, SAMPLE_QUIZ } from "../../utilities/quiz-data";
-import { v_waitingForCode } from "./views";
+import { V_WAITING_FOR_ROOM_CODE } from "./views";
 
 import Edit from "../../assets/icons/edit.svg";
 import Publish from "../../assets/icons/publish.svg";
@@ -17,6 +18,7 @@ import "../../assets/icons/material-ui-icon.css";
 import "./Creating.css";
 
 class Creating extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -27,6 +29,16 @@ class Creating extends Component {
             randomOrder: false
         };
         this.inputFile = React.createRef();
+        this.onSetTimeLimit = this.onSetTimeLimit.bind(this);
+        this.onSetOrderedOrShuffled = this.onSetOrderedOrShuffled.bind(this);
+    }
+
+    onSetTimeLimit(timeLimit) {
+        this.setState({ timeLimit });
+    }
+
+    onSetOrderedOrShuffled(randomOrder) {
+        this.setState({ randomOrder });
     }
 
     shuffle = array => {
@@ -54,7 +66,7 @@ class Creating extends Component {
         }
         this.props.questionList(q);
         this.props.setHostingRoom(data);
-        this.props.switchState(v_waitingForCode);
+        this.props.switchState(V_WAITING_FOR_ROOM_CODE);
         this.props.socket.emit(createNewRoom, data);
     };
 
@@ -105,11 +117,11 @@ class Creating extends Component {
                                         <div>
                                             <TimePicker value={this.state.timeLimit}
                                                 min={0} max={300} zeroText="No time limit"
-                                                onChange={e => this.setState({ timeLimit: e })} />
+                                                onChange={this.onSetTimeLimit} />
                                             <div className="sort-order-buttons" style={{ marginTop: "2.5rem" }}>
                                                 <LogicSwitch value={this.state.randomOrder}
                                                     offText="Ordered" onText="Shuffled"
-                                                    onChange={e => this.setState({ randomOrder: e })} />
+                                                    onChange={this.onSetOrderedOrShuffled} />
                                             </div>
                                             <div style={{ marginTop: "2.5rem" }}>
                                                 <span
@@ -140,14 +152,11 @@ class Creating extends Component {
                                                 <button
                                                     onClick={() => this.startSampleQuiz()}
                                                     style={{
-                                                        padding: "0.2em",
+                                                        padding: "0.1em 0.3em 0.1em 0.3em",
                                                         fontSize: "1em",
                                                         borderRadius: "0.3em",
                                                         border: "1px solid #ffffff88",
                                                         marginLeft: "0.4em",
-                                                        paddingLeft: "0.2em",
-                                                        paddingRight: "0.2em",
-                                                        padding: "0",
                                                         backgroundColor: "#ffffff00",
                                                         color: "white"
                                                     }}

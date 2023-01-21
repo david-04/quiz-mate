@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import CenterBox from "../../components/CenterBox";
 
 class WaitingForCode extends Component {

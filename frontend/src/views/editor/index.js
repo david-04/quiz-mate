@@ -21,6 +21,7 @@ import './Editor.css';
 const SPACE_PER_TAB = 4;
 
 class Editor extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -36,9 +37,33 @@ class Editor extends Component {
             downloadModalMessage: undefined
         };
         this.inputFile = createRef();
+        this.onTitleChange = this.onTitleChange.bind(this);
+        this.changeSelection = this.changeSelection.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
+        this.hideExitModal = this.hideExitModal.bind(this);
+        this.navigateToStartPage = this.navigateToStartPage.bind(this);
+        this.hideDeleteModal = this.hideDeleteModal.bind(this);
+        this.deleteQuestionWithoutConfirmation = this.deleteQuestionWithoutConfirmation.bind(this);
+        this.deleteQuestion = this.deleteQuestion.bind(this);
     }
 
-    changeSelection = index => {
+    onTitleChange(event) {
+        this.setState({ title: event.target.value, changed: true });
+    }
+
+    hideExitModal() {
+        this.setState({ exitModal: false });
+    }
+
+    navigateToStartPage() {
+        this.props.navigate('/');
+    }
+
+    hideDeleteModal() {
+        this.setState({ deleteModal: false });
+    }
+
+    changeSelection(index) {
         this.setState({
             selectedIndex: index
         });
@@ -52,13 +77,13 @@ class Editor extends Component {
         }
     };
 
-    uploadFile = () => {
+    uploadFile() {
         if (this.state.changed) {
             this.setState({ uploadModal: true });
         } else {
             this.loadProject();
         }
-    };
+    }
 
     cancelUpload = () => {
         this.setState({ uploadModal: false });
@@ -92,18 +117,15 @@ class Editor extends Component {
             validateQuiz(this.assembleDownloadableQuiz());
             this.downloadFile();
         } catch (error) {
-            console.log(error);
-            this.setState({
-                downloadModal: true,
-                downloadModalMessage: error instanceof Error ? error.message : `${error}`
-            });
+            const downloadModalMessage = error instanceof Error ? error.message : `${error}`;
+            this.setState({ downloadModal: true, downloadModalMessage });
         }
     };
 
     downloadFile = () => {
         this.setState({ downloadModal: false, downloadModalMessage: undefined });
         let name = this.state.originalName;
-        if (name === '') {
+        if (name === "") {
             name = prompt("Enter the project name or leave the field empty:");
             if (name === '') {
                 name = 'questions.json';
@@ -131,26 +153,26 @@ class Editor extends Component {
         });
     };
 
-    deleteQuestion = confirmed => {
+    deleteQuestion() {
         if (this.state.selectedIndex >= 0) {
-            if (confirmed) {
-                const newData = this.state.workspace.slice();
-                newData.splice(this.state.selectedIndex, 1);
-                let newIndex = this.state.selectedIndex;
-                if (newIndex >= newData.length) {
-                    newIndex = newData.length - 1;
-                }
-                this.setState({
-                    deleteModal: false,
-                    workspace: newData,
-                    selectedIndex: newIndex,
-                    changed: true
-                });
-            } else {
-                this.setState({ deleteModal: true });
-            }
+            this.setState({ deleteModal: true });
         }
     };
+
+    deleteQuestionWithoutConfirmation() {
+        const newData = this.state.workspace.slice();
+        newData.splice(this.state.selectedIndex, 1);
+        let newIndex = this.state.selectedIndex;
+        if (newIndex >= newData.length) {
+            newIndex = newData.length - 1;
+        }
+        this.setState({
+            deleteModal: false,
+            workspace: newData,
+            selectedIndex: newIndex,
+            changed: true
+        });
+    }
 
     addQuestion = onCurrentIndex => {
         if (onCurrentIndex) {
@@ -212,7 +234,7 @@ class Editor extends Component {
         {
             text: 'Delete',
             icon: <img src={DeleteForever} className="material-ui-icon" alt="Delete" />,
-            click: () => this.deleteQuestion(false),
+            click: this.deleteQuestion,
             disabled: this.state.selectedIndex < 0
         },
         {
@@ -236,13 +258,6 @@ class Editor extends Component {
                 changed: true
             });
         }
-    };
-
-    updateTitle = title => {
-        this.setState({
-            title: title,
-            changed: true
-        });
     };
 
     render() {
@@ -269,7 +284,7 @@ class Editor extends Component {
                                             <Form.Control
                                                 as="input"
                                                 value={this.state.title}
-                                                onChange={event => this.updateTitle(event.target.value)}
+                                                onChange={this.onTitleChange}
                                                 className={this.state.title ? '' : 'missing-title'}
                                                 placeholder="Quiz Title"
                                                 maxLength="200"
@@ -327,7 +342,7 @@ class Editor extends Component {
                     </Row>
                 </Container>
 
-                <Modal show={this.state.exitModal} onHide={() => this.setState({ exitModal: false })}>
+                <Modal show={this.state.exitModal} onHide={this.hideExitModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Warning</Modal.Title>
                     </Modal.Header>
@@ -335,14 +350,14 @@ class Editor extends Component {
                         <p>Unsaved changes detected in the project!<br />Are you sure you want to exit the editor?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={() => this.props.navigate('/')}>Yes, leave</Button>
-                        <Button variant="secondary" onClick={() => this.setState({ exitModal: false })}>
+                        <Button variant="danger" onClick={this.navigateToStartPage}>Yes, leave</Button>
+                        <Button variant="secondary" onClick={this.hideExitModal}>
                             No, cancel
                         </Button>
                     </Modal.Footer>
                 </Modal>
 
-                <Modal show={this.state.deleteModal} onHide={() => this.setState({ deleteModal: false })}>
+                <Modal show={this.state.deleteModal} onHide={this.hideDeleteModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Warning</Modal.Title>
                     </Modal.Header>
@@ -350,8 +365,8 @@ class Editor extends Component {
                         <p>Are you sure you want to delete this question?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={() => this.deleteQuestion(true)}>Yes, delete</Button>
-                        <Button variant="secondary" onClick={() => this.setState({ deleteModal: false })}>
+                        <Button variant="danger" onClick={this.deleteQuestionWithoutConfirmation}>Yes, delete</Button>
+                        <Button variant="secondary" onClick={this.hideDeleteModal}>
                             No, cancel
                         </Button>
                     </Modal.Footer>

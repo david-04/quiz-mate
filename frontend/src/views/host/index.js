@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import socketIOClient from "socket.io-client";
+
 import { setHostingRoomAC, switchStateAC } from "../../actions/game";
 import {
     answerCountUpdate,
@@ -15,12 +16,13 @@ import {
 } from "../../connection/config";
 import Creating from "./Creating";
 import Final from "./Final";
-import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_REVEAL_ANSWER, TAB_LOOK_DOWN } from "./Question";
-import { v_creating, v_final, v_question, v_waitingForCode, v_waitingForStart } from "./views";
+import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_LOOK_DOWN, TAB_REVEAL_ANSWER } from "./Question";
+import { V_CREATING, V_FINAL, V_QUESTION, V_WAITING_FOR_ROOM_CODE, V_WAITING_FOR_START } from "./views";
 import WaitingForCode from "./WaitingForCode";
 import WaitingForStart from "./WaitingForStart";
 
 class Host extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -35,16 +37,19 @@ class Host extends Component {
             revealAnswer: false,
             revealStats: false
         };
+        this.onReceiveQuestions = this.onReceiveQuestions.bind(this);
+        this.onStartQuiz = this.onStartQuiz.bind(this);
+        this.nextButton = this.nextButton.bind(this);
     }
 
     componentDidMount() {
-        this.props.switchState(v_creating);
+        this.props.switchState(V_CREATING);
 
         this.socket = socketIOClient(server, { closeOnBeforeunload: false });
 
         this.socket.on(roomCreated, code => {
             this.props.setHostingRoom({ ...this.props.game.hostingRoom, roomCode: code });
-            this.props.switchState(v_waitingForStart);
+            this.props.switchState(V_WAITING_FOR_START);
         });
 
         this.socket.on(userCountUpdate, count => this.setState({ connectedUsers: count }));
@@ -54,7 +59,7 @@ class Host extends Component {
 
         this.socket.on(gameCompleted, stats => {
             this.setState({ generalRanking: stats });
-            this.props.switchState(v_final);
+            this.props.switchState(V_FINAL);
         });
     }
 
@@ -62,7 +67,15 @@ class Host extends Component {
         this.socket.disconnect();
     }
 
-    nextButton = () => {
+    onReceiveQuestions(questions) {
+        this.setState({ questions });
+    }
+
+    onStartQuiz() {
+        this.nextQuestion(-1);
+    }
+
+    nextButton() {
         if (this.state.questionIsOpen && 0 <= this.state.questionIndex) {
             this.setState({ questionIsOpen: false });
             this.socket.emit(
@@ -71,9 +84,9 @@ class Host extends Component {
         } else {
             this.nextQuestion(this.state.questionIndex + 1);
         }
-    };
+    }
 
-    nextQuestion = index => {
+    nextQuestion(index) {
         this.setState({
             questionIndex: index,
             questionIsOpen: true,
@@ -82,13 +95,13 @@ class Host extends Component {
             revealAnswer: false,
             revealStats: false
         });
-        this.props.switchState(v_question);
+        this.props.switchState(V_QUESTION);
         if (0 <= index) {
             this.socket.emit(
                 newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] }
             );
         }
-    };
+    }
 
     isLastQuestion = () => this.state.questionIndex + 1 === this.lastIndexNumber();
 
@@ -121,18 +134,18 @@ class Host extends Component {
 
     render() {
         switch (this.props.game.state) {
-            case v_creating:
+            case V_CREATING:
                 return (<Creating {...this.props}
                     socket={this.socket}
-                    questionList={q => this.setState({ questions: q })} />);
-            case v_waitingForCode:
+                    questionList={this.onReceiveQuestions} />);
+            case V_WAITING_FOR_ROOM_CODE:
                 return (<WaitingForCode {...this.props} />);
-            case v_waitingForStart:
+            case V_WAITING_FOR_START:
                 return (<WaitingForStart {...this.props}
                     socket={this.socket}
-                    nextQuestion={i => this.nextQuestion(i)}
+                    onStartQuiz={this.onStartQuiz}
                     connectedUsers={this.state.connectedUsers} />);
-            case v_question:
+            case V_QUESTION:
                 return (<Question {...this.props}
                     socket={this.socket}
                     answerCount={this.state.answerCount}
@@ -149,7 +162,7 @@ class Host extends Component {
                     revealAnswer={this.state.revealAnswer}
                     revealStats={this.state.revealStats}
                     generalRanking={this.state.generalRanking} />);
-            case v_final:
+            case V_FINAL:
                 return (<Final {...this.props}
                     generalRanking={this.state.generalRanking} />);
             default:

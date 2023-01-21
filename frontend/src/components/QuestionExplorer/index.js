@@ -5,7 +5,7 @@ import "./QuestionExplorer.css";
 
 class QuestionExplorer extends Component {
 
-    ListItems = () => {
+    renderListItems() {
         if (this.props.questions.length === 0) {
             return (
                 <div className="question-explorer-list" style={{ fontSize: '1rem', marginTop: '30px' }}>
@@ -36,14 +36,14 @@ class QuestionExplorer extends Component {
                 </div>
             );
         }
-    };
+    }
 
     render() {
         return (
             <div className="question-explorer">
                 <Container fluid>
                     <Row>
-                        {this.ListItems()}
+                        {this.renderListItems()}
                     </Row>
                 </Container>
             </div>
