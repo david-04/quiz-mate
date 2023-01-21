@@ -4,7 +4,7 @@ import { Button, ButtonGroup, Col, Container, ProgressBar, Row } from "react-boo
 import CenterBox from "../../components/CenterBox";
 import RankTable from "../../components/RankTable";
 import Timer from "../../components/Timer";
-import { answerStatsRequest, generalRankingRequest, timerSync } from "../../connection/config";
+import { answerStatsRequest, generalRankingRequest, timerSync, closeRoom } from "../../connection/config";
 import { toLetter } from "../../utilities";
 import { ONE_HUNDRED } from "../../utilities/constants";
 
@@ -175,8 +175,12 @@ class Question extends Component {
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => {
-            this.props.changeTab(TAB_LEADERBOARD);
-            this.props.socket.emit(generalRankingRequest, this.props.game.hostingRoom.roomCode);
+            if (this.props.isLastQuestion) {
+                this.endQuiz();
+            } else {
+                this.props.changeTab(TAB_LEADERBOARD);
+                this.props.socket.emit(generalRankingRequest, this.props.game.hostingRoom.roomCode);
+            }
         };
         return this.renderControlButton(EmojiEvents, "Leader-", "board", style, onClick);
     }
@@ -190,11 +194,19 @@ class Question extends Component {
     }
 
     renderNextButton(phase) {
-        const style = Phase.GUESSING === phase || this.props.isLastQuestion
-            ? BUTTON_STYLE.DISABLED
-            : BUTTON_STYLE.ACTIVE;
-        const onClick = () => this.onNextButton();
-        return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
+        const style = Phase.GUESSING === phase ? BUTTON_STYLE.DISABLED : BUTTON_STYLE.ACTIVE;
+        if (!this.props.isLastQuestion) {
+            const onClick = () => this.onNextButton();
+            return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
+        } else {
+            const onClick = () => this.endQuiz();
+            return this.renderControlButton(ArrowForward, "Leader-", "board", style, onClick);
+
+        }
+    }
+
+    endQuiz() {
+        this.props.socket.emit(closeRoom, this.props.game.hostingRoom.roomCode);
     }
 
     renderControlButtons(phase) {
