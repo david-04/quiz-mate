@@ -12,30 +12,30 @@ class RankTable extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { byPoints: true };
-        this.onSortByPoints = this.onSortByPoints.bind(this);
+        this.state = { orderByName: false };
+        this.onChangeSortOrder = this.onChangeSortOrder.bind(this);
         this.onDownload = this.onDownload.bind(this);
         this.mapRowToCsv = this.mapRowToCsv.bind(this);
         this.renderRow = this.renderRow.bind(this);
     }
 
-    onSortByPoints(value) {
-        this.setState({ byPoints: value });
+    onChangeSortOrder(orderByName) {
+        this.setState({ orderByName });
     }
 
     getSortedRows() {
-        const sortedByPoints = this.props.data.slice(0);
-        sortedByPoints.sort(comparePoints);
-        const withPlace = sortedByPoints.map((item, index) => ({
+        const dataOrderedByPoints = this.props.data.slice(0);
+        dataOrderedByPoints.sort(comparePoints);
+        const rows = dataOrderedByPoints.map((item, index) => ({
             nickname: item.nickname,
             points: item.points,
             duration: item.duration,
             place: index + 1
         }));
-        if (!this.state.byPoints) {
-            withPlace.sort(compareNicknames);
+        if (this.state.orderByName) {
+            rows.sort(compareNicknames);
         }
-        return withPlace;
+        return rows;
     }
 
     mapRowToCsv(item) {
@@ -60,49 +60,60 @@ class RankTable extends Component {
         );
     }
 
+    renderHeader() {
+        if (this.props.showHeader) {
+            return (
+                <Container fluid style={{ marginBottom: '20px' }}>
+                    <Row>
+                        <Col xs={6} style={{ textAlign: "left", paddingLeft: "0" }}>
+                            <LogicSwitch
+                                value={this.state.orderByName}
+                                offText="Order by points"
+                                onText="Order by name"
+                                onChange={this.onChangeSortOrder}
+                            />
+                        </Col>
+                        <Col xs={6} style={{ textAlign: "right", paddingRight: "0" }}>
+                            <Button variant="secondary" onClick={this.onDownload}>
+                                Export to CSV file
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            );
+        } else {
+            return false;
+        }
+    }
+
+    renderTable() {
+        return (
+            <Table striped bordered>
+                <thead>
+                    <tr>
+                        <th>Place</th>
+                        <th>Player</th>
+                        <th>Points</th>
+                        <th>Answer speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.getSortedRows().map(this.renderRow)}
+                </tbody>
+            </Table>
+        );
+    }
+
     render() {
         if (this.props.data) {
             return (
                 <div className="rank-table">
-                    {
-                        this.props.showHeader &&
-                        <Container fluid style={{ marginBottom: '20px' }}>
-                            <Row>
-                                <Col xs={6}>
-                                    <LogicSwitch
-                                        value={this.state.byPoints}
-                                        offText="Sort by name"
-                                        onText="Sort by points"
-                                        onChange={this.onSortByPoints}
-                                    />
-                                </Col>
-                                <Col xs={6}>
-                                    <Button variant="secondary" onClick={this.onDownload}>
-                                        Export to CSV file
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    }
-                    <Table striped bordered>
-                        <thead>
-                            <tr>
-                                <th>Place</th>
-                                <th>Player</th>
-                                <th>Points</th>
-                                <th>Answer speed</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.getSortedRows().map(this.renderRow)}
-                        </tbody>
-                    </Table>
+                    {this.renderHeader()}
+                    {this.renderTable()}
                 </div >
             );
         } else {
-            return (
-                <span />
-            );
+            return false;
         }
     }
 }
