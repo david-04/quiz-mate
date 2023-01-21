@@ -23,6 +23,12 @@ export const TAB_ANSWER_STATS = 2;
 export const TAB_LEADERBOARD = 3;
 export const TAB_LOOK_DOWN = 4;
 
+const Phase = {
+    NOT_STARTED: 1,
+    GUESSING: 2,
+    REVEALING: 3,
+};
+
 const BUTTON_STYLE = {
     ACTIVE: {
         variant: "secondary",
@@ -42,14 +48,14 @@ class Question extends Component {
         this.timer = React.createRef();
     }
 
-    getContext() {
-        const currentTab = this.props.questionTab;
-        const isGuessing = this.props.questionIsOpen;
-
-        return {
-            currentTab,
-            isGuessing
-        };
+    getPhase() {
+        if (this.props.questionIndex < 0) {
+            return Phase.NOT_STARTED;
+        } else if (this.props.questionIsOpen) {
+            return Phase.GUESSING;
+        } else {
+            return Phase.REVEALING;
+        }
     }
 
     componentDidMount() {
@@ -139,22 +145,22 @@ class Question extends Component {
         );
     }
 
-    renderStopRoundButton(context) {
-        const style = context.isGuessing ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
+    renderStopRoundButton(phase) {
+        const style = Phase.GUESSING === phase ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
         const onClick = () => this.onNextButton();
         return this.renderControlButton(PausePresentation, "Stop", "round", style, onClick);
     }
 
-    renderRevealAnswerButton(context) {
-        const style = context.isGuessing || TAB_REVEAL_ANSWER === context.currentTab
+    renderRevealAnswerButton(phase) {
+        const style = Phase.REVEALING !== phase || TAB_REVEAL_ANSWER === this.props.questionTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => this.props.changeTab(TAB_REVEAL_ANSWER);
         return this.renderControlButton(CheckBox, "Reveal", "answer", style, onClick);
     }
 
-    renderAnswerStatsButton(context) {
-        const style = context.isGuessing || TAB_ANSWER_STATS === context.currentTab
+    renderAnswerStatsButton(phase) {
+        const style = Phase.REVEALING !== phase || TAB_ANSWER_STATS === this.props.questionTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => {
@@ -164,8 +170,8 @@ class Question extends Component {
         return this.renderControlButton(Assessment, "Answer", "stats", style, onClick);
     }
 
-    renderLeaderboardButton(context) {
-        const style = context.isGuessing || TAB_LEADERBOARD === context.currentTab
+    renderLeaderboardButton(phase) {
+        const style = Phase.REVEALING !== phase || TAB_LEADERBOARD === this.props.questionTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => {
@@ -175,36 +181,36 @@ class Question extends Component {
         return this.renderControlButton(EmojiEvents, "Leader-", "board", style, onClick);
     }
 
-    renderLookAtBrowserButton(context) {
-        const style = !context.isGuessing && !this.props.isLastQuestion && TAB_LOOK_DOWN !== context.currentTab
+    renderLookAtBrowserButton(phase) {
+        const style = Phase.REVEALING === phase && !this.props.isLastQuestion && TAB_LOOK_DOWN !== this.props.questionTab
             ? BUTTON_STYLE.ACTIVE
             : BUTTON_STYLE.DISABLED;
         const onClick = () => this.props.changeTab(TAB_LOOK_DOWN);
         return this.renderControlButton(LookAtBrowser, "Look at", "browser", style, onClick);
     }
 
-    renderNextButton(context) {
-        const style = context.isGuessing || this.props.isLastQuestion
+    renderNextButton(phase) {
+        const style = Phase.GUESSING === phase || this.props.isLastQuestion
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => this.onNextButton();
         return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
     }
 
-    renderControlButtons(context) {
+    renderControlButtons(phase) {
         return (
             <div className="question-control-buttons">
                 <ButtonGroup>
-                    {this.renderStopRoundButton(context)}
+                    {this.renderStopRoundButton(phase)}
                 </ButtonGroup>
                 <ButtonGroup>
-                    {this.renderAnswerStatsButton(context)}
-                    {this.renderRevealAnswerButton(context)}
-                    {this.renderLeaderboardButton(context)}
+                    {this.renderAnswerStatsButton(phase)}
+                    {this.renderRevealAnswerButton(phase)}
+                    {this.renderLeaderboardButton(phase)}
                 </ButtonGroup>
                 <ButtonGroup>
-                    {this.renderLookAtBrowserButton(context)}
-                    {this.renderNextButton(context)}
+                    {this.renderLookAtBrowserButton(phase)}
+                    {this.renderNextButton(phase)}
                 </ButtonGroup>
             </div>
         );
@@ -221,8 +227,10 @@ class Question extends Component {
         this.props.nextButton();
     };
 
-    renderQuestion() {
-        if (this.props.questionTab !== TAB_LEADERBOARD && this.props.questionTab !== TAB_LOOK_DOWN) {
+    renderQuestion(phase) {
+        if (Phase.NOT_STARTED !== phase
+            && this.props.questionTab !== TAB_LEADERBOARD
+            && this.props.questionTab !== TAB_LOOK_DOWN) {
             return (
                 <Container fluid>
                     {this.QuestionGrid()}
@@ -233,26 +241,27 @@ class Question extends Component {
         }
     }
 
-    renderLeaderboard() {
-        if (this.props.questionTab === TAB_LEADERBOARD) {
+    renderLeaderboard(phase) {
+        if (Phase.NOT_STARTED !== phase && this.props.questionTab === TAB_LEADERBOARD) {
             return <RankTable data={this.props.generalRanking} />;
         } else {
             return false;
         }
     }
 
-    renderLookDown() {
-        if (this.props.questionTab === TAB_LOOK_DOWN) {
+    renderLookDown(phase) {
+        if (Phase.NOT_STARTED === phase || this.props.questionTab === TAB_LOOK_DOWN) {
+            const index = Phase.NOT_STARTED === phase ? "first" : "next";
             return (
                 <div style={{ fontSize: "1.25em" }}>
-                    <div style={{ marginBottom: "1em" }}>
+                    <div style={{ marginBottom: "2vh" }}>
                         Look at your browser or phone.
                     </div>
-                    <div style={{ margin: "0.25em", fontSize: "4em" }}>
+                    <div style={{ fontSize: "4em" }}>
                         <img src={LookAtBrowser} className="material-ui-icon" alt="Look at browser or phone" />
                     </div>
-                    <div style={{ marginTop: "1.5em", marginBottom: "2em" }}>
-                        The next question is coming up...
+                    <div style={{ marginTop: "2vh", marginBottom: "2em" }}>
+                        The {index} question is coming up...
                     </div>
                 </div>
             );
@@ -262,13 +271,13 @@ class Question extends Component {
     }
 
     render() {
-        const context = this.getContext();
+        const phase = this.getPhase();
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
-                {this.renderQuestion()}
-                {this.renderLeaderboard()}
-                {this.renderLookDown()}
-                {this.renderControlButtons(context)}
+                {this.renderQuestion(phase)}
+                {this.renderLeaderboard(phase)}
+                {this.renderLookDown(phase)}
+                {this.renderControlButtons(phase)}
             </CenterBox>
         );
     }

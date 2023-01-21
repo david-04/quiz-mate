@@ -62,7 +62,7 @@ class WaitingForStart extends Component {
                                                     variant="warning"
                                                     label="Start the quiz"
                                                     labelStyle={{ fontSize: "1.2em" }}
-                                                    onClick={() => this.props.nextQuestion(0)}
+                                                    onClick={() => this.props.nextQuestion(-1)}
                                                 />
                                             </div>
                                         </div>

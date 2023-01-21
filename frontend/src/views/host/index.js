@@ -27,7 +27,7 @@ class Host extends Component {
             connectedUsers: 0,
             answerCount: 0,
             questions: [],
-            questionIndex: 0,
+            questionIndex: -1,
             questionIsOpen: true,
             questionTab: 0,
             answerStats: null,
@@ -63,7 +63,7 @@ class Host extends Component {
     }
 
     nextButton = () => {
-        if (this.state.questionIsOpen) {
+        if (this.state.questionIsOpen && 0 <= this.state.questionIndex) {
             this.setState({ questionIsOpen: false });
             this.socket.emit(
                 closeQuestion, this.props.game.hostingRoom.roomCode, this.state.questions[this.state.questionIndex]
@@ -83,7 +83,11 @@ class Host extends Component {
             revealStats: false
         });
         this.props.switchState(v_question);
-        this.socket.emit(newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] });
+        if (0 <= index) {
+            this.socket.emit(
+                newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] }
+            );
+        }
     };
 
     isLastQuestion = () => this.state.questionIndex + 1 === this.lastIndexNumber();
