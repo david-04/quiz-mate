@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { Container, Row, Form, InputGroup, Button } from "react-bootstrap";
+import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
+
 import { toLetter } from "../../utilities";
-import "./QuestionEditor.css";
 
 import CheckBox from "../../assets/icons/check_box.svg";
 import CheckBoxOutlineBlank from "../../assets/icons/check_box_outline_blank.svg";
+
 import "../../assets/icons/material-ui-icon.css";
+import "./QuestionEditor.css";
 
 const MAX_ANSWERS = 4;
 
@@ -14,8 +16,6 @@ class QuestionEditor extends Component {
     constructor(props) {
         super(props);
         this.onQuestionTextChange = this.onQuestionTextChange.bind(this);
-        this.markCorrectAnswerCallbacks = [];
-        this.updateAnswerCallbacks = [];
     }
 
     onQuestionTextChange(event) {
@@ -49,15 +49,11 @@ class QuestionEditor extends Component {
     }
 
     getMarkCorrectAnswerCallback(index) {
-        const callback = this.markCorrectAnswerCallbacks[index] || (() => this.setCorrectAnswerIndex(index));
-        this.markCorrectAnswerCallbacks[index] = callback;
-        return callback;
+        return () => this.setCorrectAnswerIndex(index);
     }
 
     getUpdateAnswerCallback(index) {
-        const callback = this.updateAnswerCallbacks[index] || (event => this.updateAnswer(index, event.target.value));
-        this.updateAnswerCallbacks[index] = callback;
-        return callback;
+        return (event => this.updateAnswer(index, event.target.value));
     }
 
     answerBox(answer) {

@@ -6,13 +6,13 @@ import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
-import { onHostStartGame, installOnBeforeUnloadListener } from "../../utilities";
-import { upliftAndValidate, SAMPLE_QUIZ } from "../../utilities/quiz-data";
+import { installOnBeforeUnloadListener, onHostStartGame } from "../../utilities";
+import { SAMPLE_QUIZ, upliftAndValidate } from "../../utilities/quiz-data";
 import { V_WAITING_FOR_ROOM_CODE } from "./views";
 
+import ArrowBack from "../../assets/icons/arrow_back.svg";
 import Edit from "../../assets/icons/edit.svg";
 import Publish from "../../assets/icons/publish.svg";
-import ArrowBack from "../../assets/icons/arrow_back.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./Creating.css";

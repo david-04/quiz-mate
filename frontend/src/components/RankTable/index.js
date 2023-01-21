@@ -15,6 +15,8 @@ class RankTable extends Component {
         this.state = { byPoints: true };
         this.onSortByPoints = this.onSortByPoints.bind(this);
         this.onDownload = this.onDownload.bind(this);
+        this.mapRowToCsv = this.mapRowToCsv.bind(this);
+        this.renderRow = this.renderRow.bind(this);
     }
 
     onSortByPoints(value) {
@@ -28,28 +30,26 @@ class RankTable extends Component {
         return data;
     }
 
+    mapRowToCsv(item, index) {
+        const speed = 0 === item.points ? "" : (Math.round(item.duration / item.points) / MS_PER_SEC);
+        return `${index + 1}, ${item.nickname}, ${item.points}, ${speed}`;
+    }
+
     onDownload() {
         const header = `"Place", "Player", "Points", "Speed (seconds per answer)"`;
-        const rows = this.getSortedRows().map((item, index) => {
-            const speed = 0 === item.points ? "" : (Math.round(item.duration / item.points) / MS_PER_SEC);
-            return `${index + 1}, ${item.nickname}, ${item.points}, ${speed}`;
-        }).join("\n");
+        const rows = this.getSortedRows().map(this.mapRowToCsv).join("\n");
         fileDownload(`${header}\n${rows}\n`, "quiz.csv");
     }
 
-    renderRows() {
-        let key = 0;
-        return this.getSortedRows().map((item, index) => {
-            key++;
-            return (
-                <tr key={key}>
-                    <td>{index + 1}</td>
-                    <td>{item.nickname}</td>
-                    <td>{item.points}</td>
-                    <td>{formatSpeed(item.duration, item.points)}</td>
-                </tr>
-            );
-        });
+    renderRow(item, index) {
+        return (
+            <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{item.nickname}</td>
+                <td>{item.points}</td>
+                <td>{formatSpeed(item.duration, item.points)}</td>
+            </tr>
+        );
     }
 
     render() {
@@ -86,7 +86,7 @@ class RankTable extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.renderRows()}
+                            {this.getSortedRows().map(this.renderRow)}
                         </tbody>
                     </Table>
                 </div >

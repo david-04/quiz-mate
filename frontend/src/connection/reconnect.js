@@ -1,20 +1,24 @@
 const roomItem = "reconnect-room";
 const playerItem = "reconnect-player";
 
-export const reconnectModeIsAvailable = () =>
-    window.localStorage.getItem(roomItem) !== null && window.localStorage.getItem(playerItem) !== null;
+export function reconnectModeIsAvailable() {
+    return window.localStorage.getItem(roomItem) !== null && window.localStorage.getItem(playerItem) !== null;
+}
 
+export function getReconnectRoom() {
+    return localStorage.getItem(roomItem);
+}
 
-export const getReconnectRoom = () => localStorage.getItem(roomItem);
+export function getReconnectPlayer() {
+    return localStorage.getItem(playerItem);
+}
 
-export const getReconnectPlayer = () => localStorage.getItem(playerItem);
-
-export const enableReconnectMode = (room, player) => {
+export function enableReconnectMode(room, player) {
     localStorage.setItem(roomItem, room);
     localStorage.setItem(playerItem, player);
-};
+}
 
-export const disableReconnectMode = () => {
+export function disableReconnectMode() {
     localStorage.removeItem(roomItem);
     localStorage.removeItem(playerItem);
-};
+}

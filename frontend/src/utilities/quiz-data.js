@@ -107,7 +107,7 @@ function validateQuestions(quiz) {
     if (!quiz.questions.length) {
         fail("The quiz does not contain any questions");
     }
-    quiz.questions.forEach((question, index) => validateQuestion(question, index));
+    quiz.questions.forEach(validateQuestion);
 }
 
 //----------------------------------------------------------------------------------------------------------------------

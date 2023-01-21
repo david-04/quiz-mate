@@ -23,7 +23,6 @@ class LogicSwitch extends Component {
         this.props.onChange(newValue);
     }
 
-
     switchButtonStyle = {
         paddingLeft: "20px",
         paddingRight: "20px",

@@ -5,6 +5,25 @@ import "./QuestionExplorer.css";
 
 class QuestionExplorer extends Component {
 
+    constructor(props) {
+        super(props);
+        this.renderListItem = this.renderListItem.bind(this);
+    }
+
+    renderListItem(item, index) {
+        return (
+            <div
+                className={
+                    "question-explorer-list-item"
+                    + (this.props.selectedIndex === index ? ' item-selected' : '')
+                }
+                key={index}
+                onClick={() => this.props.selected(index)}>
+                {`${index + 1}. ${item.question}`}
+            </div>
+        );
+    }
+
     renderListItems() {
         if (this.props.questions.length === 0) {
             return (
@@ -13,26 +32,9 @@ class QuestionExplorer extends Component {
                 </div>
             );
         } else {
-            let no = 0;
             return (
                 <div className="question-explorer-list">
-                    {
-                        this.props.questions.map(item => {
-                            const itemNo = no;
-                            no++;
-                            return (
-                                <div
-                                    className={
-                                        "question-explorer-list-item"
-                                        + (this.props.selectedIndex === itemNo ? ' item-selected' : '')
-                                    }
-                                    key={itemNo}
-                                    onClick={() => this.props.selected(itemNo)}>
-                                    {`${itemNo + 1}. ${item.question}`}
-                                </div>
-                            );
-                        })
-                    }
+                    {this.props.questions.map(this.renderListItem)}
                 </div>
             );
         }

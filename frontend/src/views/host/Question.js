@@ -49,6 +49,7 @@ class Question extends Component {
         this.onNextButton = this.onNextButton.bind(this);
         this.endQuiz = this.endQuiz.bind(this);
         this.timerTrigger = this.timerTrigger.bind(this);
+        this.renderAnswer = this.renderAnswer.bind(this);
     }
 
     getPhase() {
@@ -96,7 +97,7 @@ class Question extends Component {
         this.props.socket.emit(timerSync, this.props.game.hostingRoom.roomCode, value);
     }
 
-    Answer(answer, index) {
+    renderAnswer(answer, index) {
         return (
             <Col md={6} sm={12} key={index}>
                 <div className={"question-answer" + this.correctGreenBox(index)}>
@@ -132,7 +133,7 @@ class Question extends Component {
                     <Col xs={12}>
                         <div className="question-question">{this.props.question.question}</div>
                     </Col>
-                    {this.props.question.answers.map((answer, index) => this.Answer(answer, index))}
+                    {this.props.question.answers.map(this.renderAnswer)}
                 </Row>
             </div >
         );

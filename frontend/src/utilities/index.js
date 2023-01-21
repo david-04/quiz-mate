@@ -1,9 +1,9 @@
 import { client } from "../connection/config";
-import { MS_PER_SEC, SEC_PER_MIN, TRIPLE_ZERO, ROOM_CODE_MIN, ROOM_CODE_MAX } from "./constants";
+import { MS_PER_SEC, ROOM_CODE_MAX, ROOM_CODE_MIN, SEC_PER_MIN, TRIPLE_ZERO } from "./constants";
 
 const ALERT_SECONDS = 10;
 
-export const calculateTime = (seconds, hideMinutes) => {
+export function calculateTime(seconds, hideMinutes) {
     const min = Math.floor(seconds / SEC_PER_MIN);
     const sec = seconds - min * SEC_PER_MIN;
     if (hideMinutes && min === 0) {
@@ -11,15 +11,15 @@ export const calculateTime = (seconds, hideMinutes) => {
     } else {
         return `${min}:${addLeadingZero(sec)}`;
     }
-};
+}
 
-export const addLeadingZero = number => {
+export function addLeadingZero(number) {
     if (number < ALERT_SECONDS) {
         return "0" + number;
     } else {
         return number;
     }
-};
+}
 
 export function formatSpeed(duration, points) {
     if (0 === points) {

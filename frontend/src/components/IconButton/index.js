@@ -17,33 +17,45 @@ class IconButton extends Component {
         }
     }
 
-    renderButton() {
-        const getStyle = name => this.props[`${name}Style`] || {};
-        const getClassNames = (name, defaultClassNames) => [
+    getClassNames(name, defaultClassNames) {
+        return [
             defaultClassNames || "",
             this.props[`${name}ClassName`] || ""
         ].join(" ");
+    }
 
+    getStyle(name) {
+        return this.props[`${name}Style`] || {};
+    }
+
+    renderLabel() {
+        if (this.props.label) {
+            return (
+                <span className={this.getClassNames("label")} style={this.getStyle("label")}>{this.props.label}</span>
+            );
+        } else {
+            return false;
+        }
+    }
+
+    renderButton() {
         const variant = this.props.variant || "secondary";
         const disabled = undefined !== this.props.disabled && null !== this.props.disabled
             ? this.props.disabled
             : false;
         const invert = "warning" !== this.props.variant;
-        const renderLabel = () => this.props.label
-            ? <span className={getClassNames("label")} style={getStyle("label")}>{this.props.label}</span>
-            : false;
 
         return (
-            <div className={"icon-button " + (this.props.containerClassName || "")} style={getStyle("container")}>
-                <Button variant={variant} disabled={disabled} style={getStyle("button")} onClick={this.onClick}>
+            <div className={"icon-button " + (this.props.containerClassName || "")} style={this.getStyle("container")}>
+                <Button variant={variant} disabled={disabled} style={this.getStyle("button")} onClick={this.onClick}>
                     <div>
                         <img
                             src={this.props.icon}
                             alt={this.props.label || ""}
-                            className={getClassNames("icon", invert ? "invert" : "")}
-                            style={getStyle("icon")}
+                            className={this.getClassNames("icon", invert ? "invert" : "")}
+                            style={this.getStyle("icon")}
                         />
-                        {renderLabel()}
+                        {this.renderLabel()}
                         {this.props.children}
                     </div>
                 </Button>
@@ -64,6 +76,8 @@ class IconButton extends Component {
     }
 }
 
-const IconButtonWithNavigate = props => (<IconButton {...props} navigate={useNavigate()} />);
+function IconButtonWithNavigate(props) {
+    return (<IconButton {...props} navigate={useNavigate()} />);
+}
 
 export default IconButtonWithNavigate;
