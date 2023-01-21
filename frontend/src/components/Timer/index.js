@@ -19,6 +19,9 @@ class Timer extends Component {
 
     componentDidMount() {
         this.clock = setInterval(this.tick, MS_PER_SEC);
+        if (0 < this.props.timeLimit) {
+            this.startTimer(this.props.timeLimit);
+        }
     }
 
     componentWillUnmount() {
@@ -27,25 +30,25 @@ class Timer extends Component {
 
     tick() {
         if (this.state.running) {
-            const sec = Math.round((new Date().renderTime() - this.state.startTime) / MS_PER_SEC);
+            const sec = Math.round((new Date().getTime() - this.state.startTime) / MS_PER_SEC);
             this.setState({ current: sec });
             if (this.props.tick) {
                 this.props.tick(this.state.limit - sec);
             }
-            if (sec >= this.state.limit) {
+            if (this.state.limit <= sec) {
                 this.stopTimer();
-                if (this.props.trigger) {
-                    this.props.trigger();
+                if (this.props.onTimerStop) {
+                    this.props.onTimerStop();
                 }
             }
         }
     };
 
-    startTimer(seconds) { // NOSONAR
+    startTimer() {
         this.setState({
             running: true,
-            startTime: new Date().renderTime(),
-            limit: seconds,
+            startTime: new Date().getTime(),
+            limit: this.props.timeLimit,
             current: 0
         });
     };

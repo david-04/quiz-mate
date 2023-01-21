@@ -48,8 +48,10 @@ class Question extends Component {
         this.timer = React.createRef();
         this.onNextButton = this.onNextButton.bind(this);
         this.endQuiz = this.endQuiz.bind(this);
-        this.timerTrigger = this.timerTrigger.bind(this);
+        this.onTimerStop = this.onTimerStop.bind(this);
         this.renderAnswer = this.renderAnswer.bind(this);
+        this.onStopButton = this.onStopButton.bind(this);
+        this.timerTick = this.timerTick.bind(this);
     }
 
     getPhase() {
@@ -62,16 +64,30 @@ class Question extends Component {
         }
     }
 
-    componentDidMount() {
-        if (this.props.game.hostingRoom.timeLimit > 0) {
-            this.timer.current.startTimer(this.props.game.hostingRoom.timeLimit);
+    isTimerEnabled() {
+        return 0 < this.props.game.hostingRoom.timeLimit;
+    }
+
+    startTimer() {
+        if (this.isTimerEnabled() && this.timer && this.timer.current) {
+            this.timer.current.startTimer();
         }
     }
 
-    timerTrigger() {
-        if (this.props.questionIsOpen) {
-            this.onNextButton();
+    stopTimer() {
+        if (this.isTimerEnabled() && this.timer && this.timer.current) {
+            this.timer.current.stopTimer();
         }
+    }
+
+    onTimerStop() {
+        if (Phase.GUESSING === this.getPhase()) {
+            this.onStopButton();
+        }
+    }
+
+    timerTick(value) {
+        this.props.socket.emit(timerSync, this.props.game.hostingRoom.roomCode, value);
     }
 
     correctGreenBox(answer) {
@@ -93,10 +109,6 @@ class Question extends Component {
         }
     }
 
-    timerTick(value) {
-        this.props.socket.emit(timerSync, this.props.game.hostingRoom.roomCode, value);
-    }
-
     renderAnswer(answer, index) {
         return (
             <Col md={6} sm={12} key={index}>
@@ -109,6 +121,21 @@ class Question extends Component {
         );
     }
 
+    renderTimer() {
+        if (this.isTimerEnabled()) {
+            return (
+                <Timer
+                    ref={this.timer}
+                    timeLimit={this.props.game.hostingRoom.timeLimit}
+                    onTimerStop={this.onTimerStop}
+                    tick={this.timerTick}
+                />
+            );
+        } else {
+            return false;
+        }
+    }
+
     QuestionGrid() {
         return (
             <div>
@@ -119,9 +146,7 @@ class Question extends Component {
                         </div>
                     </Col>
                     <Col md={{ span: 4, order: 2 }} sm={{ span: 12, order: 1 }} xs={{ span: 12, order: 1 }}>
-                        {this.props.game.hostingRoom.timeLimit > 0 &&
-                            <Timer ref={this.timer} trigger={this.timerTrigger} tick={this.timerTick} />
-                        }
+                        {this.renderTimer()}
                     </Col>
                     <Col md={{ span: 4, order: 3 }} sm={{ span: 6, order: 3 }} xs={{ span: 6, order: 3 }}>
                         <div className="question-answers-counter">
@@ -151,7 +176,7 @@ class Question extends Component {
 
     renderStopRoundButton(phase) {
         const style = Phase.GUESSING === phase ? ButtonStyle.ACTIVE : ButtonStyle.DISABLED;
-        return this.renderControlButton(PausePresentation, "Stop", "round", style, this.onNextButton);
+        return this.renderControlButton(PausePresentation, "Stop", "round", style, this.onStopButton);
     }
 
     renderRevealAnswerButton(phase) {
@@ -230,14 +255,13 @@ class Question extends Component {
         );
     }
 
+    onStopButton() {
+        this.stopTimer();
+        this.props.nextButton();
+    }
+
     onNextButton() {
-        if (this.props.game.hostingRoom.timeLimit > 0) {
-            if (this.props.questionIsOpen) {
-                this.timer.current.stopTimer();
-            } else {
-                this.timer.current.startTimer(this.props.game.hostingRoom.timeLimit);
-            }
-        }
+        this.startTimer();
         this.props.nextButton();
     }
 

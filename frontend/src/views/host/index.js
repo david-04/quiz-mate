@@ -94,13 +94,14 @@ class Host extends Component {
             questionTab: 0,
             revealAnswer: false,
             revealStats: false
+        }, () => {
+            this.props.switchState(V_QUESTION);
+            if (0 <= index) {
+                this.socket.emit(
+                    newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] }
+                );
+            }
         });
-        this.props.switchState(V_QUESTION);
-        if (0 <= index) {
-            this.socket.emit(
-                newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] }
-            );
-        }
     }
 
     isLastQuestion = () => this.state.questionIndex + 1 === this.lastIndexNumber();
