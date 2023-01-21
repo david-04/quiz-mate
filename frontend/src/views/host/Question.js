@@ -13,7 +13,7 @@ import Assessment from "../../assets/icons/assessment.svg";
 import CheckBox from "../../assets/icons/check_box.svg";
 import EmojiEvents from "../../assets/icons/emoji_events.svg";
 import PausePresentation from "../../assets/icons/pause_presentation.svg";
-import Visibility from "../../assets/icons/visibility.svg";
+import LookAtBrowser from "../../assets/icons/look_at_browser.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./Question.css";
@@ -35,10 +35,21 @@ const BUTTON_STYLE = {
 };
 
 class Question extends Component {
+
     constructor(props) {
         super(props);
         this.state = { tab: 0 };
         this.timer = React.createRef();
+    }
+
+    getContext() {
+        const currentTab = this.props.questionTab;
+        const isGuessing = this.props.questionIsOpen;
+
+        return {
+            currentTab,
+            isGuessing
+        };
     }
 
     componentDidMount() {
@@ -47,20 +58,20 @@ class Question extends Component {
         }
     }
 
-    timerTrigger = () => {
+    timerTrigger() {
         if (this.props.questionIsOpen) {
             this.onNextButton();
         }
-    };
+    }
 
-    correctGreenBox = answer => {
+    correctGreenBox(answer) {
         const isRevealAnswerTab = this.props.questionTab === TAB_REVEAL_ANSWER;
         const isCorrectAnswer = this.props.question.correct === answer;
         const mustRevealAnswer = (isRevealAnswerTab || this.props.revealAnswer) && isCorrectAnswer;
         return mustRevealAnswer ? " question-answer-correct" : "";
-    };
+    }
 
-    StatProgressBar = answer => {
+    StatProgressBar(answer) {
         let value = 0;
         if (this.props.answerCount !== 0 && this.props.answerStats) {
             value = Math.round(this.props.answerStats[answer] * ONE_HUNDRED / this.props.answerCount);
@@ -70,23 +81,25 @@ class Question extends Component {
         } else {
             return false;
         }
-    };
+    }
 
-    timerTick = value => {
+    timerTick(value) {
         this.props.socket.emit(timerSync, this.props.game.hostingRoom.roomCode, value);
-    };
+    }
 
-    Answer = (answer, index) => (
-        <Col md={6} sm={12} key={index}>
-            <div className={"question-answer" + this.correctGreenBox(index)}>
-                <div className="question-answer-letter">{toLetter(index)}</div>
-                {answer}
-                {this.StatProgressBar(index)}
-            </div>
-        </Col>
-    );
+    Answer(answer, index) {
+        return (
+            <Col md={6} sm={12} key={index}>
+                <div className={"question-answer" + this.correctGreenBox(index)}>
+                    <div className="question-answer-letter">{toLetter(index)}</div>
+                    {answer}
+                    {this.StatProgressBar(index)}
+                </div>
+            </Col>
+        );
+    }
 
-    QuestionGrid = () => {
+    QuestionGrid() {
         return (
             <div>
                 <Row>
@@ -114,7 +127,7 @@ class Question extends Component {
                 </Row>
             </div >
         );
-    };
+    }
 
     renderControlButton(icon, label1, label2, style, onClick) {
         return (
@@ -126,22 +139,22 @@ class Question extends Component {
         );
     }
 
-    renderStopRoundButton() {
-        const style = this.props.questionIsOpen ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
+    renderStopRoundButton(context) {
+        const style = context.isGuessing ? BUTTON_STYLE.ACTIVE : BUTTON_STYLE.DISABLED;
         const onClick = () => this.onNextButton();
         return this.renderControlButton(PausePresentation, "Stop", "round", style, onClick);
     }
 
-    renderRevealAnswerButton() {
-        const style = this.props.questionIsOpen || this.props.questionTab === TAB_REVEAL_ANSWER
+    renderRevealAnswerButton(context) {
+        const style = context.isGuessing || TAB_REVEAL_ANSWER === context.currentTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => this.props.changeTab(TAB_REVEAL_ANSWER);
         return this.renderControlButton(CheckBox, "Reveal", "answer", style, onClick);
     }
 
-    renderAnswerStatsButton() {
-        const style = this.props.questionIsOpen || this.props.questionTab === TAB_ANSWER_STATS
+    renderAnswerStatsButton(context) {
+        const style = context.isGuessing || TAB_ANSWER_STATS === context.currentTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => {
@@ -151,8 +164,8 @@ class Question extends Component {
         return this.renderControlButton(Assessment, "Answer", "stats", style, onClick);
     }
 
-    renderLeaderboardButton() {
-        const style = this.props.questionIsOpen || this.props.questionTab === TAB_LEADERBOARD
+    renderLeaderboardButton(context) {
+        const style = context.isGuessing || TAB_LEADERBOARD === context.currentTab
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => {
@@ -162,40 +175,40 @@ class Question extends Component {
         return this.renderControlButton(EmojiEvents, "Leader-", "board", style, onClick);
     }
 
-    renderLookDownButton() {
-        const style = !this.props.questionIsOpen && !this.props.isLastQuestion && this.props.questionTab !== TAB_LOOK_DOWN
+    renderLookAtBrowserButton(context) {
+        const style = !context.isGuessing && !this.props.isLastQuestion && TAB_LOOK_DOWN !== context.currentTab
             ? BUTTON_STYLE.ACTIVE
             : BUTTON_STYLE.DISABLED;
         const onClick = () => this.props.changeTab(TAB_LOOK_DOWN);
-        return this.renderControlButton(Visibility, "Look", "down", style, onClick);
+        return this.renderControlButton(LookAtBrowser, "Look at", "browser", style, onClick);
     }
 
-    renderNextButton() {
-        const style = this.props.questionIsOpen || this.props.isLastQuestion
+    renderNextButton(context) {
+        const style = context.isGuessing || this.props.isLastQuestion
             ? BUTTON_STYLE.DISABLED
             : BUTTON_STYLE.ACTIVE;
         const onClick = () => this.onNextButton();
         return this.renderControlButton(ArrowForward, "Next", "question", style, onClick);
     }
 
-    renderControlButtons = () => {
+    renderControlButtons(context) {
         return (
             <div className="question-control-buttons">
                 <ButtonGroup>
-                    {this.renderStopRoundButton()}
+                    {this.renderStopRoundButton(context)}
                 </ButtonGroup>
                 <ButtonGroup>
-                    {this.renderRevealAnswerButton()}
-                    {this.renderAnswerStatsButton()}
-                    {this.renderLeaderboardButton()}
+                    {this.renderAnswerStatsButton(context)}
+                    {this.renderRevealAnswerButton(context)}
+                    {this.renderLeaderboardButton(context)}
                 </ButtonGroup>
                 <ButtonGroup>
-                    {this.renderLookDownButton()}
-                    {this.renderNextButton()}
+                    {this.renderLookAtBrowserButton(context)}
+                    {this.renderNextButton(context)}
                 </ButtonGroup>
             </div>
         );
-    };
+    }
 
     onNextButton = () => {
         if (this.props.game.hostingRoom.timeLimit > 0) {
@@ -231,25 +244,14 @@ class Question extends Component {
     renderLookDown() {
         if (this.props.questionTab === TAB_LOOK_DOWN) {
             return (
-                <div>
-                    <div style={{ fontSize: "1.25em" }}>
+                <div style={{ fontSize: "1.25em" }}>
+                    <div style={{ marginBottom: "1em" }}>
                         Look at your browser or phone.
                     </div>
-                    <div style={{ margin: "0.5em", fontSize: "1.1em" }}>
-                        <img
-                            src={Visibility}
-                            className="material-ui-icon"
-                            style={{ fontSize: "5em" }}
-                            alt="Look down"
-                        />
-                        <img
-                            src={Visibility}
-                            className="material-ui-icon"
-                            style={{ fontSize: "5em" }}
-                            alt="Look down"
-                        />
+                    <div style={{ margin: "0.25em", fontSize: "4em" }}>
+                        <img src={LookAtBrowser} className="material-ui-icon" alt="Look at browser or phone" />
                     </div>
-                    <div style={{ fontSize: "1.25em" }}>
+                    <div style={{ marginTop: "1.5em", marginBottom: "2em" }}>
                         The next question is coming up...
                     </div>
                 </div>
@@ -260,12 +262,13 @@ class Question extends Component {
     }
 
     render() {
+        const context = this.getContext();
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
                 {this.renderQuestion()}
                 {this.renderLeaderboard()}
                 {this.renderLookDown()}
-                {this.renderControlButtons()}
+                {this.renderControlButtons(context)}
             </CenterBox>
         );
     }

@@ -24,6 +24,9 @@ class CenterBox extends Component {
         if (true === this.props.renderJoinInfo) {
             return (
                 <div className="qm-join-summary">
+                    <div>
+                        Join:
+                    </div>
                     <div className="qm-join-summary-url">
                         {getServerUrl(this.props.game.hostingRoom.roomCode)}
                     </div>

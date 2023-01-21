@@ -7,6 +7,7 @@
   - Include the average answer speed in the leaderboard
   - Keep answer statistics and the right answer visible when switching between host views
   - New view "Look at your browser" before showing the next question
+  - Reorganized control buttons on the host screen (ordered in the sequence they're used)
   - Show the quiz title as the browser tab's document title
   - Display the number of players above the host's question view
   - Simplified the start page by moving all host actions to a separate view

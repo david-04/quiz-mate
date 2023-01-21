@@ -120,8 +120,8 @@ class Creating extends Component {
                                                         src={Publish}
                                                         className="material-ui-icon"
                                                         style={{ filter: "none" }}
-                                                        alt="Upload and start quiz"
-                                                    /> Upload and start quiz
+                                                        alt="Upload quiz"
+                                                    /> Upload quiz
                                                     <input
                                                         type="file"
                                                         accept="application/json"

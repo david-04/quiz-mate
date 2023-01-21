@@ -62,7 +62,7 @@
 }
 
 .question-control-buttons .btn-group + .btn-group {
-    margin-left: 2em;
+    margin-left: min(5vw, 2.5em);
 }
 
 .question-control-buttons .btn {
