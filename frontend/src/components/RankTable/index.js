@@ -23,16 +23,24 @@ class RankTable extends Component {
         this.setState({ byPoints: value });
     }
 
-
     getSortedRows() {
-        const data = this.props.data.slice();
-        data.sort(this.state.byPoints ? comparePoints : compareNicknames);
-        return data;
+        const sortedByPoints = this.props.data.slice(0);
+        sortedByPoints.sort(comparePoints);
+        const withPlace = sortedByPoints.map((item, index) => ({
+            nickname: item.nickname,
+            points: item.points,
+            duration: item.duration,
+            place: index + 1
+        }));
+        if (!this.state.byPoints) {
+            withPlace.sort(compareNicknames);
+        }
+        return withPlace;
     }
 
-    mapRowToCsv(item, index) {
+    mapRowToCsv(item) {
         const speed = 0 === item.points ? "" : (Math.round(item.duration / item.points) / MS_PER_SEC);
-        return `${index + 1}, ${item.nickname}, ${item.points}, ${speed}`;
+        return `${item.place}, ${item.nickname}, ${item.points}, ${speed}`;
     }
 
     onDownload() {
@@ -44,7 +52,7 @@ class RankTable extends Component {
     renderRow(item, index) {
         return (
             <tr key={index}>
-                <td>{index + 1}</td>
+                <td>{item.place}</td>
                 <td>{item.nickname}</td>
                 <td>{item.points}</td>
                 <td>{formatSpeed(item.duration, item.points)}</td>
