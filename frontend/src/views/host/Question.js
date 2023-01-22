@@ -312,10 +312,12 @@ class Question extends Component {
         const phase = this.getPhase();
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
-                {this.renderQuestion(phase)}
-                {this.renderLeaderboard(phase)}
-                {this.renderLookDown(phase)}
-                {this.renderControlButtons(phase)}
+                <div style={{ marginBottom: "2em" }}>
+                    {this.renderQuestion(phase)}
+                    {this.renderLeaderboard(phase)}
+                    {this.renderLookDown(phase)}
+                    {this.renderControlButtons(phase)}
+                </div>
             </CenterBox>
         );
     }
