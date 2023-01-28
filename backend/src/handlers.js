@@ -76,21 +76,19 @@ module.exports.onWebsocketConnect = (io, socket) => {
                     socket.emit(commands.ROOM_NOT_FOUND);
                     log(roomCode, `Unknown user "${playerName}" tried to re-join the room (rejected)`);
                 }
+            } else if (isTaken >= 0) {
+                socket.emit(commands.NICKNAME_IS_TAKEN);
+                log(roomCode, `User "${playerName}" tried to join room, but name is already taken (rejected)`);
             } else {
-                if (isTaken >= 0) {
-                    socket.emit(commands.NICKNAME_IS_TAKEN);
-                    log(roomCode, `User "${playerName}" tried to join room, but name is already taken (rejected)`);
-                } else {
-                    theRoom.players.push({ nickname: playerName, points: 0, duration: 0 });
-                    socket.join(roomCode);
-                    socket.emit(commands.JOINED_TO_ROOM, theRoom);
-                    const userCount = theRoom.players.length;
-                    const host = state.getHostSocket(io, roomCode);
-                    if (host) {
-                        host.emit(commands.USER_COUNT_UPDATE, userCount);
-                    }
-                    log(roomCode, `User "${playerName}" joined the room (total players: ${userCount})`);
+                theRoom.players.push({ nickname: playerName, points: 0, duration: 0 });
+                socket.join(roomCode);
+                socket.emit(commands.JOINED_TO_ROOM, theRoom);
+                const userCount = theRoom.players.length;
+                const host = state.getHostSocket(io, roomCode);
+                if (host) {
+                    host.emit(commands.USER_COUNT_UPDATE, userCount);
                 }
+                log(roomCode, `User "${playerName}" joined the room (total players: ${userCount})`);
             }
         } else {
             socket.emit(commands.ROOM_NOT_FOUND);
