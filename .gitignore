@@ -15,6 +15,3 @@
 
 /frontend/build
 /frontend/src/assets/icons/*.zip
-
-/docs/frontend
-/dist
