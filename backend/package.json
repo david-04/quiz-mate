@@ -1,7 +1,7 @@
 {
   "name": "quiz-mate",
   "version": "${CURRENT_QUIZ_MATE_VERSION}",
-  "description": "A lightweight self-hosted quiz server",
+  "description": "A lightweight self-hosted quiz engine to run interactive real-time quizzes in the browser",
   "keywords": [
     "quiz",
     "trivia",
