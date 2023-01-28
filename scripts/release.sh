@@ -5,6 +5,10 @@ cd "`dirname "${BASH_SOURCE[0]}"`/.."
 
 env GENERATE_SOURCEMAP=false ./scripts/build.sh
 
+echo "Deleting everything from dist..."
+rm -rf ./dist
+mkdir ./dist
+
 echo Assembling dist/frontend...
 rm -rf ./dist/frontend
 mkdir -p ./dist/frontend
@@ -26,6 +30,6 @@ echo Copying LICENSE and README...
 cp ./LICENSE ./dist/
 sed -E "s|]\s*\((./)?docs/|](https://david-04.github.io/quiz-mate/|g" ./README.md > ./dist/README.md
 
-echo Copying the frontend to ./docs/frontend
+echo Copying the frontend to docs/frontend
 mkdir -p ./docs/frontend
 cp -rf ./dist/frontend/* ./docs/frontend/
