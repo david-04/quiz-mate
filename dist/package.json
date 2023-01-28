@@ -1,0 +1,31 @@
+{
+  "name": "quiz-mate",
+  "version": "1.0.0",
+  "description": "A lightweight self-hosted quiz engine to run interactive real-time quizzes in the browser",
+  "keywords": [
+    "quiz",
+    "trivia",
+    "self-hosted",
+    "quiz engine",
+    "quiz server"
+  ],
+  "homepage": "https://github.com/david-04/quiz-mate",
+  "bugs": {
+    "url": "https://github.com/david-04/quiz-mate/issues"
+  },
+  "license": "ISC",
+  "author": "David Hofmann",
+  "contributors": [
+    "Daniel Alberski"
+  ],
+  "bin": "./backend/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/david-04/quiz-mate.git",
+    "directory": "dist"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "socket.io": "4.5.4"
+  }
+}
