@@ -63,6 +63,14 @@
     margin-top: -0.25em;
 }
 
+.qm-join-summary-copy-button-disabled {
+    margin-top: -0.25em;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    margin-left: 0.75em;
+}
+
 /*Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
     .outer {

@@ -52,10 +52,21 @@
     justify-content: center;
 }
 
+.qm-join-url-path {
+    opacity: 0;
+    margin-right: -4.8em;
+}
+
 .qm-join-info-copy-button {
     margin-left: 0.5em;
     height: 100%;
     margin-top: -0.1em;
+}
+
+.qm-join-info-copy-button-disabled {
+    height: 100%;
+    width: 0;
+    overflow: hidden;
 }
 
 

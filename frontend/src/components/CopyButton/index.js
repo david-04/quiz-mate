@@ -47,7 +47,7 @@ class CopyButton extends Component {
         const copyButtonStyle = { filter: "warning" === variant ? "none" : "invert(100%)" };
         const copyButtonIcon = this.state.image || ContentCopy;
         return (
-            <Button variant={variant} onClick={this.copyToClipboard}>
+            <Button variant={variant} onClick={this.copyToClipboard} className={this.props.className || ""}>
                 <img src={copyButtonIcon} alt="Copy URL" style={copyButtonStyle} />
             </Button>
         );

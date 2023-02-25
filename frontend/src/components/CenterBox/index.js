@@ -3,12 +3,17 @@ import GithubCorner from "react-github-corner";
 
 import IconButton from "../../components/IconButton";
 import { closeRoom } from "../../connection/config";
-import { getServerUrl } from "../../utilities";
+import { canCopyToClipboard, getServerJoinUrl } from "../../utilities";
 import CopyButton from "../CopyButton";
 
 import Close from "../../assets/icons/close.svg";
 
 import "./CenterBox.css";
+
+function selectUrl() {
+    window.getSelection().removeAllRanges();
+    window.getSelection().selectAllChildren(document.querySelector(".qm-join-summary-url"));
+}
 
 class CenterBox extends Component {
 
@@ -34,17 +39,20 @@ class CenterBox extends Component {
     }
 
     renderJoinInfo() {
+        const copyButtonClass = canCopyToClipboard()
+            ? "qm-join-summary-copy-button"
+            : "qm-join-summary-copy-button-disabled";
         if (true === this.props.renderJoinInfo) {
             return (
                 <div className="qm-join-summary">
                     <div>
                         Join:
                     </div>
-                    <div className="qm-join-summary-url">
-                        {getServerUrl(this.props.game.hostingRoom.roomCode)}
-                    </div>
-                    <div className="qm-join-summary-copy-button">
-                        <CopyButton text={getServerUrl(this.props.game.hostingRoom.roomCode)} variant="default" />
+                    <div className="qm-join-summary-url" onClick={selectUrl}>{
+                        getServerJoinUrl(this.props.game.hostingRoom.roomCode)
+                    }</div>
+                    <div className={copyButtonClass}>
+                        <CopyButton text={getServerJoinUrl(this.props.game.hostingRoom.roomCode)} variant="default" />
                     </div>
                 </div>
             );

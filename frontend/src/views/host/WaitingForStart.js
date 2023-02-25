@@ -5,15 +5,21 @@ import { Col, Container, Row } from "react-bootstrap";
 import CenterBox from "../../components/CenterBox";
 import CopyButton from "../../components/CopyButton";
 import IconButton from "../../components/IconButton";
-import { getServerUrl } from "../../utilities";
+import { canCopyToClipboard, getServerBaseUrl, getServerJoinPath, getServerJoinUrl } from "../../utilities";
 
 import PlayCircleOutline from "../../assets/icons/play_circle_outline.svg";
 
 import "./WaitingForStart.css";
 
+function selectUrl() {
+    window.getSelection().removeAllRanges();
+    window.getSelection().selectAllChildren(document.querySelector(".qm-join-info-url"));
+}
+
 class WaitingForStart extends Component {
 
     render() {
+        const copyButtonClass = canCopyToClipboard() ? "qm-join-info-copy-button" : "qm-join-info-copy-button-disabled";
         return (
             <CenterBox logo cancel="Cancel the quiz" closeRoomSignal {...this.props}>
                 <div className="message-box">
@@ -32,12 +38,14 @@ class WaitingForStart extends Component {
                                     </div>
                                     <div className="qm-join-info-url-and-copy-button qm-join-info-spacing-top">
                                         <div className="qm-join-info-url qm-join-info-highlight">
-                                            <div>
-                                                {getServerUrl()}
+                                            <div onClick={selectUrl}>
+                                                {getServerBaseUrl()}<span className="qm-join-url-path">{
+                                                    getServerJoinPath(this.props.game.hostingRoom.roomCode)
+                                                }</span>
                                             </div>
                                         </div>
-                                        <div className="qm-join-info-copy-button">
-                                            <CopyButton text={getServerUrl(this.props.game.hostingRoom.roomCode)} />
+                                        <div className={copyButtonClass}>
+                                            <CopyButton text={getServerJoinUrl(this.props.game.hostingRoom.roomCode)} />
                                         </div>
                                     </div>
                                     <div className="qm-join-info-details qm-join-info-spacing-top">

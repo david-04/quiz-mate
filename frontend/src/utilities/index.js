@@ -128,6 +128,19 @@ function onBeforeUnload(event) {
 // Get the URL (with optional room code)
 //----------------------------------------------------------------------------------------------------------------------
 
-export function getServerUrl(roomCode) {
-    return undefined === roomCode ? client : `${client}/#/${roomCode}`;
+export function getServerBaseUrl() {
+    return client;
+}
+
+export function getServerJoinUrl(optionalRoomCode) {
+    return getServerBaseUrl() + getServerJoinPath(optionalRoomCode);
+}
+
+export function getServerJoinPath(optionalRoomCode) {
+    return undefined === optionalRoomCode ? "" : `/#/${optionalRoomCode}`;
+}
+
+
+export function canCopyToClipboard() {
+    return navigator && navigator.clipboard && "function" === typeof navigator.clipboard.writeText;
 }
