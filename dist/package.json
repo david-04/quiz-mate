@@ -1,13 +1,17 @@
 {
   "name": "quiz-mate",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight self-hosted quiz engine to run interactive real-time quizzes in the browser",
   "keywords": [
     "quiz",
     "trivia",
     "self-hosted",
     "quiz engine",
-    "quiz server"
+    "quiz server",
+    "realtime",
+    "real-time",
+    "websockets",
+    "web sockets"
   ],
   "homepage": "https://github.com/david-04/quiz-mate",
   "bugs": {
