@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.1.0](https://github.com/david-04/quiz-mate/releases/tag/v1.1.0) (2023-02-26)
+
+- Hide the "Copy URL" button when the browser does not allow copying to the clipboard
+- When clicking on the URL, auto-select the whole address including the room code
+
 ## [1.0.0](https://github.com/david-04/quiz-mate/releases/tag/v1.0.0) (2023-01-29)
 
 - Frontend
