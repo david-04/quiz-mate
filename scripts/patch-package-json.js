@@ -4,7 +4,7 @@ const [input, version, output, rest] = process.argv.slice(1 + 1);
 
 if (!output || rest) {
     console.error("ERROR: Invalid arguments.");
-    console.error("Usage: node patch-package-json.js [INPUT_FILE] [QUIZ_MATE_VERSION_NUMBER] [OUTPUT_FILE");
+    console.error("Usage: node patch-package-json.js [INPUT_FILE] [QUIZ_MATE_VERSION_NUMBER] [OUTPUT_FILE]");
     process.exit(1);
 }
 
