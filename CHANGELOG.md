@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.1](https://github.com/david-04/quiz-mate/releases/tag/v1.1.1) (2024-02-03)
+
+- Upgrade dependencies
+
 ## [1.1.0](https://github.com/david-04/quiz-mate/releases/tag/v1.1.0) (2023-02-26)
 
 - Hide the "Copy URL" button when the browser does not allow copying to the clipboard
