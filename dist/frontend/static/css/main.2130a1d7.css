@@ -16,18 +16,10 @@
 }
 
 .outer {
-    background-image: url('background.jpg'); /* Add this line */
-    background-size: cover; /* Add this line */
-    background-repeat: no-repeat; /* Add this line */
-    background-position: center center; /* Add this line */
-    color: #fff;
-    display: table;
-    font-family: Roboto, Segoe UI, sans-serif;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
+    background-image: url('https://raw.githubusercontent.com/Rickol91/Pubquiz/main/dist/frontend/static/css/background_LESS.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .middle {
