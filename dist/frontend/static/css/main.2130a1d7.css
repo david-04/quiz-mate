@@ -16,7 +16,7 @@
 }
 
 .outer {
-    background-image: url('background.jpg'); /* Add this line */
+    background-image: url('background_LESS.jpg'); /* Add this line */
     background-size: cover; /* Add this line */
     background-repeat: no-repeat; /* Add this line */
     background-position: center center; /* Add this line */
