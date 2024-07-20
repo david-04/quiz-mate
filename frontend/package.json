@@ -4,20 +4,20 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "js-file-download": "^0.4.12",
     "qrcode.react": "^3.1.0",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.10.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.4",
+    "react-dom": "^18.3.1",
     "react-github-corner": "^2.5.0",
-    "react-redux": "^9.1.0",
-    "react-router": "^6.22.0",
-    "react-router-dom": "^6.22.0",
+    "react-redux": "^9.1.2",
+    "react-router": "^6.25.1",
+    "react-router-dom": "^6.25.1",
     "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
-    "socket.io-client": "^4.7.4"
+    "socket.io-client": "^4.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,5 +36,5 @@
       "last 1 safari version"
     ]
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.3.1"
 }

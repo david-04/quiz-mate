@@ -1614,12 +1614,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.22.5":
+"@babel/runtime@npm:^7.21.0":
   version: 7.23.9
   resolution: "@babel/runtime@npm:7.23.9"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/e71205fdd7082b2656512cc98e647d9ea7e222e4fe5c36e9e5adc026446fcc3ba7b3cdff8b0b694a0b78bb85db83e7b1e3d4c56ef90726682b74f13249cf952d
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.24.7":
+  version: 7.24.8
+  resolution: "@babel/runtime@npm:7.24.8"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/f24b30af6b3ecae19165b3b032f9bc37b2d1769677bd63b69a6f81061967cfc847aa822518402ea6616b1d301d7eb46986b99c9f69cdb5880834fca2e6b34881
   languageName: node
   linkType: hard
 
@@ -2367,10 +2376,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/router@npm:1.15.0":
-  version: 1.15.0
-  resolution: "@remix-run/router@npm:1.15.0"
-  checksum: 10c0/4805b5761ccbce3a522d3313c74ece7d4a411f02fd6d495d20f4352dcc87d8899f1b79a4c172a130e0f7a73b5f63a29177d8860131c35e3388552b1bd38a97f2
+"@remix-run/router@npm:1.18.0":
+  version: 1.18.0
+  resolution: "@remix-run/router@npm:1.18.0"
+  checksum: 10c0/3ec7e441a0e54932a3d3bf932432094420f2c117715d80a5454bc7e55d13b91250749942aab032cd07aee191f1c1de33fede8682025bfd3a453dd207c016e140
   languageName: node
   linkType: hard
 
@@ -2385,9 +2394,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@restart/ui@npm:^1.6.6":
-  version: 1.6.6
-  resolution: "@restart/ui@npm:1.6.6"
+"@restart/ui@npm:^1.6.9":
+  version: 1.6.9
+  resolution: "@restart/ui@npm:1.6.9"
   dependencies:
     "@babel/runtime": "npm:^7.21.0"
     "@popperjs/core": "npm:^2.11.6"
@@ -2401,7 +2410,7 @@ __metadata:
   peerDependencies:
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
-  checksum: 10c0/a5faed96af630ca3ffaf25f8e435149f90482d8b00642315c4f97055171536b6ff9c9e710f411f0905a40c84fa50056765ea93aa874a24e4da0b5cca2307389d
+  checksum: 10c0/db230d727afcc9077377a2525dd2db3339da1cc11a5e6dfa77e50e1e8c88bc52711d684a2e498324aeba8ecd66389eefcc76896bd020873f77350748cf796459
   languageName: node
   linkType: hard
 
@@ -4100,12 +4109,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.3.2":
-  version: 5.3.2
-  resolution: "bootstrap@npm:5.3.2"
+"bootstrap@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "bootstrap@npm:5.3.3"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10c0/0c108d90cee90247db571f07a0fc3718beda58eed2ffed3f2f8ccff66b25a349830dfbeb5e55e6e6fe484fad96c4edb19cb4c5fa5a68b771b2e0f3c400e42dda
+  checksum: 10c0/bb68ca7b763977b9cce40cb5b8c676ae19a716d2f5d15009fa7bdbcec9dea426968e3cb748fbed7592fbf10edd7c749aea841c2920996a7c1aa5e0a6e2d4c2ad
   languageName: node
   linkType: hard
 
@@ -10335,20 +10344,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "quiz-mate-frontend@workspace:."
   dependencies:
-    bootstrap: "npm:^5.3.2"
+    bootstrap: "npm:^5.3.3"
     js-file-download: "npm:^0.4.12"
     qrcode.react: "npm:^3.1.0"
-    react: "npm:^18.2.0"
-    react-bootstrap: "npm:^2.10.0"
-    react-dom: "npm:^18.2.0"
+    react: "npm:^18.3.1"
+    react-bootstrap: "npm:^2.10.4"
+    react-dom: "npm:^18.3.1"
     react-github-corner: "npm:^2.5.0"
-    react-redux: "npm:^9.1.0"
-    react-router: "npm:^6.22.0"
-    react-router-dom: "npm:^6.22.0"
+    react-redux: "npm:^9.1.2"
+    react-router: "npm:^6.25.1"
+    react-router-dom: "npm:^6.25.1"
     react-scripts: "npm:^5.0.1"
     redux: "npm:^5.0.1"
     redux-thunk: "npm:^3.1.0"
-    socket.io-client: "npm:^4.7.4"
+    socket.io-client: "npm:^4.7.5"
   languageName: unknown
   linkType: soft
 
@@ -10403,13 +10412,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:^2.10.0":
-  version: 2.10.0
-  resolution: "react-bootstrap@npm:2.10.0"
+"react-bootstrap@npm:^2.10.4":
+  version: 2.10.4
+  resolution: "react-bootstrap@npm:2.10.4"
   dependencies:
-    "@babel/runtime": "npm:^7.22.5"
+    "@babel/runtime": "npm:^7.24.7"
     "@restart/hooks": "npm:^0.4.9"
-    "@restart/ui": "npm:^1.6.6"
+    "@restart/ui": "npm:^1.6.9"
     "@types/react-transition-group": "npm:^4.4.6"
     classnames: "npm:^2.3.2"
     dom-helpers: "npm:^5.2.1"
@@ -10426,7 +10435,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/d48c11922e7207d4c09be3f1cc45743fb2f0f7ebcbb2ad032ad422a3584d10339abafc88027ce6b2b6e0f2f033c9fcd36e2bd56f80dfc758a71bc7934db7b8a4
+  checksum: 10c0/83e62ee90aee99b81ec0d3c002bd5b757f1749c536e55f3ae801e3748d0df854c224e6a6b38d93a6044360531d92ace6acd1dee72503180b29775d2e5fb0d6c9
   languageName: node
   linkType: hard
 
@@ -10462,15 +10471,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
+"react-dom@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react-dom@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-    scheduler: "npm:^0.23.0"
+    scheduler: "npm:^0.23.2"
   peerDependencies:
-    react: ^18.2.0
-  checksum: 10c0/66dfc5f93e13d0674e78ef41f92ed21dfb80f9c4ac4ac25a4b51046d41d4d2186abc915b897f69d3d0ebbffe6184e7c5876f2af26bfa956f179225d921be713a
+    react: ^18.3.1
+  checksum: 10c0/a752496c1941f958f2e8ac56239172296fcddce1365ce45222d04a1947e0cc5547df3e8447f855a81d6d39f008d7c32eab43db3712077f09e3f67c4874973e85
   languageName: node
   linkType: hard
 
@@ -10518,25 +10527,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-redux@npm:^9.1.0":
-  version: 9.1.0
-  resolution: "react-redux@npm:9.1.0"
+"react-redux@npm:^9.1.2":
+  version: 9.1.2
+  resolution: "react-redux@npm:9.1.2"
   dependencies:
     "@types/use-sync-external-store": "npm:^0.0.3"
     use-sync-external-store: "npm:^1.0.0"
   peerDependencies:
     "@types/react": ^18.2.25
     react: ^18.0
-    react-native: ">=0.69"
     redux: ^5.0.0
   peerDependenciesMeta:
     "@types/react":
       optional: true
-    react-native:
-      optional: true
     redux:
       optional: true
-  checksum: 10c0/53161b5dc4d109020fbc42d26906ace92fed9ba1d7ab6274af60e9c0684583d20d1c8ec6d58601ac7b833c6468a652bbf3d4a102149d1793cb8a28b05b042f73
+  checksum: 10c0/56ac98228e011b26e0202346af9c8dd408ad5ea8235d8761c8e05ea0953b8ca801cdf9d1f481fdec7b285d7f30ceef7238b46b3df7636ef77dd5c2ea8c5be5b2
   languageName: node
   linkType: hard
 
@@ -10547,27 +10553,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router-dom@npm:^6.22.0":
-  version: 6.22.0
-  resolution: "react-router-dom@npm:6.22.0"
+"react-router-dom@npm:^6.25.1":
+  version: 6.25.1
+  resolution: "react-router-dom@npm:6.25.1"
   dependencies:
-    "@remix-run/router": "npm:1.15.0"
-    react-router: "npm:6.22.0"
+    "@remix-run/router": "npm:1.18.0"
+    react-router: "npm:6.25.1"
   peerDependencies:
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: 10c0/f1c338d6a37ee331f141d683a9139bc397128f6c15ef796589894ba29de1101eeeab7c4bf26429632c86bbca7376a9d900a6bfbd351ac5c9e1e231ac1b05fe5d
+  checksum: 10c0/15e2b5bf89a26db9a108d19a4e0e2054180bfb1f5f62662dd93ad697ee1bdc91a8041efd762d552c95e65fc06ca0cb0c1e88acdeeaf03aba37f7a29e470c7cc4
   languageName: node
   linkType: hard
 
-"react-router@npm:6.22.0, react-router@npm:^6.22.0":
-  version: 6.22.0
-  resolution: "react-router@npm:6.22.0"
+"react-router@npm:6.25.1, react-router@npm:^6.25.1":
+  version: 6.25.1
+  resolution: "react-router@npm:6.25.1"
   dependencies:
-    "@remix-run/router": "npm:1.15.0"
+    "@remix-run/router": "npm:1.18.0"
   peerDependencies:
     react: ">=16.8"
-  checksum: 10c0/aa3878321797e526e4f3a57f97e8dd06f7cf6d7b9f95db39ea5d74259a2058404a04af0f852296ba6f09f9cecd7ca5f67125b9853ceb7fe6a852ffa5e3369dca
+  checksum: 10c0/a7e824c1f6d9641beabc23111865ddd2525b3794403e07b297fc2bdd4cddec93e166aacdb9d2602768864d70f3bf490f59eeab8474a04ae1f13a832f305eeec3
   languageName: node
   linkType: hard
 
@@ -10653,12 +10659,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
+"react@npm:^18.3.1":
+  version: 18.3.1
+  resolution: "react@npm:18.3.1"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 10c0/b562d9b569b0cb315e44b48099f7712283d93df36b19a39a67c254c6686479d3980b7f013dc931f4a5a3ae7645eae6386b4aa5eea933baa54ecd0f9acb0902b8
+  checksum: 10c0/283e8c5efcf37802c9d1ce767f302dd569dd97a70d9bb8c7be79a789b9902451e0d16334b05d73299b20f048cbc3c7d288bbbde10b701fa194e2089c237dbea3
   languageName: node
   linkType: hard
 
@@ -11120,12 +11126,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "scheduler@npm:0.23.0"
+"scheduler@npm:^0.23.2":
+  version: 0.23.2
+  resolution: "scheduler@npm:0.23.2"
   dependencies:
     loose-envify: "npm:^1.1.0"
-  checksum: 10c0/b777f7ca0115e6d93e126ac490dbd82642d14983b3079f58f35519d992fa46260be7d6e6cede433a92db70306310c6f5f06e144f0e40c484199e09c1f7be53dd
+  checksum: 10c0/26383305e249651d4c58e6705d5f8425f153211aef95f15161c151f7b8de885f24751b377e4a0b3dd42cce09aad3f87a61dab7636859c0d89b7daf1a1e2a5c78
   languageName: node
   linkType: hard
 
@@ -11375,15 +11381,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socket.io-client@npm:^4.7.4":
-  version: 4.7.4
-  resolution: "socket.io-client@npm:4.7.4"
+"socket.io-client@npm:^4.7.5":
+  version: 4.7.5
+  resolution: "socket.io-client@npm:4.7.5"
   dependencies:
     "@socket.io/component-emitter": "npm:~3.1.0"
     debug: "npm:~4.3.2"
     engine.io-client: "npm:~6.5.2"
     socket.io-parser: "npm:~4.2.4"
-  checksum: 10c0/0af4dc8882ec88a48203f0e17b49ec08c4fc3d80b72c014dda3357fc5878877d09e8773736fc3bed1dfe5f18e716acc26cdc301bba6777e99d853d51aa5772bd
+  checksum: 10c0/d5dc90ee63755fbbb0a1cb3faf575c9ce20d98e809a43a4c9c3ce03a56b8810335ae38e678ceb0650ac434d55e72ea6449c2e5d6db8bc7258f7c529148fac99d
   languageName: node
   linkType: hard
 
