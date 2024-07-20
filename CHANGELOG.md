@@ -1,5 +1,10 @@
 # Change Log
 
+## [1.1.2](https://github.com/david-04/quiz-mate/releases/tag/v1.1.2) (2024-07-21)
+
+- Upgrade dependencies
+
+
 ## [1.1.1](https://github.com/david-04/quiz-mate/releases/tag/v1.1.1) (2024-02-03)
 
 - Upgrade dependencies
