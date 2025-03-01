@@ -1,4 +1,4 @@
-import QRCode from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 
@@ -75,10 +75,11 @@ class WaitingForStart extends Component {
                                             </div>
                                         </div>
                                         <div className="qm-join-info-qr-code">
-                                            <QRCode value={this.getUrlWithRoomCode}
-                                                size={1080}
-                                                renderas='svg'
+                                            <QRCodeCanvas value={this.getUrlWithRoomCode}
+                                                size={300}
                                                 includeMargin
+                                                bgColor="#ffffff"
+                                                fgColor="#000000"
                                             />
                                         </div>
                                     </div>
