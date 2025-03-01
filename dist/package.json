@@ -1,6 +1,6 @@
 {
   "name": "quiz-mate",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A lightweight self-hosted quiz engine to run interactive real-time quizzes in the browser",
   "keywords": [
     "quiz",
@@ -29,7 +29,7 @@
     "directory": "dist"
   },
   "dependencies": {
-    "express": "4.19.2",
-    "socket.io": "4.7.5"
+    "express": "4.21.2",
+    "socket.io": "4.8.1"
   }
 }
