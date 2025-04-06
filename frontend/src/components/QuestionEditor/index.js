@@ -5,17 +5,21 @@ import { toLetter } from "../../utilities";
 
 import CheckBox from "../../assets/icons/check_box.svg";
 import CheckBoxOutlineBlank from "../../assets/icons/check_box_outline_blank.svg";
+import ImageIcon from "../../assets/icons/image.svg";
 
 import "../../assets/icons/material-ui-icon.css";
 import "./QuestionEditor.css";
 
 const MAX_ANSWERS = 4;
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
 class QuestionEditor extends Component {
 
     constructor(props) {
         super(props);
         this.onQuestionTextChange = this.onQuestionTextChange.bind(this);
+        this.onImageChange = this.onImageChange.bind(this);
+        this.removeImage = this.removeImage.bind(this);
     }
 
     onQuestionTextChange(event) {
@@ -24,17 +28,15 @@ class QuestionEditor extends Component {
 
     updateQuestion(value) {
         this.props.update({
+            ...this.props.question,
             question: value,
-            correct: this.props.question.correct,
-            answers: this.props.question.answers
         });
     }
 
     setCorrectAnswerIndex(value) {
         this.props.update({
-            question: this.props.question.question,
+            ...this.props.question,
             correct: value,
-            answers: this.props.question.answers
         });
     }
 
@@ -42,9 +44,34 @@ class QuestionEditor extends Component {
         const newData = this.props.question.answers.slice();
         newData[index] = value;
         this.props.update({
-            question: this.props.question.question,
-            correct: this.props.question.correct,
-            answers: newData
+            ...this.props.question,
+            answers: newData,
+        });
+    }
+
+    onImageChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            if (file.size > MAX_IMAGE_SIZE) {
+                alert("Image size must be less than 5MB");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                this.props.update({
+                    ...this.props.question,
+                    imageUrl: reader.result,
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    removeImage() {
+        this.props.update({
+            ...this.props.question,
+            imageUrl: null,
         });
     }
 
@@ -79,7 +106,7 @@ class QuestionEditor extends Component {
                 </div>
             </Row>
         );
-    };
+    }
 
     renderAnswerBoxes() {
         const answerBoxes = [];
@@ -87,6 +114,39 @@ class QuestionEditor extends Component {
             answerBoxes.push(this.answerBox(index));
         }
         return answerBoxes;
+    }
+
+    renderImageSection() {
+        const { question } = this.props;
+        return (
+            <Row className="image-section">
+                <div className="image-controls">
+                    <InputGroup>
+                        <Button variant="secondary" as="label" htmlFor="image-upload">
+                            <img src={ImageIcon} className="material-ui-icon" alt="Upload image" />
+                            <span>Upload Image</span>
+                        </Button>
+                        <input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={this.onImageChange}
+                            style={{ display: 'none' }}
+                        />
+                        {question.imageUrl && (
+                            <Button variant="danger" onClick={this.removeImage}>
+                                Remove Image
+                            </Button>
+                        )}
+                    </InputGroup>
+                </div>
+                {question.imageUrl && (
+                    <div className="image-preview">
+                        <img src={question.imageUrl} alt="Question" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                    </div>
+                )}
+            </Row>
+        );
     }
 
     render() {
@@ -103,6 +163,7 @@ class QuestionEditor extends Component {
                             maxLength="200"
                         />
                     </Row>
+                    {this.renderImageSection()}
                     {this.renderAnswerBoxes()}
                 </Container>
             );

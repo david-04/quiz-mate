@@ -1,13 +1,20 @@
 .question-editor-container {
     padding: 30px 30px;
+    margin-top: 20px;
 }
 
 .editor-textarea {
+    margin-bottom: 20px;
+    resize: vertical;
     min-height: 100px;
 }
 
+.editor-text-box {
+    margin-left: 10px;
+}
+
 .editor-text-box-correct {
-    background-color: #81ca80 !important;
+    background-color: #d4edda;
 }
 
 .answer-letter {
@@ -16,6 +23,7 @@
     position: relative;
     top: 0.15em;
     padding-left: 0.3em;
+    margin-left: 10px;
 }
 
 .answer-checkbox {
@@ -23,9 +31,38 @@
 }
 
 .answer-row {
-    margin-top: 0.5em;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .answer-row .input-group {
     width: 100%;
+}
+
+.image-section {
+    margin-bottom: 20px;
+}
+
+.image-controls {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.image-controls .input-group {
+    gap: 10px;
+}
+
+.image-preview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.image-preview img {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
