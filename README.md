@@ -8,6 +8,33 @@ Quiz Mate is an easy way to run multiple-choice quizzes in meetings and (video) 
 
 The application runs on Node.js and stores all data in memory. It does not require a database or any other infrastructure. There's no authentication or user management either. Everyone can host and join quizzes.
 
+## Features
+
+- Multiple choice questions with up to 4 answers
+- Real-time interaction between host and players
+- Image support for questions (up to 5MB per image)
+- Answer statistics and leaderboard
+- Timer option for questions
+- QR code for easy joining
+- Downloadable quiz files in JSON format
+- No database required - everything runs in memory
+- Support for both HTTP and HTTPS
+
+## Creating Quizzes
+
+Quizzes are stored as JSON files. They can be created and edited with the integrated quiz editor:
+
+![](docs/screenshots/quiz-editor-001.png)
+
+When creating questions, you can:
+- Add text for the question (up to 200 characters)
+- Upload an image to illustrate the question (optional, up to 5MB)
+- Add up to 4 possible answers
+- Mark the correct answer
+- Remove or reorder questions
+
+The quiz editor does not store any quizzes on the server. After creating or modifying a quiz, download and store it locally. Every time the quiz is to be hosted, the JSON file must be uploaded again.
+
 ## Development Setup
 
 ### Option 1: Local Development
@@ -185,14 +212,6 @@ docker run --rm -it -p 80:8080 --volume .:/config quiz-mate
 The `docker run` command will create a `quiz-mate.cfg` in the current directory (`.`) on the host (unless it already exists). The configuration can be freely edited there. This includes enabling HTTPS.
 
 ## Screenshots
-
-Quizzes are stored as JSON files. They can be created and edited with the integrated quiz editor:
-
-![](docs/screenshots/quiz-editor-001.png)
-
-The quiz editor does not store any quizzes on the server. After creating or modifying a quiz, download and store it locally. Every time the quiz is to be hosted, the JSON file must be uploaded again:
-
-![](docs/screenshots/host-upload-quiz-001.png)
 
 Once the quiz has been uploaded, joining instructions are displayed:
 
