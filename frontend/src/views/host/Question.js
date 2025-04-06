@@ -156,7 +156,14 @@ class Question extends Component {
                 </Row>
                 <Row>
                     <Col xs={12}>
-                        <div className="question-question">{this.props.question.question}</div>
+                        <div className="question-question">
+                            {this.props.question.question}
+                            {this.props.question.imageUrl && (
+                                <div className="question-image">
+                                    <img src={this.props.question.imageUrl} alt="Question" />
+                                </div>
+                            )}
+                        </div>
                     </Col>
                     {this.props.question.answers.map(this.renderAnswer)}
                 </Row>
