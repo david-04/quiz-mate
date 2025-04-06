@@ -8,6 +8,119 @@ Quiz Mate is an easy way to run multiple-choice quizzes in meetings and (video) 
 
 The application runs on Node.js and stores all data in memory. It does not require a database or any other infrastructure. There's no authentication or user management either. Everyone can host and join quizzes.
 
+## Development Setup
+
+### Option 1: Local Development
+
+To run the application in development mode:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/david-04/quiz-mate.git
+cd quiz-mate
+```
+
+2. Install dependencies for both frontend and backend:
+```bash
+# Install backend dependencies
+cd backend
+npm install
+
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
+
+3. Build the frontend:
+```bash
+cd ../frontend
+npm run build
+```
+
+4. Start the backend server:
+```bash
+cd ../backend
+npm start
+```
+
+The application will be available at:
+- http://localhost:3001 (HTTP)
+- https://localhost:3002 (HTTPS)
+
+### Option 2: Docker Development
+
+You can also run the application using Docker:
+
+1. Build the Docker image:
+```bash
+# From the project root
+docker build -t quiz-mate .
+```
+
+2. Run the container:
+```bash
+# Run with default ports (3001 for HTTP, 3002 for HTTPS)
+docker run -p 3001:3001 -p 3002:3002 quiz-mate
+
+# Or run with custom ports (e.g., map to 80 and 443)
+docker run -p 80:3001 -p 443:3002 quiz-mate
+```
+
+The application will be available at:
+- http://localhost:3001 (or http://localhost if mapped to port 80)
+- https://localhost:3002 (or https://localhost if mapped to port 443)
+
+Note: The Docker image includes sample SSL certificates for development. For production use, you should mount your own SSL certificates:
+```bash
+docker run -p 80:3001 -p 443:3002 \
+  -v /path/to/your/certs:/app/dist/certs \
+  -e HTTPS_CERT_FILE=/app/dist/certs/your-cert.pem \
+  -e HTTPS_KEY_FILE=/app/dist/certs/your-key.pem \
+  quiz-mate
+```
+
+## Building a Release
+
+To build a new release:
+
+1. Update version numbers in:
+   - `frontend/package.json`
+   - `backend/package.json`
+   - `CHANGELOG.md`
+
+2. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
+
+3. Copy the built files to the distribution directory:
+```bash
+# Create dist directory if it doesn't exist
+mkdir -p dist
+
+# Copy backend files
+cp -r backend/* dist/
+
+# Copy built frontend files
+cp -r frontend/build/* dist/public/
+
+# Copy other necessary files
+cp README.md LICENSE CHANGELOG.md dist/
+```
+
+4. Create a release archive:
+```bash
+tar -czf quiz-mate-vX.X.X.tar.gz dist/
+```
+
+Replace X.X.X with your version number.
+
+Alternatively, you can build a Docker image for distribution:
+```bash
+docker build -t quiz-mate:vX.X.X .
+```
+
 ## Installation and usage (locally without Docker)
 
 Install the application:

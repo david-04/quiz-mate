@@ -1,26 +1,49 @@
-ARG base_image_tag="lts-alpine"
+# Use Node.js LTS as the base image
+FROM node:20-slim
 
-FROM node:${base_image_tag}
+# Set working directory
+WORKDIR /app
 
-ARG http_port="8080"
-ENV PUBLIC_URL=""
+# Copy package files
+COPY frontend/package*.json frontend/
+COPY backend/package*.json backend/
 
-RUN mkdir -p /home/node/app/node_modules /config && \
-    chown -R node:node /home/node/app /config && \
-    echo "/home/node/app/node_modules/.bin/quiz-mate /config/quiz-mate.conf" > /entrypoint.sh && \
-    chmod +x /entrypoint.sh
+# Install dependencies
+RUN cd frontend && npm install && cd ../backend && npm install
 
-USER node
-WORKDIR /home/node/app
+# Copy source files
+COPY frontend/ frontend/
+COPY backend/ backend/
+COPY resources/ resources/
+COPY README.md LICENSE CHANGELOG.md ./
 
-RUN npm install quiz-mate
+# Build frontend
+RUN cd frontend && npm run build
 
-RUN cat >/config/quiz-mate.conf <<EOF
-http-port = ${http_port}
-static-assets-source = local
-EOF
+# Create dist directory and copy files
+RUN mkdir -p dist && \
+    cp -r backend/* dist/ && \
+    mkdir -p dist/public && \
+    cp -r frontend/build/* dist/public/ && \
+    cp -r resources dist/ && \
+    cp README.md LICENSE CHANGELOG.md dist/
 
-EXPOSE ${http_port}
-VOLUME /config
+# Create config file
+RUN echo "http-port = 3001\n\
+https-port = 3002\n\
+https-cert-file = resources/sample-ssl-certificate.pem\n\
+https-key-file = resources/sample-ssl-private-key.pem\n\
+static-assets-source = local" > dist/quiz-mate.cfg
 
-ENTRYPOINT [ "/bin/sh", "/entrypoint.sh" ]
+# Set working directory to dist
+WORKDIR /app/dist
+
+# Expose ports
+EXPOSE 3001
+EXPOSE 3002
+
+# Set environment variables
+ENV NODE_ENV=production
+
+# Start the application
+CMD ["node", "src/main.js"]
