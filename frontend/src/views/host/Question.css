@@ -52,9 +52,15 @@
 }
 
 .question-control-buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
-    margin-top: 2em;
+    padding: 0 20px;
+    z-index: 1000;
+    padding: 10px 20px;
 }
 
 .question-control-buttons .btn-group {
@@ -63,6 +69,14 @@
 
 .question-control-buttons .btn {
     margin: 0 0.2em;
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+.question-control-buttons .btn:hover:not(:disabled) {
+    background-color: #23272b;
+    border-color: #1d2124;
 }
 
 .question-control-buttons .material-ui-icon {
@@ -70,6 +84,7 @@
     margin-right: 0.3em;
     position: relative;
     top: -0.1em;
+    filter: invert(100%);
 }
 
 .question-control-offset {
