@@ -111,8 +111,13 @@ function createServer(server, protocol, port) {
 //----------------------------------------------------------------------------------------------------------------------
 
 function createSocketIoServer(servers) {
-    const io = socketIO();
+    const io = socketIO({
+        maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+    });
     io.on("connection", socket => handlers.onWebsocketConnect(io, socket));
-    servers.forEach(server => io.attach(server.instance, { cors: { origin: "*" } }));
+    servers.forEach(server => io.attach(server.instance, { 
+        cors: { origin: "*" },
+        maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+    }));
     return io;
 }

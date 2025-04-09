@@ -42,7 +42,10 @@ class Player extends Component {
         this.props.switchState(V_LOADING_ROOM);
         if (this.props.game.roomCode && this.props.game.playerName) {
 
-            this.socket = socketIOClient(server, { closeOnBeforeunload: false });
+            this.socket = socketIOClient(server, { 
+                closeOnBeforeunload: false,
+                maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+            });
 
             this.socket.on('connect', () => this.socket.emit(
                 addToRoom, this.props.game.roomCode, this.props.game.playerName, this.props.game.reconnectMode

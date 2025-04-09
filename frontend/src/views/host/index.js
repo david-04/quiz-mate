@@ -45,7 +45,10 @@ class Host extends Component {
     componentDidMount() {
         this.props.switchState(V_CREATING);
 
-        this.socket = socketIOClient(server, { closeOnBeforeunload: false });
+        this.socket = socketIOClient(server, { 
+            closeOnBeforeunload: false,
+            maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+        });
 
         this.socket.on(roomCreated, code => {
             this.props.setHostingRoom({ ...this.props.game.hostingRoom, roomCode: code });
