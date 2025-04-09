@@ -110,7 +110,9 @@ module.exports.onWebsocketConnect = (io, socket) => {
             roomObj.questionIndex = question.index;
             roomObj.questionStart = Date.now();
         }
-        socket.to(roomCode).emit(commands.ANSWERS_OPEN, { ...question, correct: undefined });
+        // Strip image data before sending to players
+        const { imageUrl, ...playerQuestion } = question;
+        socket.to(roomCode).emit(commands.ANSWERS_OPEN, { ...playerQuestion, correct: undefined });
     });
 
     //------------------------------------------------------------------------------------------------------------------
