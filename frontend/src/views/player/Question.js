@@ -29,11 +29,6 @@ class Question extends Component {
                     <Col xs={12}>
                         <div className="player-question">
                             {question.question}
-                            {question.imageUrl && (
-                                <div className="question-image">
-                                    <img src={question.imageUrl} alt="Question" />
-                                </div>
-                            )}
                         </div>
                     </Col>
                     {question.answers.map((answer, index) => this.answer(answer, index))}
