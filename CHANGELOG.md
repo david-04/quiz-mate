@@ -9,7 +9,6 @@
 
 - Upgrade dependencies
 
-
 ## [1.1.1](https://github.com/david-04/quiz-mate/releases/tag/v1.1.1) (2024-02-03)
 
 - Upgrade dependencies

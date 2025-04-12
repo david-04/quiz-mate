@@ -160,7 +160,7 @@ class Question extends Component {
                             {this.props.question.question}
                             {this.props.question.imageUrl && (
                                 <div className="question-image">
-                                    <img src={this.props.question.imageUrl} alt="Question" />
+                                    <img src={this.props.question.imageUrl} alt="An image that relates to the question" />
                                 </div>
                             )}
                         </div>
