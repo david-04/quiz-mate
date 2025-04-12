@@ -112,29 +112,46 @@ class QuestionEditor extends Component {
                     <InputGroup>
                         <Button variant="secondary" as="label" htmlFor="image-upload">
                             <img src={ImageIcon} className="material-ui-icon" alt="Upload image" />
-                            <span>Upload Image</span>
+                            <span> Upload Image</span>
                         </Button>
-                        <input
-                            id="image-upload"
-                            type="file"
-                            accept="image/*"
-                            onChange={this.onImageChange}
-                            style={{ display: 'none' }}
-                        />
-                        {question.imageUrl && (
-                            <Button variant="danger" onClick={this.removeImage}>
-                                Remove Image
-                            </Button>
-                        )}
+                        {this.renderRemoveImageOrSizeHint(question.imageUrl)}
+
                     </InputGroup>
+                    <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={this.onImageChange}
+                        style={{ display: 'none' }}
+                    />
                 </div>
                 {question.imageUrl && (
                     <div className="image-preview">
-                        <img src={question.imageUrl} alt="Question" style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                        <div className="image-preview-frame">
+                            <img src={question.imageUrl} alt="Question" />
+                        </div>
+                    </div>
+                )}
+                {question.imageUrl && (
+                    <div className="aspect-ratio-indicator-advice">
+                        The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels) - the ratio of the red frame.
                     </div>
                 )}
             </Row>
         );
+    }
+
+    renderRemoveImageOrSizeHint(imageUrl) {
+        if (imageUrl) {
+            return (<Button variant="danger" onClick={this.removeImage}>
+                Remove Image
+            </Button>);
+        } else {
+            return (
+                <span className="aspect-ratio-advice">
+                    The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels)
+                </span>);
+        }
     }
 
     render() {
@@ -157,12 +174,12 @@ class QuestionEditor extends Component {
             );
         } else {
             return (
-                <div style={{ margin: '40px auto 0 10px', textAlign: "left", fontSize: "1.2rem" }}>
+                <div style={{ margin: '40px auto 0 0', textAlign: "left", fontSize: "1.2rem" }}>
                     <p>Use this editor to create or modify a quiz:</p>
                     <ul>
                         <li>Upload a quiz (if you have one)</li>
                         <li>Use the buttons above to add questions</li>
-                        <li>Switch between questions on the left side</li>
+                        <li>Switch between questions on the left-hand side</li>
                     </ul>
                     <p>Quizzes are NOT saved on the server!</p>
                     <p style={{ color: "red", fontWeight: "bold" }} >You must download the quiz when finished.</p>

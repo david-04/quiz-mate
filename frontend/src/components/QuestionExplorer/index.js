@@ -27,8 +27,8 @@ class QuestionExplorer extends Component {
     renderListItems() {
         if (this.props.questions.length === 0) {
             return (
-                <div className="question-explorer-list" style={{ fontSize: '1rem', marginTop: '30px' }}>
-                    No questions yet
+                <div className="question-explorer-list" style={{ fontSize: '1rem', padding: '30px', textAlign: "left" }}>
+                    {/* This quiz contains new questions yet.<br /><br />Use the "insert question" or "append question" button on the right to add one. */}
                 </div>
             );
         } else {
