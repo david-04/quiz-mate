@@ -7,7 +7,7 @@ import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { getReconnectPlayer, getReconnectRoom, reconnectModeIsAvailable } from "../../connection/reconnect";
-import { isValidRoomCode, onExitGame, installOnBeforeUnloadListener } from "../../utilities";
+import { installOnBeforeUnloadListener, isValidRoomCode, onExitGame } from "../../utilities";
 
 import EmojiPeople from "../../assets/icons/emoji_people.svg";
 import Power from "../../assets/icons/power.svg";
@@ -143,7 +143,7 @@ class Main extends Component {
                                 <IconButton
                                     link="/host"
                                     icon={PresentToAll}
-                                    label="Host a quiz"
+                                    label="Host or create/edit a quiz"
                                     buttonClassName="qm-fixed-bottom qm-fixed-left"
                                 />
                             </ButtonGroup>
