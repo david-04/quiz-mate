@@ -83,7 +83,7 @@ class Creating extends Component {
             } catch (error) {
                 this.setState({ questions: [], title: "" });
                 const message = error instanceof Error ? error.message : `${error}`;
-                alert(`Invalid file format: ${message}`);
+                alert(`Invalid file format: ${message}`); // NOSONAR
             }
             this.inputFile.current.value = "";
         };
@@ -105,7 +105,7 @@ class Creating extends Component {
         } catch (error) {
             this.setState({ questions: [], title: "" });
             const message = error instanceof Error ? error.message : `${error}`;
-            alert(`Invalid file format: ${message}`);
+            alert(`Invalid file format: ${message}`); // NOSONAR
         }
     };
 
@@ -137,8 +137,7 @@ class Creating extends Component {
                                                         className="material-ui-icon"
                                                         style={{ filter: "none" }}
                                                         alt="Upload quiz"
-                                                    /> Upload quiz
-                                                    <input
+                                                    /> Upload quiz<input
                                                         type="file"
                                                         accept="application/json"
                                                         onChange={this.uploadFile}
@@ -152,8 +151,7 @@ class Creating extends Component {
                                                 marginTop: "6em",
                                                 marginBottom: "-6em"
                                             }}>
-                                                ...or use this
-                                                <button
+                                                ...or use this <button
                                                     onClick={this.startSampleQuiz}
                                                     style={{
                                                         padding: "0.1em 0.3em 0.1em 0.3em",

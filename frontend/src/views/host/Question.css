@@ -4,9 +4,8 @@
     border-radius: 2px;
     padding: 20px;
     margin: 10px;
-    margin-bottom: 4vh;
-    font-size: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: 2vh;
+    font-size: 1.0em;
 }
 
 .question-answer-letter {
@@ -29,7 +28,7 @@
     padding: 10px 2.1em;
     margin: 10px 10px 10px 10px;
     text-align: left;
-    margin-bottom: 4vh;
+    margin-bottom: min(4vh, 1em);
 }
 
 .question-answer-correct {
@@ -39,11 +38,15 @@
 .question-counter {
     font-size: 1.2em;
     margin-bottom: 1em;
+    padding-left: 0.75rem;
+    text-align: left;
 }
 
 .question-answers-counter {
     font-size: 1.2em;
     margin-bottom: 1em;
+    text-align: right;
+    margin-right: 0.75rem;
 }
 
 .question-progress {
@@ -58,7 +61,6 @@
     right: 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
     z-index: 1000;
     padding: 10px 20px;
 }
@@ -102,14 +104,16 @@
 }
 
 .question-image {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
+    width: 100%;
+    max-height: max(0.5vh, calc(100vh - 22em))
 }
 
 .question-image img {
     max-width: 100%;
-    max-height: 400px;
+    width: 100%;
+    object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
