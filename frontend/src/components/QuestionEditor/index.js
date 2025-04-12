@@ -27,33 +27,24 @@ class QuestionEditor extends Component {
     }
 
     updateQuestion(value) {
-        this.props.update({
-            ...this.props.question,
-            question: value,
-        });
+        this.props.update({ ...this.props.question, question: value });
     }
 
     setCorrectAnswerIndex(value) {
-        this.props.update({
-            ...this.props.question,
-            correct: value,
-        });
+        this.props.update({ ...this.props.question, correct: value });
     }
 
     updateAnswer(index, value) {
         const newData = this.props.question.answers.slice();
         newData[index] = value;
-        this.props.update({
-            ...this.props.question,
-            answers: newData,
-        });
+        this.props.update({ ...this.props.question, answers: newData });
     }
 
     onImageChange(event) {
         const file = event.target.files[0];
         if (file) {
             if (file.size > MAX_IMAGE_SIZE) {
-                alert("Image size must be less than 5MB");
+                alert("Image size must be less than 5MB"); // NOSONAR
                 return;
             }
 
@@ -69,10 +60,7 @@ class QuestionEditor extends Component {
     }
 
     removeImage() {
-        this.props.update({
-            ...this.props.question,
-            imageUrl: null,
-        });
+        this.props.update({ ...this.props.question, imageUrl: null });
     }
 
     getMarkCorrectAnswerCallback(index) {

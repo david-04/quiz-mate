@@ -1,12 +1,11 @@
 const express = require("express");
 const fs = require("fs");
+const handlers = require("./handlers");
 const http = require("http");
 const https = require("https");
+const logger = require("./logger");
 const path = require("path");
 const socketIO = require("socket.io");
-
-const handlers = require("./handlers");
-const logger = require("./logger");
 const utils = require("./utils");
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -111,13 +110,9 @@ function createServer(server, protocol, port) {
 //----------------------------------------------------------------------------------------------------------------------
 
 function createSocketIoServer(servers) {
-    const io = socketIO({
-        maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
-    });
+    const maxHttpBufferSize = 10 * 1024 * 1024; // 10 MB to handle base64 encoded images
+    const io = socketIO({ maxHttpBufferSize });
     io.on("connection", socket => handlers.onWebsocketConnect(io, socket));
-    servers.forEach(server => io.attach(server.instance, { 
-        cors: { origin: "*" },
-        maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
-    }));
+    servers.forEach(server => io.attach(server.instance, { cors: { origin: "*" }, maxHttpBufferSize }));
     return io;
 }
