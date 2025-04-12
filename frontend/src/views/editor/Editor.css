@@ -24,7 +24,6 @@
     min-height: 100%;
     font-size: 100px;
     text-align: right;
-    filter: alpha(opacity=0);
     opacity: 0;
     outline: none;
     background: white;
@@ -32,14 +31,21 @@
     display: block;
 }
 
-.editor-button-container {
+.editor-button-container-row {
+    margin: 0 0 0 -20px;
+    width: calc(100% + 25px);
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .editor-button {
-    width: 92%;
-    margin: 15px auto 0 auto;
+    width: 100%;
+    margin: 15px 30px 0 0;
+}
+
+.editor-button-container .editor-button {
+    text-align: left;
 }
 
 .missing-title {

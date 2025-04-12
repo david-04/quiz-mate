@@ -1,6 +1,15 @@
+.question-editor {
+    padding: 5px 10px 5px 10px;
+}
+
 .question-editor-container {
     padding: 30px 30px;
     margin-top: 20px;
+}
+
+.question-editor-container textarea {
+    margin-left: 12px;
+    width: calc(100% - 24px);
 }
 
 .editor-textarea {
@@ -53,16 +62,41 @@
 }
 
 .image-preview {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+}
+
+.image-preview-frame {
+    border: 1px solid red;
+    box-shadow: 0 0 20px 3px #808080;
+    width: 21em;
+    max-width: 21em;
+    height: 6.89em;
+    max-height: 6.89em;
+    object-fit: fill;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .image-preview img {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 21em;
+    max-height: 6.89em;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+
+}
+
+.aspect-ratio-advice,
+.aspect-ratio-indicator-advice {
+    font-size: 0.75rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: left;
+}
+
+.aspect-ratio-indicator-advice {
+    padding-top: 1em;
 }

@@ -238,12 +238,12 @@ class Editor extends Component {
             disabled: this.state.selectedIndex < 0
         },
         {
-            text: 'Add here',
+            text: 'Insert question',
             icon: <img src={AddBox} className="material-ui-icon" alt="Add here" />,
             click: () => this.addQuestion(true)
         },
         {
-            text: 'Add at the end',
+            text: 'Append question',
             icon: <img src={AddBox} className="material-ui-icon" alt="Add at the end" />,
             click: () => this.addQuestion(false)
         }
@@ -276,11 +276,11 @@ class Editor extends Component {
                         <Col xl={8} lg={8} md={8} sm={12}>
                             <div className="question-editor">
                                 <Container fluid>
-                                    <Row style={{ padding: "20px 10px 20px 10px" }}>
-                                        <Col lg={4} md={6} style={{ textAlign: "center" }}>
+                                    <Row style={{ padding: "20px 0px 20px 0px" }}>
+                                        {/* <Col lg={3} md={6} style={{ textAlign: "left" }}>
                                             Quiz title:
-                                        </Col>
-                                        <Col lg={8} md={6}>
+                                        </Col> */}
+                                        <Col lg={12} md={12}>
                                             <Form.Control
                                                 as="input"
                                                 value={this.state.title}
@@ -291,7 +291,7 @@ class Editor extends Component {
                                             />
                                         </Col>
                                     </Row>
-                                    <Row>
+                                    <Row className="editor-button-container-row">
                                         {
                                             this.topButtonsConfig().map(btn => {
                                                 if (btn.customUpload) {
