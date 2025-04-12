@@ -5,6 +5,7 @@ import { toLetter } from "../../utilities";
 
 import CheckBox from "../../assets/icons/check_box.svg";
 import CheckBoxOutlineBlank from "../../assets/icons/check_box_outline_blank.svg";
+import DeleteForever from "../../assets/icons/delete_forever.svg";
 import ImageIcon from "../../assets/icons/image.svg";
 
 import "../../assets/icons/material-ui-icon.css";
@@ -109,12 +110,15 @@ class QuestionEditor extends Component {
         return (
             <Row className="image-section">
                 <div className="image-controls">
-                    <InputGroup>
+                    <InputGroup style={{ gap: "0" }}>
                         <Button variant="secondary" as="label" htmlFor="image-upload">
-                            <img src={ImageIcon} className="material-ui-icon" alt="Upload image" />
-                            <span> Upload Image</span>
+                            <img src={ImageIcon} className="material-ui-icon" alt="Add an image" />
+                            <span> Add image</span>
                         </Button>
-                        {this.renderRemoveImageOrSizeHint(question.imageUrl)}
+                        {question.imageUrl && <Button variant="danger" onClick={this.removeImage}>
+                            <img src={DeleteForever} className="material-ui-icon" alt="Remove image" />
+                            <span> Remove image</span>
+                        </Button>}
 
                     </InputGroup>
                     <input
@@ -134,24 +138,12 @@ class QuestionEditor extends Component {
                 )}
                 {question.imageUrl && (
                     <div className="aspect-ratio-indicator-advice">
-                        The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels) - the ratio of the red frame.
+                        The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels).
+                        Images with this ratio completely fill the red frame.
                     </div>
                 )}
             </Row>
         );
-    }
-
-    renderRemoveImageOrSizeHint(imageUrl) {
-        if (imageUrl) {
-            return (<Button variant="danger" onClick={this.removeImage}>
-                Remove Image
-            </Button>);
-        } else {
-            return (
-                <span className="aspect-ratio-advice">
-                    The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels)
-                </span>);
-        }
     }
 
     render() {
