@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import socketIOClient from "socket.io-client";
-
 import { setHostingRoomAC, switchStateAC } from "../../actions/game";
 import {
     answerCountUpdate,
@@ -14,10 +13,18 @@ import {
     server,
     userCountUpdate
 } from "../../connection/config";
+import { ConnectionWarning } from "./ConnectionWarning";
 import Creating from "./Creating";
 import Final from "./Final";
 import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_LOOK_DOWN, TAB_REVEAL_ANSWER } from "./Question";
-import { V_CREATING, V_FINAL, V_QUESTION, V_WAITING_FOR_ROOM_CODE, V_WAITING_FOR_START } from "./views";
+import {
+    V_CREATING,
+    V_WAITING_FOR_ROOM_CODE,
+    V_CONNECTION_WARNING,
+    V_WAITING_FOR_START,
+    V_FINAL,
+    V_QUESTION
+} from "./views";
 import WaitingForCode from "./WaitingForCode";
 import WaitingForStart from "./WaitingForStart";
 
@@ -45,14 +52,14 @@ class Host extends Component {
     componentDidMount() {
         this.props.switchState(V_CREATING);
 
-        this.socket = socketIOClient(server, { 
+        this.socket = socketIOClient(server, {
             closeOnBeforeunload: false,
             maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
         });
 
         this.socket.on(roomCreated, code => {
             this.props.setHostingRoom({ ...this.props.game.hostingRoom, roomCode: code });
-            this.props.switchState(V_WAITING_FOR_START);
+            this.props.switchState(V_CONNECTION_WARNING);
         });
 
         this.socket.on(userCountUpdate, count => this.setState({ connectedUsers: count }));
@@ -144,6 +151,8 @@ class Host extends Component {
                     questionList={this.onReceiveQuestions} />);
             case V_WAITING_FOR_ROOM_CODE:
                 return (<WaitingForCode {...this.props} />);
+            case V_CONNECTION_WARNING:
+                return <ConnectionWarning onConfirmed={() => this.props.switchState(V_WAITING_FOR_START)} />;
             case V_WAITING_FOR_START:
                 return (<WaitingForStart {...this.props}
                     socket={this.socket}
