@@ -6,16 +6,16 @@ autorun help:
 	&& echo "  uplift ....... upgrade all dependencies to the latest version"
 
 build:
-	./scripts/build.sh
+	. bin/build.sh
 
 release:
-	./scripts/release.sh
+	. bin/release.sh
 
 unrelease:
-	./scripts/unrelease.sh
+	. bin/unrelease.sh
 
 publish:
-	cd dist && npm publish
+	. bin/publish.sh
 
 uplift:
 	$(MAKE) -C frontend uplift && echo "" && $(MAKE) -C backend uplift
