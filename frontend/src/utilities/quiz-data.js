@@ -1,46 +1,6 @@
 import { TEN } from "./constants";
 
 //----------------------------------------------------------------------------------------------------------------------
-// A sample quiz
-//----------------------------------------------------------------------------------------------------------------------
-
-export const SAMPLE_QUIZ = {
-    "title": "Sample quiz",
-    "questions": [
-        {
-            "question": "Which continent has only one country?",
-            "correct": 2,
-            "answers": [
-                "Africa",
-                "Asia",
-                "Australia",
-                "South America"
-            ]
-        },
-        {
-            "question": "Which vegetable gives Popeye his strength?",
-            "correct": 3,
-            "answers": [
-                "Asparagus",
-                "Broccoli",
-                "Lentils",
-                "Spinach"
-            ]
-        },
-        {
-            "question": "The head of which country resides at number 10 Downing Street?",
-            "correct": 3,
-            "answers": [
-                "Brazil",
-                "Canada",
-                "Nigeria",
-                "United Kingdom"
-            ]
-        }
-    ]
-};
-
-//----------------------------------------------------------------------------------------------------------------------
 // Uplift a quiz to the latest format and validate that it's correct
 //----------------------------------------------------------------------------------------------------------------------
 

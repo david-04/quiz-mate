@@ -7,7 +7,8 @@ import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
 import { installOnBeforeUnloadListener, onHostStartGame } from "../../utilities";
-import { SAMPLE_QUIZ, upliftAndValidate } from "../../utilities/quiz-data";
+import { upliftAndValidate } from "../../utilities/quiz-data";
+import { SAMPLE_QUIZ } from "../../utilities/sample-quiz";
 import { V_WAITING_FOR_ROOM_CODE } from "./views";
 
 import ArrowBack from "../../assets/icons/arrow_back.svg";

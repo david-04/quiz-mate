@@ -15,3 +15,5 @@
 
 /frontend/build
 /frontend/src/assets/icons/*.zip
+
+/resources/images/compressed

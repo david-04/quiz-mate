@@ -232,7 +232,7 @@ class Editor extends Component {
             disabled: this.state.selectedIndex < 0 || this.state.selectedIndex + 1 === this.state.workspace.length
         },
         {
-            text: 'Delete',
+            text: 'Delete question',
             icon: <img src={DeleteForever} className="material-ui-icon" alt="Delete" />,
             click: this.deleteQuestion,
             disabled: this.state.selectedIndex < 0
