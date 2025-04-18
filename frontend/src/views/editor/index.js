@@ -2,20 +2,18 @@ import fileDownload from 'js-file-download';
 import { Component, createRef } from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import CenterBox from "../../components/CenterBox";
-import QuestionEditor from "../../components/QuestionEditor";
-import QuestionExplorer from "../../components/QuestionExplorer";
-import { upliftQuiz, validateQuiz } from "../../utilities/quiz-data";
-
 import AddBox from "../../assets/icons/add_box.svg";
 import ArrowDownward from "../../assets/icons/arrow_downward.svg";
 import ArrowUpward from "../../assets/icons/arrow_upward.svg";
 import Close from "../../assets/icons/close.svg";
 import DeleteForever from "../../assets/icons/delete_forever.svg";
 import GetApp from "../../assets/icons/get_app.svg";
-import Publish from "../../assets/icons/publish.svg";
-
 import "../../assets/icons/material-ui-icon.css";
+import Publish from "../../assets/icons/publish.svg";
+import CenterBox from "../../components/CenterBox";
+import QuestionEditor from "../../components/QuestionEditor";
+import QuestionExplorer from "../../components/QuestionExplorer";
+import { upliftQuiz, validateQuiz } from "../../utilities/quiz-data";
 import './Editor.css';
 
 const SPACE_PER_TAB = 4;
