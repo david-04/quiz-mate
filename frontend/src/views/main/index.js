@@ -2,19 +2,16 @@ import { Component, createRef } from "react";
 import { ButtonGroup, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
+import EmojiPeople from "../../assets/icons/emoji_people.svg";
+import "../../assets/icons/material-ui-icon.css";
+import Power from "../../assets/icons/power.svg";
+import PresentToAll from "../../assets/icons/present_to_all.svg";
+import logo from "../../assets/logo.svg";
 import CenterBox from "../../components/CenterBox";
 import IconButton from "../../components/IconButton";
 import { getReconnectPlayer, getReconnectRoom, reconnectModeIsAvailable } from "../../connection/reconnect";
 import { installOnBeforeUnloadListener, isValidRoomCode, onExitGame } from "../../utilities";
-
-import EmojiPeople from "../../assets/icons/emoji_people.svg";
-import Power from "../../assets/icons/power.svg";
-import PresentToAll from "../../assets/icons/present_to_all.svg";
-import logo from "../../assets/logo.svg";
-
-import "../../assets/icons/material-ui-icon.css";
 import "./main.css";
 
 class Main extends Component {

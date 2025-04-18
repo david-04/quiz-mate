@@ -16,7 +16,6 @@ const loading = () => (<div>Loading...</div>);
 
 const MainOrNotFound = () => { // NOSONAR
     const params = useParams();
-    console.log(params);
     return /^\d+$/.test(params.roomCode) && "404" !== params.roomCode
         ? <Main location={window.location} roomCode={params.roomCode} />
         : <Navigate replace to="/404" />;
