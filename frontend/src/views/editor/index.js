@@ -262,22 +262,19 @@ class Editor extends Component {
         return (
             <CenterBox {...this.props}>
                 <div className="message-box d-block d-sm-block d-md-none">
-                    Resolution of the browser is too low to launch the question editor!
+                    The browser window is too small to display the quiz editor
                 </div>
                 <Container fluid className="editor-container d-none d-sm-none d-md-block">
-                    <Row style={{ height: '100%' }}>
+                    <Row style={{ height: '100%', padding: "15px 0 15px 0" }}>
                         <Col xl={4} lg={4} md={4} sm={12}>
                             <QuestionExplorer questions={this.state.workspace}
                                 selectedIndex={this.state.selectedIndex}
                                 selected={this.changeSelection} />
                         </Col>
-                        <Col xl={8} lg={8} md={8} sm={12}>
+                        <Col xl={8} lg={8} md={8} sm={12} style={{ paddingLeft: "5px" }}>
                             <div className="question-editor">
                                 <Container fluid>
                                     <Row style={{ padding: "20px 0px 20px 0px" }}>
-                                        {/* <Col lg={3} md={6} style={{ textAlign: "left" }}>
-                                            Quiz title:
-                                        </Col> */}
                                         <Col lg={12} md={12}>
                                             <Form.Control
                                                 as="input"
