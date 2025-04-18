@@ -8,6 +8,10 @@
     font-size: 1.0em;
 }
 
+.answer-stats-visible .question-question {
+    margin-bottom: 0.38em;
+}
+
 .question-answer-letter {
     display: inline-block;
     position: absolute;
@@ -29,6 +33,10 @@
     margin: 10px 10px 10px 10px;
     text-align: left;
     margin-bottom: min(4vh, 1em);
+}
+
+.answer-stats-visible .question-answer {
+    margin-bottom: 0.38em;
 }
 
 .question-answer-correct {
@@ -107,7 +115,8 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    max-height: max(0.5vh, calc(100vh - 22em))
+    /* max-height: max(0.5vh, calc(100vh - 22em)); */
+    max-height: max(0.5vh, calc(100vh - 24em));
 }
 
 .question-image img {

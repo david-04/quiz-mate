@@ -317,9 +317,12 @@ class Question extends Component {
 
     render() {
         const phase = this.getPhase();
+        const answerStatsClass = this.props?.revealStats ? "answer-stats-visible" : "";
+        const hasImageClass = this.props?.question?.imageUrl ? "has-image" : "";
+        const className = [answerStatsClass, hasImageClass].join(" ");
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
-                <div style={{ marginBottom: "2em" }}>
+                <div style={{ marginBottom: "2em" }} className={className}>
                     {this.renderQuestion(phase)}
                     {this.renderLeaderboard(phase)}
                     {this.renderLookDown(phase)}
