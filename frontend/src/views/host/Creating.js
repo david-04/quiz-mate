@@ -147,10 +147,9 @@ class Creating extends Component {
                                                 </span>
                                             </div>
                                             <div style={{
-                                                fontSize: "0.5em",
+                                                fontSize: "1rem",
                                                 textAlign: "right",
-                                                marginTop: "6em",
-                                                marginBottom: "-6em"
+                                                marginTop: "3em",
                                             }}>
                                                 ...or use this <button
                                                     onClick={this.startSampleQuiz}

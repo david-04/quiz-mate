@@ -322,7 +322,7 @@ class Question extends Component {
         const className = [answerStatsClass, hasImageClass].join(" ");
         return (
             <CenterBox logo cancel="End quiz" closeRoomSignal renderJoinInfo {...this.props}>
-                <div style={{ marginBottom: "2em" }} className={className}>
+                <div style={{ marginTop: "-7vh" }} className={className}>
                     {this.renderQuestion(phase)}
                     {this.renderLeaderboard(phase)}
                     {this.renderLookDown(phase)}
