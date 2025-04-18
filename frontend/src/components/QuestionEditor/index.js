@@ -138,7 +138,7 @@ class QuestionEditor extends Component {
                 )}
                 {question.imageUrl && (
                     <div className="aspect-ratio-indicator-advice">
-                        The recommended aspect ratio is 3.05 (e.g. 1214 x 398 pixels).
+                        The recommended aspect ratio is 3.05 (e.g., 1214 x 398 pixels).
                         Images with this ratio completely fill the red frame.
                     </div>
                 )}
@@ -170,11 +170,11 @@ class QuestionEditor extends Component {
                     <p>Use this editor to create or modify a quiz:</p>
                     <ul>
                         <li>Upload a quiz (if you have one)</li>
-                        <li>Use the buttons above to add questions</li>
+                        <li>Use the buttons above to add/order/remove questions</li>
                         <li>Switch between questions on the left-hand side</li>
                     </ul>
                     <p>Quizzes are NOT saved on the server!</p>
-                    <p style={{ color: "red", fontWeight: "bold" }} >You must download the quiz when finished.</p>
+                    <p style={{ color: "red", fontWeight: "normal" }} >You must download the quiz when finished.</p>
                 </div>
             );
         }

@@ -11,12 +11,12 @@ class QuestionExplorer extends Component {
     }
 
     renderListItem(item, index) {
+        const className = [
+            "question-explorer-list-item",
+            this.props.selectedIndex === index ? ' item-selected' : ''
+        ].join(" ");
         return (
-            <div
-                className={
-                    "question-explorer-list-item"
-                    + (this.props.selectedIndex === index ? ' item-selected' : '')
-                }
+            <div className={className}
                 key={index}
                 onClick={() => this.props.selected(index)}>
                 {`${index + 1}. ${item.question}`}
