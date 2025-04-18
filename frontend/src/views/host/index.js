@@ -13,17 +13,18 @@ import {
     server,
     userCountUpdate
 } from "../../connection/config";
+import { MAX_WEB_SOCKET_MESSAGE_SIZE } from "../../utilities/constants";
 import { ConnectionWarning } from "./ConnectionWarning";
 import Creating from "./Creating";
 import Final from "./Final";
 import Question, { TAB_ANSWER_STATS, TAB_LEADERBOARD, TAB_LOOK_DOWN, TAB_REVEAL_ANSWER } from "./Question";
 import {
-    V_CREATING,
-    V_WAITING_FOR_ROOM_CODE,
     V_CONNECTION_WARNING,
-    V_WAITING_FOR_START,
+    V_CREATING,
     V_FINAL,
-    V_QUESTION
+    V_QUESTION,
+    V_WAITING_FOR_ROOM_CODE,
+    V_WAITING_FOR_START
 } from "./views";
 import WaitingForCode from "./WaitingForCode";
 import WaitingForStart from "./WaitingForStart";
@@ -54,7 +55,7 @@ class Host extends Component {
 
         this.socket = socketIOClient(server, {
             closeOnBeforeunload: false,
-            maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+            maxHttpBufferSize: MAX_WEB_SOCKET_MESSAGE_SIZE
         });
 
         this.socket.on(roomCreated, code => {
@@ -107,8 +108,10 @@ class Host extends Component {
         }, () => {
             this.props.switchState(V_QUESTION);
             if (0 <= index) {
+                // don't send the image to the server
+                const { imageUrl, ...question } = this.state.questions[index];
                 this.socket.emit(
-                    newQuestion, this.props.game.hostingRoom.roomCode, { index, ...this.state.questions[index] }
+                    newQuestion, this.props.game.hostingRoom.roomCode, { index, ...question }
                 );
             }
         });
