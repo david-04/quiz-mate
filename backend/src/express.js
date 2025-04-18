@@ -7,6 +7,7 @@ const logger = require("./logger");
 const path = require("path");
 const socketIO = require("socket.io");
 const utils = require("./utils");
+const constants = require("./constants");
 
 //----------------------------------------------------------------------------------------------------------------------
 // Start all servers (http, https, socket.io)
@@ -110,7 +111,7 @@ function createServer(server, protocol, port) {
 //----------------------------------------------------------------------------------------------------------------------
 
 function createSocketIoServer(servers) {
-    const maxHttpBufferSize = 10 * 1024 * 1024; // 10 MB to handle base64 encoded images
+    const maxHttpBufferSize = constants.MAX_WEB_SOCKET_MESSAGE_SIZE;
     const io = socketIO({ maxHttpBufferSize });
     io.on("connection", socket => handlers.onWebsocketConnect(io, socket));
     servers.forEach(server => io.attach(server.instance, { cors: { origin: "*" }, maxHttpBufferSize }));

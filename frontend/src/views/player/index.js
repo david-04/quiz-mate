@@ -2,7 +2,6 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import socketIOClient from "socket.io-client";
-
 import { setHostingRoomAC, switchStateAC } from "../../actions/game";
 import {
     addToRoom,
@@ -16,6 +15,8 @@ import {
     timerSync
 } from "../../connection/config";
 import { disableReconnectMode, enableReconnectMode } from "../../connection/reconnect";
+import { onPlayerJoinGame } from "../../utilities";
+import { MAX_WEB_SOCKET_MESSAGE_SIZE } from "../../utilities/constants";
 import Final from "./Final";
 import LoadingRoom from "./LoadingRoom";
 import NicknameIsTaken from "./NicknameIsTaken";
@@ -23,7 +24,6 @@ import Question from "./Question";
 import RoomNotFound from "./RoomNotFound";
 import { V_FINAL, V_LOADING_ROOM, V_NICKNAME_IS_TAKEN, V_QUESTION, V_ROOM_NOT_FOUND, V_WAITING } from "./views";
 import Waiting from "./Waiting";
-import { onPlayerJoinGame } from "../../utilities";
 
 class Player extends Component {
 
@@ -42,9 +42,9 @@ class Player extends Component {
         this.props.switchState(V_LOADING_ROOM);
         if (this.props.game.roomCode && this.props.game.playerName) {
 
-            this.socket = socketIOClient(server, { 
+            this.socket = socketIOClient(server, {
                 closeOnBeforeunload: false,
-                maxHttpBufferSize: 10 * 1024 * 1024 // 10MB to handle base64 encoded images
+                maxHttpBufferSize: MAX_WEB_SOCKET_MESSAGE_SIZE
             });
 
             this.socket.on('connect', () => this.socket.emit(
