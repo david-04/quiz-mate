@@ -33,7 +33,7 @@
 }
 
 .qm-join-summary {
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
     text-align: right;
@@ -43,7 +43,7 @@
     font-size: 1.2rem;
 }
 
-.qm-join-summary > div {
+.qm-join-summary>div {
     padding-top: 0.25em;
     padding-bottom: 0.1em;
     height: 2em;
@@ -95,6 +95,6 @@
 /*Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
     .outer {
-        font-size: 28px;
+        font-size: 26px;
     }
 }

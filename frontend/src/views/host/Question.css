@@ -114,7 +114,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    max-height: max(0.5vh, calc(100vh - 26em));
+    max-height: max(0.5vh, calc(100vh - 37rem));
     margin-top: 20px;
 }
 
