@@ -14,6 +14,7 @@ import CenterBox from "../../components/CenterBox";
 import QuestionEditor from "../../components/QuestionEditor";
 import QuestionExplorer from "../../components/QuestionExplorer";
 import { upliftQuiz, validateQuiz } from "../../utilities/quiz-data";
+import { SAMPLE_QUIZ } from "../../utilities/sample-quiz";
 import './Editor.css';
 
 const SPACE_PER_TAB = 4;
@@ -96,9 +97,7 @@ class Editor extends Component {
         this.setState({ uploadModal: false });
         const fr = new FileReader();
         fr.onload = e => {
-            const { title, questions } = upliftQuiz(JSON.parse(e.target.result));
-            const selectedIndex = questions.length ? 0 : -1;
-            this.setState({ title: title, workspace: questions, selectedIndex });
+            this.displayLoadedQuizQuestions(upliftQuiz(JSON.parse(e.target.result)));
             this.inputFile.current.value = "";
         };
         if (this.inputFile.current.files.item(0)) {
@@ -109,6 +108,15 @@ class Editor extends Component {
             fr.readAsText(this.inputFile.current.files.item(0));
         }
     };
+
+    loadSampleQuiz = () => {
+        this.displayLoadedQuizQuestions(SAMPLE_QUIZ);
+    };
+
+    displayLoadedQuizQuestions = ({ title, questions }) => {
+        this.setState({ title: title, workspace: questions, selectedIndex: questions.length ? 0 : -1 });
+    };
+
 
     downloadButton = () => {
         try {
@@ -329,7 +337,8 @@ class Editor extends Component {
                                                     ? null
                                                     : this.state.workspace[this.state.selectedIndex]
                                             }
-                                            update={this.updateQuestion} />
+                                            update={this.updateQuestion}
+                                            loadSampleQuiz={this.loadSampleQuiz} />
                                     </Row>
                                 </Container>
                             </div>
@@ -339,64 +348,58 @@ class Editor extends Component {
 
                 <Modal show={this.state.exitModal} onHide={this.hideExitModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Warning</Modal.Title>
+                        <Modal.Title>Unsaved changes</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Unsaved changes detected in the project!<br />Are you sure you want to exit the editor?</p>
+                        <p>Do you want to exit without saving your changes?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.navigateToStartPage}>Yes, leave</Button>
+                        <Button variant="danger" onClick={this.navigateToStartPage}>Yes, discard changes</Button>
                         <Button variant="secondary" onClick={this.hideExitModal}>
-                            No, cancel
+                            Cancel
                         </Button>
                     </Modal.Footer>
                 </Modal>
 
                 <Modal show={this.state.deleteModal} onHide={this.hideDeleteModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Warning</Modal.Title>
+                        <Modal.Title>Confirm</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Are you sure you want to delete this question?</p>
+                        <p>Do you want to delete this question?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.deleteQuestionWithoutConfirmation}>Yes, delete</Button>
+                        <Button variant="danger" onClick={this.deleteQuestionWithoutConfirmation}>Yes</Button>
                         <Button variant="secondary" onClick={this.hideDeleteModal}>
-                            No, cancel
+                            No
                         </Button>
                     </Modal.Footer>
                 </Modal>
 
                 <Modal show={this.state.uploadModal} onHide={this.cancelUpload}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Warning</Modal.Title>
+                        <Modal.Title>Unsaved changes</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>Are you sure you want to load a new project? You have unsaved changes in the current one!</p>
+                        <p>Do you want to open this quiz without saving your previous changes?</p>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={this.loadProject}>Yes, upload new project</Button>
-                        <Button variant="secondary" onClick={this.cancelUpload}>No, cancel</Button>
+                        <Button variant="danger" onClick={this.loadProject}>Yes, discard changes</Button>
+                        <Button variant="secondary" onClick={this.cancelUpload}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
 
                 <Modal show={this.state.downloadModal} onHide={this.cancelDownload}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Warning</Modal.Title>
+                        <Modal.Title>Confirm</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p>
-                            {this.state.downloadModalMessage}.
-                        </p>
-                        <p>
-                            Do you still want to download the quiz?
-                            You can re-upload and continue editing it later -
-                            but you won't be able to host the quiz.
-                        </p>
+                        <p>{this.state.downloadModalMessage}. </p>
+                        <p>Do you still want to download the quiz?<br /> You can re-upload and edit it later.</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="danger" onClick={this.downloadFile}>Yes, download anyway</Button>
-                        <Button variant="secondary" onClick={this.cancelDownload}>No, cancel</Button>
+                        <Button variant="secondary" onClick={this.cancelDownload}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
             </CenterBox>
