@@ -12,10 +12,10 @@
     margin: 1.5rem auto;
 }
 
-div.main-footer-btn.btn-group {
+div.main-footer-btn {
     position: fixed;
     bottom: 18px;
-    left: 20px;
+    right: 20px;
 }
 
 .reconnect-btn {
