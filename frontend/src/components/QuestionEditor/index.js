@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { Button, Container, Form, InputGroup, Row } from "react-bootstrap";
-
-import { toLetter } from "../../utilities";
-
-import CheckBox from "../../assets/icons/check_box.svg";
-import CheckBoxOutlineBlank from "../../assets/icons/check_box_outline_blank.svg";
 import DeleteForever from "../../assets/icons/delete_forever.svg";
 import ImageIcon from "../../assets/icons/image.svg";
-
 import "../../assets/icons/material-ui-icon.css";
+import RadioButtonCheckedIcon from '../../assets/icons/radio_button_checked.svg';
+import RadioButtonUncheckedIcon from '../../assets/icons/radio_button_unchecked.svg';
+import { toLetter } from "../../utilities";
 import "./QuestionEditor.css";
 
 const MAX_ANSWERS = 4;
@@ -73,12 +70,13 @@ class QuestionEditor extends Component {
     }
 
     answerBox(answer) {
+        const icon = answer === this.props.question.correct ? RadioButtonCheckedIcon : RadioButtonUncheckedIcon;
         return (
             <Row key={answer}>
                 <div className="answer-row">
                     <InputGroup>
                         <Button variant="secondary" onClick={this.getMarkCorrectAnswerCallback(answer)}>
-                            <img src={answer === this.props.question.correct ? CheckBox : CheckBoxOutlineBlank}
+                            <img src={icon}
                                 className="material-ui-icon answer-checkbox"
                                 alt="Mark as correct answer" />
                             <span className="answer-letter">{toLetter(answer)}</span>
@@ -113,7 +111,7 @@ class QuestionEditor extends Component {
                     <InputGroup style={{ gap: "0" }}>
                         <Button variant="secondary" as="label" htmlFor="image-upload">
                             <img src={ImageIcon} className="material-ui-icon" alt="Add an image" />
-                            <span> Add image</span>
+                            <span> {question.imageUrl ? "Select another image" : "Add image (optional)"}</span>
                         </Button>
                         {question.imageUrl && <Button variant="danger" onClick={this.removeImage}>
                             <img src={DeleteForever} className="material-ui-icon" alt="Remove image" />
