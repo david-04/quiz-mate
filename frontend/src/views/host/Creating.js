@@ -1,22 +1,17 @@
 import React, { Component } from "react";
-import { ButtonGroup, Col, Container, Row } from "react-bootstrap";
-
+import { Col, Container, Row } from "react-bootstrap";
+import ArrowBack from "../../assets/icons/arrow_back.svg";
+import "../../assets/icons/material-ui-icon.css";
+import Publish from "../../assets/icons/publish.svg";
 import CenterBox from "../../components/CenterBox";
-import IconButton from "../../components/IconButton";
 import LogicSwitch from "../../components/LogicSwitch";
 import TimePicker from "../../components/TimePicker";
 import { createNewRoom } from "../../connection/config";
 import { installOnBeforeUnloadListener, onHostStartGame } from "../../utilities";
 import { upliftAndValidate } from "../../utilities/quiz-data";
 import { SAMPLE_QUIZ } from "../../utilities/sample-quiz";
-import { V_WAITING_FOR_ROOM_CODE } from "./views";
-
-import ArrowBack from "../../assets/icons/arrow_back.svg";
-import Edit from "../../assets/icons/edit.svg";
-import Publish from "../../assets/icons/publish.svg";
-
-import "../../assets/icons/material-ui-icon.css";
 import "./Creating.css";
+import { V_WAITING_FOR_ROOM_CODE } from "./views";
 
 class Creating extends Component {
 
@@ -172,14 +167,14 @@ class Creating extends Component {
                             </Container>
                         </form>
                     </div>
-                    <ButtonGroup className="main-footer-btn">
+                    {/* <ButtonGroup className="main-footer-btn">
                         <IconButton
                             icon={Edit}
                             label="Quiz editor"
                             buttonClassName="qm-fixed-bottom qm-fixed-left"
                             link="/editor"
                         />
-                    </ButtonGroup>
+                    </ButtonGroup> */}
                 </CenterBox >
             </div>
         );

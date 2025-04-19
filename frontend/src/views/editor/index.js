@@ -71,7 +71,7 @@ class Editor extends Component {
         if (this.state.changed) {
             this.setState({ exitModal: true });
         } else {
-            this.props.navigate('/host');
+            this.props.navigate('/');
         }
     };
 

@@ -3,6 +3,7 @@ import { ButtonGroup, Col, Container, Form, Row } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setPlayerConfigAC, switchStateAC } from "../../actions/game";
+import Edit from "../../assets/icons/edit.svg";
 import EmojiPeople from "../../assets/icons/emoji_people.svg";
 import "../../assets/icons/material-ui-icon.css";
 import Power from "../../assets/icons/power.svg";
@@ -136,11 +137,19 @@ class Main extends Component {
                                     onClick={this.startGame}
                                 />
                             </form>
+
                             <ButtonGroup className="main-footer-btn">
                                 <IconButton
                                     link="/host"
                                     icon={PresentToAll}
-                                    label="Host or create/edit a quiz"
+                                    label="Host a quiz"
+                                    buttonClassName="qm-fixed-bottom qm-fixed-left"
+                                />
+                                <span style={{ padding: "0.25rem" }}>{" "}</span>
+                                <IconButton
+                                    link="/editor"
+                                    icon={Edit}
+                                    label="Quiz editor"
                                     buttonClassName="qm-fixed-bottom qm-fixed-left"
                                 />
                             </ButtonGroup>
