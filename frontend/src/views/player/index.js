@@ -41,7 +41,6 @@ class Player extends Component {
     componentDidMount() {
         this.props.switchState(V_LOADING_ROOM);
         if (this.props.game.roomCode && this.props.game.playerName) {
-
             this.socket = socketIOClient(server, {
                 closeOnBeforeunload: false,
                 maxHttpBufferSize: MAX_WEB_SOCKET_MESSAGE_SIZE

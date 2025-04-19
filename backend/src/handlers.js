@@ -167,5 +167,5 @@ module.exports.onWebsocketConnect = (io, socket) => {
     // A client disconnects
     //------------------------------------------------------------------------------------------------------------------
 
-    socket.on("disconnect", () => log(null, `A client disconnected`));
+    socket.on("disconnect", reason => log(null, `A client disconnected (${reason})`));
 };
