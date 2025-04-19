@@ -75,7 +75,7 @@ class RankTable extends Component {
                         </Col>
                         <Col xs={6} style={{ textAlign: "right", paddingRight: "0" }}>
                             <Button variant="secondary" onClick={this.onDownload}>
-                                Export to CSV file
+                                Export CSV
                             </Button>
                         </Col>
                     </Row>

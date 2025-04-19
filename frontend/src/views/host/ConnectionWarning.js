@@ -19,14 +19,14 @@ export class ConnectionWarning extends Component {
                                             <h1>⚠️ Make sure that your internet connection does not drop</h1>
                                             <p>
                                                 This browser tab must remain connected to the backend server until the
-                                                quiz concludes. Even if the connection drops only briefly, the quiz will
-                                                be aborted and can't be resumed.
+                                                quiz concludes. Even brief connection drops can cause the quiz to be
+                                                aborted.
                                             </p>
                                             <p>
-                                                Make sure that you have a stable
-                                                internet connection and keep this browser tab in the foreground at all
-                                                times. If you switch to another tab for too long, your browser might put
-                                                this one to sleep. This causes the connection to drop as well.
+                                                Make sure that you have a stable internet connection and always keep
+                                                this browser tab in the foreground. Switching to another tab for too
+                                                long can prompt the browser to put this tab to sleep (and disconnect it
+                                                from the server).
                                             </p>
                                             <Button variant="warning"
                                                 onClick={this.props.onConfirmed}
@@ -44,7 +44,7 @@ export class ConnectionWarning extends Component {
                         </form>
                     </div>
                 </CenterBox >
-            </div>
+            </div >
         );
     }
 }

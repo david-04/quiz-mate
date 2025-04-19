@@ -6,7 +6,7 @@ import RankTable from "../../components/RankTable";
 class Final extends Component {
     render() {
         return (
-            <CenterBox logo cancel="Return to menu" {...this.props}>
+            <CenterBox logo cancel="Close" {...this.props}>
                 <div className="message-box">
                     <RankTable data={this.props.generalRanking} showHeader />
                 </div>
