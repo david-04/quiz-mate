@@ -136,8 +136,9 @@ class QuestionEditor extends Component {
                 )}
                 {question.imageUrl && (
                     <div className="aspect-ratio-indicator-advice">
-                        The recommended aspect ratio is 3.05 (e.g., 1214 x 398 pixels).
-                        Images with this ratio completely fill the red frame.
+                        The recommended image size is 1215 x 355 pixels. This aspect ratio (as indicated by the red
+                        frame) works well on 16:9 screens with the browser in full-screen mode. As a rule of thumb,
+                        wider images (even wider than 1215:355) work better across different screen sizes.
                     </div>
                 )}
             </Row>
