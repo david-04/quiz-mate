@@ -20,7 +20,7 @@ class Final extends Component {
             const place = index + 1;
             const speed = formatSpeed(stats[index].duration, totalPoints);
             return (
-                <CenterBox logo cancel="Return to menu" {...this.props}>
+                <CenterBox logo cancel="Exit" {...this.props}>
                     <img
                         src={EmojiEvents}
                         className="material-ui-icon"

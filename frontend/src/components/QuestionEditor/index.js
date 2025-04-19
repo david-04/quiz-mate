@@ -171,10 +171,15 @@ class QuestionEditor extends Component {
                         <li>Upload a quiz (if you have one)</li>
                         <li>Use the buttons above to add/order/remove questions</li>
                         <li>Switch between questions on the left-hand side</li>
+                        <li><span style={{ color: "red" }} >Download the quiz when finished</span></li>
                     </ul>
-                    <p>Quizzes are NOT saved on the server!</p>
-                    <p style={{ color: "red", fontWeight: "normal" }} >You must download the quiz when finished.</p>
-                </div>
+                    <div style={{ marginTop: "1.25em" }}>
+                        <Button variant="warning"
+                            onClick={this.props.loadSampleQuiz}>
+                            Create sample questions
+                        </Button>
+                    </div>
+                </div >
             );
         }
     }
