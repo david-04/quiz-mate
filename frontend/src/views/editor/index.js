@@ -96,9 +96,9 @@ class Editor extends Component {
         this.setState({ uploadModal: false });
         const fr = new FileReader();
         fr.onload = e => {
-            let config = null;
-            config = upliftQuiz(JSON.parse(e.target.result));
-            this.setState({ title: config.title, workspace: config.questions });
+            const { title, questions } = upliftQuiz(JSON.parse(e.target.result));
+            const selectedIndex = questions.length ? 0 : -1;
+            this.setState({ title: title, workspace: questions, selectedIndex });
             this.inputFile.current.value = "";
         };
         if (this.inputFile.current.files.item(0)) {
