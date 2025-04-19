@@ -140,16 +140,16 @@ class Main extends Component {
 
                             <ButtonGroup className="main-footer-btn">
                                 <IconButton
-                                    link="/host"
-                                    icon={PresentToAll}
-                                    label="Host a quiz"
+                                    link="/editor"
+                                    icon={Edit}
+                                    label="Quiz editor"
                                     buttonClassName="qm-fixed-bottom qm-fixed-left"
                                 />
                                 <span style={{ padding: "0.25rem" }}>{" "}</span>
                                 <IconButton
-                                    link="/editor"
-                                    icon={Edit}
-                                    label="Quiz editor"
+                                    link="/host"
+                                    icon={PresentToAll}
+                                    label="Host a quiz"
                                     buttonClassName="qm-fixed-bottom qm-fixed-left"
                                 />
                             </ButtonGroup>
