@@ -1,17 +1,24 @@
 # Change Log
 
-## [1.1.3](https://github.com/david-04/quiz-mate/releases/tag/v1.1.2) (2025-03-01)
+## [1.1.4](https://github.com/david-04/quiz-mate/releases/tag/v1.1.4) (2025-04-20)
 
-- Add `Dockerfile` for running the application (thanks [@JingleManSweep](https://github.com/jinglemansweep))
-- Upgrade dependencies
+- Added support for images in quiz questions (thanks [@XavierTolza](https://github.com/XavierTolza))
+- Added Dockerfile and documentation for local development (thanks [@XavierTolza](https://github.com/XavierTolza))
+- Added a "stable connection required" splash screen when hosting a quiz
+- Upgraded dependencies
+
+## [1.1.3](https://github.com/david-04/quiz-mate/releases/tag/v1.1.3) (2025-03-01)
+
+- Added `Dockerfile` for running the application (thanks [@JingleManSweep](https://github.com/jinglemansweep))
+- Upgraded dependencies
 
 ## [1.1.2](https://github.com/david-04/quiz-mate/releases/tag/v1.1.2) (2024-07-21)
 
-- Upgrade dependencies
+- Upgraded dependencies
 
 ## [1.1.1](https://github.com/david-04/quiz-mate/releases/tag/v1.1.1) (2024-02-03)
 
-- Upgrade dependencies
+- Upgraded dependencies
 
 ## [1.1.0](https://github.com/david-04/quiz-mate/releases/tag/v1.1.0) (2023-02-26)
 

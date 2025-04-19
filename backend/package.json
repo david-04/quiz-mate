@@ -20,7 +20,9 @@
   "license": "ISC",
   "author": "David Hofmann",
   "contributors": [
-    "Daniel Alberski"
+    "Daniel Alberski",
+    "JingleManSweep",
+    "Xavier Tolza"
   ],
   "bin": "./backend/main.js",
   "repository": {
