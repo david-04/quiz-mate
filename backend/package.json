@@ -21,7 +21,7 @@
   "author": "David Hofmann",
   "contributors": [
     "Daniel Alberski",
-    "JingleManSweep",
+    "Louis King (JingleManSweep)",
     "Xavier Tolza"
   ],
   "bin": "./backend/main.js",
