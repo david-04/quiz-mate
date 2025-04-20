@@ -13,7 +13,7 @@ function __qm_publish() {
         npm login --scope=@david-04
     fi
 
-    cd "../dist"
+    cd "dist"
     npm publish --access=public
 }
 
