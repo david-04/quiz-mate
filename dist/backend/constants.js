@@ -2,7 +2,7 @@
 // The version number is inserted during the build process
 //----------------------------------------------------------------------------------------------------------------------
 
-module.exports.VERSION = "1.1.3";
+module.exports.VERSION = "1.1.4";
 
 //----------------------------------------------------------------------------------------------------------------------
 // Externally hosted frontend assets
@@ -54,3 +54,12 @@ module.exports.ROOM_CODE_MAX = 999_999;
 
 module.exports.MIN_PORT = 1;
 module.exports.MAX_PORT = 65_535;
+
+// This parameter defines the maximum size of web socket messages that can be exchanged between the client and the
+// server. The default is 1MB. The value needs to be increased if larger objects (like images) need to be sent from
+// the host to the server and/or from server to the players. At the moment, images are not sent to the backend or the
+// players - so we can leave the default of 1 MB.
+//
+// The same size must also be configured in ../../frontend/src/utilities/constants.js
+
+module.exports.MAX_WEB_SOCKET_MESSAGE_SIZE = 1 * 1024 * 1024;

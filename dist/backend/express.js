@@ -1,13 +1,13 @@
 const express = require("express");
 const fs = require("fs");
+const handlers = require("./handlers");
 const http = require("http");
 const https = require("https");
+const logger = require("./logger");
 const path = require("path");
 const socketIO = require("socket.io");
-
-const handlers = require("./handlers");
-const logger = require("./logger");
 const utils = require("./utils");
+const constants = require("./constants");
 
 //----------------------------------------------------------------------------------------------------------------------
 // Start all servers (http, https, socket.io)
@@ -111,8 +111,9 @@ function createServer(server, protocol, port) {
 //----------------------------------------------------------------------------------------------------------------------
 
 function createSocketIoServer(servers) {
-    const io = socketIO();
+    const maxHttpBufferSize = constants.MAX_WEB_SOCKET_MESSAGE_SIZE;
+    const io = socketIO({ maxHttpBufferSize });
     io.on("connection", socket => handlers.onWebsocketConnect(io, socket));
-    servers.forEach(server => io.attach(server.instance, { cors: { origin: "*" } }));
+    servers.forEach(server => io.attach(server.instance, { cors: { origin: "*" }, maxHttpBufferSize }));
     return io;
 }

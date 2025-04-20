@@ -110,7 +110,8 @@ module.exports.onWebsocketConnect = (io, socket) => {
             roomObj.questionIndex = question.index;
             roomObj.questionStart = Date.now();
         }
-        socket.to(roomCode).emit(commands.ANSWERS_OPEN, { ...question, correct: undefined });
+        const { correct, ...playerQuestion } = question;
+        socket.to(roomCode).emit(commands.ANSWERS_OPEN, { ...playerQuestion });
     });
 
     //------------------------------------------------------------------------------------------------------------------
@@ -165,5 +166,5 @@ module.exports.onWebsocketConnect = (io, socket) => {
     // A client disconnects
     //------------------------------------------------------------------------------------------------------------------
 
-    socket.on("disconnect", () => log(null, `A client disconnected`));
+    socket.on("disconnect", reason => log(null, `A client disconnected (${reason})`));
 };
