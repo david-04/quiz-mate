@@ -16,7 +16,7 @@ export class ConnectionWarning extends Component {
                                 <Row>
                                     <Col md={12} className="vcenter">
                                         <div className="connection-warning">
-                                            <h1>⚠️ Make sure that your internet connection does not drop</h1>
+                                            <h1>⚠️ Make sure that your internet connection doesn't drop</h1>
                                             <p>
                                                 This browser tab must remain connected to the backend server until the
                                                 quiz concludes. Even brief connection drops can cause the quiz to be

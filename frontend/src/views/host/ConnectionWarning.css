@@ -6,10 +6,10 @@
 
 .connection-warning h1 {
     font-size: 1.25em;
-    width: 100%;
     border-top: 1px solid white;
     padding: 0.3em 0 0.4em 0;
     border-bottom: 1px solid white;
+
 }
 
 .connection-warning p:first-of-type {
