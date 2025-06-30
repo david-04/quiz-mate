@@ -75,7 +75,7 @@ class WaitingForStart extends Component {
                                             </div>
                                         </div>
                                         <div className="qm-join-info-qr-code">
-                                            <QRCodeCanvas value={this.getUrlWithRoomCode}
+                                            <QRCodeCanvas value={getServerJoinUrl(this.props.game.hostingRoom.roomCode)}
                                                 size={300}
                                                 includeMargin
                                                 bgColor="#ffffff"
